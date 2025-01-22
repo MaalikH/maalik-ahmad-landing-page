@@ -1,0 +1,65 @@
+@use './variables' as *;
+
+:root {
+    --primary-color: #ff4a4a; /* Red for buttons and accents */
+    --secondary-color: #000000; /* Black for background and text highlights */
+    --tertiary-color: #FFF; /* White for text on dark backgrounds */
+  
+    /* Typography */
+    --font-primary: "Space Grotesk", sans-serif; /* Modern, clean font */
+    --font-size-large: 2.5rem; /* Hero section large font size */
+    --font-size-medium: 1.5rem; /* Subtitles and headings */
+    --font-size-small: 1rem; /* Body text */
+  
+    /* Shadows */
+    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1); /* For cards */
+  }
+  
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--tertiary-color);
+    background-color: var(--secondary-color);
+  }
+
+  .fp-overflow {
+    height: 100%;
+  }
+  
+  h1, h2, h3 {
+    margin: 0;
+    font-weight: bold;
+    color: var(--tertiary-color);
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease-in-out;
+  }
+  
+  a:hover {
+    color: var(--secondary-color);
+  }
+  
+  button {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    color: var(--tertiary-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #d93e3e; /* Slightly darker red */
+  }
+
+  .section {
+    height: 100vh;
+  }

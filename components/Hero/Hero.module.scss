@@ -1,0 +1,110 @@
+.heroContainer {
+  display: flex;
+  flex-direction: column; /* Stack navbar and hero content */
+  justify-content: flex-start; /* Aligns items vertically */
+  align-items: stretch; /* Stretch items horizontally */
+  height: 100%;
+}
+.heroMA {
+  display: flex;
+  flex: 1; /* Occupies the remaining height after Navbar */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: relative; /* For absolutely positioned elements like email/social */
+  max-width: 1140px;
+
+  .heroContent {
+    max-width: 1140px;
+    width: 100%;
+    text-align: center;
+    padding-top: 70px; /* Adjust for the Navbar's height */
+    padding-bottom: 70px; /* Optional: balance padding */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    gap: 30px; /* Space between content items */
+    flex: 1; /* Ensures it grows to fill available space */
+  }
+
+  .email,
+  .social {
+    position: absolute;
+    width: 40px; /* Same width for both */
+    height: 120px; /* Same height for both */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+    top: 50%; /* Center vertically */
+    background-color: transparent; /* Optional for debugging */
+    color: #fff; /* Text color */
+    font-size: 14px; /* Adjust as needed */
+  }
+
+  .email {
+    left: 0;
+    text-align: center;
+    writing-mode: vertical-rl; /* Rotate text vertically */
+  }
+
+  .social {
+    right: 0;
+    text-align: center;
+  }
+
+  .heroMainContent {
+    flex: 1;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 84px;
+    font-weight: bold;
+  }
+
+  .titleRedText {
+    color: var(--primary-color, #fe2d1a);
+  }
+
+  .tagline {
+    font-size: 16px;
+    line-height: 26px;
+    color: #fff;
+  }
+
+  .ctaButtonContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 44px;
+  }
+}
+
+.CTAButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 32px;
+  gap: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--primary-color, #fe2d1a);
+  border: none;
+  border-radius: 50px;
+
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background: #d82b18; /* Slightly darker red on hover */
+    transform: translateY(-2px); /* Adds a hover lift effect */
+  }
+
+  &:active {
+    background: #c6281b; /* Darker red for active state */
+    transform: translateY(0); /* Resets hover lift */
+  }
+}
