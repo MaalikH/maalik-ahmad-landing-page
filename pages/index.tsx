@@ -34,35 +34,42 @@ export default function Home() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log(`[DEBUG] Observer triggered: isIntersecting=${entry.isIntersecting}`);
+  
         if (entry.isIntersecting) {
-          console.log("Portfolio in view");
+          console.log("[DEBUG] Portfolio in view");
           setIsPortfolioVisible(true);
-
+  
           if (isFullpageEnabled) {
-            window.fullpage_api?.setAllowScrolling(false); // Disable Fullpage.js scrolling
+            console.log("[DEBUG] Disabling FullPage.js scrolling");
+            window.fullpage_api?.setAllowScrolling(false);
           }
         } else {
-          console.log("Portfolio out of view");
+          console.log("[DEBUG] Portfolio out of view");
           setIsPortfolioVisible(false);
-
+  
           if (isFullpageEnabled) {
-            window.fullpage_api?.setAllowScrolling(true); // Re-enable Fullpage.js scrolling
+            console.log("[DEBUG] Enabling FullPage.js scrolling");
+            window.fullpage_api?.setAllowScrolling(true);
           }
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 } // Sensitivity for detecting visibility
     );
-
+  
     if (portfolioRef.current) {
+      console.log("[DEBUG] Attaching observer to Portfolio section");
       observer.observe(portfolioRef.current);
     }
-
+  
     return () => {
       if (portfolioRef.current) {
+        console.log("[DEBUG] Detaching observer from Portfolio section");
         observer.unobserve(portfolioRef.current);
       }
     };
   }, [isFullpageEnabled]);
+  
 
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
