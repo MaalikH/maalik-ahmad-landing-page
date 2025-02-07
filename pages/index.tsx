@@ -11,6 +11,8 @@ export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
   const [isFullpageEnabled, setIsFullpageEnabled] = useState(true);
+  const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] =
+    useState(true);
   const swiperInstanceRef = useRef<any>(null); // Store Swiper instance
   const scrollDeltaRef = useRef(0); // Accumulate scroll delta
   const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrolling
@@ -19,14 +21,16 @@ export default function Home() {
     swiper.on("reachBeginning", () => {
       console.log("Reached Beginning");
       if (isFullpageEnabled) {
-        window.fullpage_api?.setAllowScrolling(true);
+        setIsFullpageScrollingEnabled(true);
+        window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
       }
     });
 
     swiper.on("reachEnd", () => {
       console.log("Reached End");
       if (isFullpageEnabled) {
-        window.fullpage_api?.setAllowScrolling(true);
+        setIsFullpageScrollingEnabled(true);
+        window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
       }
     });
   };
@@ -34,34 +38,38 @@ export default function Home() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log(`[DEBUG] Observer triggered: isIntersecting=${entry.isIntersecting}`);
-  
+        console.log(
+          `[DEBUG] Observer triggered: isIntersecting=${entry.isIntersecting}`
+        );
+
         if (entry.isIntersecting) {
           console.log("[DEBUG] Portfolio in view");
           setIsPortfolioVisible(true);
-  
+
           if (isFullpageEnabled) {
             console.log("[DEBUG] Disabling FullPage.js scrolling");
-            window.fullpage_api?.setAllowScrolling(false);
+            setIsFullpageScrollingEnabled(false);
+            window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
           }
         } else {
           console.log("[DEBUG] Portfolio out of view");
           setIsPortfolioVisible(false);
-  
+
           if (isFullpageEnabled) {
             console.log("[DEBUG] Enabling FullPage.js scrolling");
-            window.fullpage_api?.setAllowScrolling(true);
+            setIsFullpageScrollingEnabled(false);
+            window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
           }
         }
       },
-      { threshold: 0.5 } // Sensitivity for detecting visibility
+      { threshold: 0.1 } // Sensitivity for detecting visibility
     );
-  
+
     if (portfolioRef.current) {
       console.log("[DEBUG] Attaching observer to Portfolio section");
       observer.observe(portfolioRef.current);
     }
-  
+
     return () => {
       if (portfolioRef.current) {
         console.log("[DEBUG] Detaching observer from Portfolio section");
@@ -69,12 +77,12 @@ export default function Home() {
       }
     };
   }, [isFullpageEnabled]);
-  
 
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
-      if (isPortfolioVisible && swiperInstanceRef.current) {
-        event.preventDefault(); // Prevent default scrolling
+      if (isPortfolioVisible && swiperInstanceRef.current && !isFullpageScrollingEnabled) {
+        console.log("Handle Wheel");
+        //event.preventDefault(); // Prevent default scrolling 
         scrollDeltaRef.current += event.deltaY / SCROLL_SENSITIVITY; // Smooth delta accumulation
 
         // Translate slides based on scroll delta
@@ -154,6 +162,9 @@ export default function Home() {
           </section>
           <section className="section" ref={portfolioRef}>
             <PortfolioMA swiperInstanceRef={swiperInstanceRef} />
+          </section>
+          <section className="section">
+            <AboutMe />
           </section>
           <section className="section">
             <AboutMe />
