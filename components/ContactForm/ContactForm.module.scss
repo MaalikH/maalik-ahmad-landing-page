@@ -1,0 +1,37 @@
+.contactContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  .contactTitle {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+}
+
+.contactCard {
+  border-radius: 18px;
+  background: var(--Background-White-Color, #fff);
+  box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
+  padding: 60px 50px;
+}
+
+.ContactForm{
+    border-radius: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    padding: 30px;
+}
+
+.formGroup {
+    width: 100%;
+}

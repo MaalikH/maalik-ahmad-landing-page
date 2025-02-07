@@ -9,7 +9,6 @@ interface Props {
 
 const PortfolioMA = ({ swiperInstanceRef, onSwiperReady}: Props) => {
   return (
-    <div className={classNames(styles.portfolioMAContainer)}>
       <div className={classNames("container", styles.portfolioMAContent)}>
         <div className={classNames(styles.portfolioMATitleContainer)}>
           <h5>PORTFOLIO</h5>
@@ -22,7 +21,6 @@ const PortfolioMA = ({ swiperInstanceRef, onSwiperReady}: Props) => {
           />
         </div>
       </div>
-    </div>
   );
 };
 

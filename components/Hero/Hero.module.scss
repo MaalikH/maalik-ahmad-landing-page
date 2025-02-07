@@ -11,16 +11,14 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   position: relative; /* For absolutely positioned elements like email/social */
-  max-width: 1140px;
 
   .heroContent {
-    max-width: 1140px;
     width: 100%;
     text-align: center;
     padding-top: 70px; /* Adjust for the Navbar's height */
     padding-bottom: 70px; /* Optional: balance padding */
     display: flex;
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: row; /* Stack content vertically */
     align-items: center;
     gap: 30px; /* Space between content items */
     flex: 1; /* Ensures it grows to fill available space */
@@ -28,17 +26,17 @@
 
   .email,
   .social {
-    position: absolute;
     width: 40px; /* Same width for both */
     height: 120px; /* Same height for both */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: self-end;
     transform: translateY(-50%);
     top: 50%; /* Center vertically */
     background-color: transparent; /* Optional for debugging */
     color: #fff; /* Text color */
     font-size: 14px; /* Adjust as needed */
+    min-width: 100px;
   }
 
   .email {
@@ -60,6 +58,7 @@
   .title {
     font-size: 84px;
     font-weight: bold;
+    color: white;
   }
 
   .titleRedText {

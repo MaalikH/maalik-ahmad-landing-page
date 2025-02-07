@@ -4,6 +4,8 @@ import Head from "next/head";
 import PortfolioMA from "@/components/Portfolio/portfolio";
 import { useEffect, useRef, useState } from "react";
 import AboutMe from "@/components/AboutMe/AboutMe";
+import Services from "@/components/Services/Services";
+import Contact from "@/components/ContactForm/ContactForm";
 
 export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
@@ -102,7 +104,9 @@ export default function Home() {
         <title>Maalik Ahmad | Creative Developer</title>
       </Head>
 
-      <div style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1000 }}>
+      <div
+        style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1000 }}
+      >
         <button onClick={() => setIsFullpageEnabled(!isFullpageEnabled)}>
           {isFullpageEnabled ? "Disable Fullpage.js" : "Enable Fullpage.js"}
         </button>
@@ -115,14 +119,23 @@ export default function Home() {
           scrollingSpeed={700}
           render={() => (
             <ReactFullpage.Wrapper>
-              <section className="section">
+              <section className="section container-fluid bg-black">
                 <Hero />
               </section>
-              <section className="section" ref={portfolioRef}>
-                <PortfolioMA swiperInstanceRef={swiperInstanceRef} onSwiperReady={handleSwiperEvents}/>
+              <section className="section container-fluid" ref={portfolioRef}>
+                <PortfolioMA
+                  swiperInstanceRef={swiperInstanceRef}
+                  onSwiperReady={handleSwiperEvents}
+                />
               </section>
-              <section className="section">
-                           <AboutMe />
+              <section className="section container-fluid">
+                <AboutMe />
+              </section>
+              <section className="section container-fluid">
+                <Services />
+              </section>
+              <section className="section container-fluid">
+                <Contact />
               </section>
             </ReactFullpage.Wrapper>
           )}

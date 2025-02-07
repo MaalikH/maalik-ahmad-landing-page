@@ -1,25 +1,60 @@
-.aboutMeContainer {
-    width: 100%;
-    background-color: beige;
+.aboutMeContent {
+  display: flex;
+  align-items: center;
+  color: black;
+  text-align: left;
+  padding: 20px;
+  height: 100%;
+
+  h1 {
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  hr {
+    margin: 20px 0;
+    color: #ebebeb;
+    opacity: 1;
+  }
+
+  .aboutPills {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    gap: 10px;
+    margin-bottom: 20px;
   }
-  
-  .aboutMeContent {
-    max-width: 1140px; /* Adjust width for layout */
-    text-align: center;
-    padding: 20px;
-  
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+
+  .metricContainer {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    gap: 60px;
+    margin-bottom: 20px;
+  }
+
+  .metric {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 50%;
+      background-color: #ebebeb;
     }
-  
-    p {
-      font-size: 1rem;
-      line-height: 1.5;
+
+    h1 {
+      margin-bottom: 0px;
     }
   }
-  
+}

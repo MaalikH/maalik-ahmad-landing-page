@@ -7,11 +7,11 @@ const Hero = () => {
   return (
     <div className={styles.heroContainer}>
       <Navbar />
-      <div className={classNames(styles.heroMA)}>
+      <div className={classNames("container", styles.heroMA)}>
         <div className={styles.ellipse}></div>
         <div className={styles.heroContent}>
           <span className={styles.email}>email</span>
-          <div className={classNames("container", styles.heroMainContent)}>
+          <div className={styles.heroMainContent}>
             <h1 className={styles.title}>
               I am <span className={styles.titleRedText}>Maalik Ahmad,</span>
               <br />a Creative Developer

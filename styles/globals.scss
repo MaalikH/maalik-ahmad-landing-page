@@ -1,9 +1,9 @@
 @use './variables' as *;
 
 :root {
-    --primary-color: #ff4a4a; /* Red for buttons and accents */
-    --secondary-color: #000000; /* Black for background and text highlights */
-    --tertiary-color: #FFF; /* White for text on dark backgrounds */
+    --primary-color: #FE2D1A; /* Red for buttons and accents */
+    --secondary-color: #FFF; /* Black for background and text highlights */
+    --tertiary-color: #000000; /* White for text on dark backgrounds */
   
     /* Typography */
     --font-primary: "Space Grotesk", sans-serif; /* Modern, clean font */
@@ -31,6 +31,10 @@
     margin: 0;
     font-weight: bold;
     color: var(--tertiary-color);
+  }
+
+  .Hero_title{
+    color: var(--secondary-color);
   }
   
   a {
