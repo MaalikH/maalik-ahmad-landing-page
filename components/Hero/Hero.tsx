@@ -20,7 +20,7 @@ const Hero = ({ content }: Props) => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 300, damping: 10, delay: 1 },
+      transition: { type: "spring", stiffness: 300, damping: 10, delay: 4 },
     },
   };
 

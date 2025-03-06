@@ -21,9 +21,11 @@ $shadow-dark: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
 // Typography
 $font-primary: 'Poppins', sans-serif;
-$font-size-large: 6rem;
+$font-size-xlarge: 6rem;
+$font-size-large: 3rem;
 $font-size-medium: 1.5rem;
 $font-size-small: 1rem;
+$font-size-xsmall: .7rem;
 
 // Spacing
 $spacing-xsmall: 8px;
@@ -35,3 +37,23 @@ $spacing-large: 80px;
 $border-radius-small: 5px;
 $border-radius-medium: 10px;
 $border-radius-large: 20px;
+
+// ✅ Base Breakpoints
+$breakpoints: (
+  "xs": 480px,   // Extra Small (Phones)
+  "sm": 768px,   // Small (Tablets)
+  "md": 1024px,  // Medium (Small Laptops)
+  "lg": 1280px,  // Large (Desktops)
+  "xl": 1536px   // Extra Large (Large Screens)
+);
+
+// ✅ Mixin for Media Queries
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$breakpoint} is not defined in $breakpoints map.";
+  }
+}

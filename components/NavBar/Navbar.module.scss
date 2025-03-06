@@ -1,3 +1,9 @@
+@use "../../styles/variables" as *; // Import global variables
+
+.navBar {
+  margin-top: 10px;
+}
+
 .navbarMA {
     max-width: 1140px; // Match the hero content's max-width
     width: 100%; // Responsive width
@@ -6,6 +12,7 @@
     display: flex;
     position: relative; 
     align-items: center; // Center vertically
+    padding-top: 10px;
   }
 .navbarLinks {
   border-radius: 800px;
@@ -18,12 +25,18 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%); /* Ensures perfect centering */
-
+  @include respond-to("md") {
+    border-radius: 20px;
+    width: 100%;
+  }
 }
+
 
 .navbarBrand {
    flex: 0; /* Keeps it on the left */
-
+   @include respond-to("md") {
+    display: none;
+  }
 }
 
 .navLink {

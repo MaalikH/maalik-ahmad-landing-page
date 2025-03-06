@@ -11,15 +11,32 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    @include respond-to("sm") {
+      flex-direction: column;
+    }
 
     .heroMainContent {
       flex: 1;
       text-align: center;
 
+      @include respond-to("sm") {
+        flex: unset;
+        justify-content: center;
+      }
+
       .title {
-        font-size: $font-size-large;
+        font-size: $font-size-xlarge;
         font-weight: bold;
         color: $white;
+
+        @include respond-to("md") {
+          max-width: 500px;
+          justify-self: center;
+        }
+
+        @include respond-to("lg") {
+          font-size: $font-size-large;
+        }
       }
     }
   }
@@ -29,6 +46,10 @@
     gap: $spacing-small;
     justify-content: center;
     margin-top: $spacing-medium;
+
+    @include respond-to("xs") {
+      flex-direction: column;
+    }
   }
 
   .email,
@@ -44,6 +65,10 @@
     color: $white;
     font-size: $font-size-small;
     min-width: 100px;
+
+    @include respond-to("sm") {
+      display: none;
+    }
   }
 
   .email {
@@ -72,47 +97,60 @@
       }
     }
   }
-
-
 }
 
-  .CTAButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: $spacing-small $spacing-medium;
+.CTAButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-small $spacing-medium;
+  gap: $spacing-xsmall;
+  font-size: $font-size-small;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: $border-radius-large;
+  min-width: 175px;
+  @include respond-to("lg") {
+    padding: $spacing-small $spacing-xsmall;
     gap: $spacing-xsmall;
-    font-size: $font-size-small;
-    font-weight: 600;
-    text-transform: uppercase;
-    border-radius: $border-radius-large;
-    min-width: 175px;
+    font-size: $font-size-xsmall;
+    min-width: 150px;
   }
+}
 
-  .CTAButtonPrimary {
-    color: $white;
-    background: $primary-color;
-    border: none;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
+.CTAButtonPrimary {
+  color: $white;
+  background: $primary-color;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
-    &:hover {
-      background: darken($primary-color, 10%);
-      transform: translateY(-2px);
-      box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
-    }
+  &:hover {
+    background: darken($primary-color, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
   }
+}
 
-  .CTAButtonSecondary {
-    background-color: transparent;
-    border: 1px solid $white;
-    color: $white;
-    transition: all 0.3s ease-in-out;
+.CTAButtonSecondary {
+  background-color: transparent;
+  border: 1px solid $white;
+  color: $white;
+  transition: all 0.3s ease-in-out;
 
-    &:hover {
-      background-color: $white;
-      color: $black;
-      transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
+  &:hover {
+    background-color: $white;
+    color: $black;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
   }
+}
+
+@include respond-to("lg") {
+}
+
+@include respond-to("md") {
+}
+
+@include respond-to("sm") {
+}
