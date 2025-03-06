@@ -1,109 +1,118 @@
+@use "../../styles/variables" as *; // Import global variables
+
 .heroContainer {
   display: flex;
-  flex-direction: column; /* Stack navbar and hero content */
-  justify-content: flex-start; /* Aligns items vertically */
-  align-items: stretch; /* Stretch items horizontally */
+  flex-direction: column;
   height: 100%;
-}
-.heroMA {
-  display: flex;
-  flex: 1; /* Occupies the remaining height after Navbar */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  position: relative; /* For absolutely positioned elements like email/social */
 
-  .heroContent {
-    width: 100%;
-    text-align: center;
-    padding-top: 70px; /* Adjust for the Navbar's height */
-    padding-bottom: 70px; /* Optional: balance padding */
+  .heroMA {
     display: flex;
-    flex-direction: row; /* Stack content vertically */
+    flex: 1;
+    justify-content: center;
     align-items: center;
-    gap: 30px; /* Space between content items */
-    flex: 1; /* Ensures it grows to fill available space */
+    position: relative;
+
+    .heroMainContent {
+      flex: 1;
+      text-align: center;
+
+      .title {
+        font-size: $font-size-large;
+        font-weight: bold;
+        color: $white;
+      }
+    }
+  }
+
+  .ctaButtonContainer {
+    display: flex;
+    gap: $spacing-small;
+    justify-content: center;
+    margin-top: $spacing-medium;
   }
 
   .email,
   .social {
-    width: 40px; /* Same width for both */
-    height: 120px; /* Same height for both */
+    width: 40px;
+    height: 120px;
     display: flex;
-    justify-content: flex-end;
-    align-items: self-end;
-    transform: translateY(-50%);
-    top: 50%; /* Center vertically */
-    background-color: transparent; /* Optional for debugging */
-    color: #fff; /* Text color */
-    font-size: 14px; /* Adjust as needed */
+    flex-direction: column;
+    gap: $spacing-xsmall;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: $white;
+    font-size: $font-size-small;
     min-width: 100px;
   }
 
   .email {
     left: 0;
     text-align: center;
-    writing-mode: vertical-rl; /* Rotate text vertically */
+    writing-mode: vertical-rl;
   }
 
   .social {
     right: 0;
     text-align: center;
+
+    .socialIcon {
+      width: 50px;
+      min-height: 50px;
+      background-color: $gray-dark;
+      border-radius: $border-radius-large;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid $gray-dark;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
   }
 
-  .heroMainContent {
-    flex: 1;
-    text-align: center;
-  }
 
-  .title {
-    font-size: 84px;
-    font-weight: bold;
-    color: white;
-  }
+}
 
-  .titleRedText {
-    color: var(--primary-color, #fe2d1a);
-  }
-
-  .tagline {
-    font-size: 16px;
-    line-height: 26px;
-    color: #fff;
-  }
-
-  .ctaButtonContainer {
-    display: flex;
-    gap: 20px;
+  .CTAButton {
+    display: inline-flex;
     justify-content: center;
-    margin-top: 44px;
-  }
-}
-
-.CTAButton {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 32px;
-  gap: 10px;
-
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--primary-color, #fe2d1a);
-  border: none;
-  border-radius: 50px;
-
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-
-  &:hover {
-    background: #d82b18; /* Slightly darker red on hover */
-    transform: translateY(-2px); /* Adds a hover lift effect */
+    align-items: center;
+    padding: $spacing-small $spacing-medium;
+    gap: $spacing-xsmall;
+    font-size: $font-size-small;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: $border-radius-large;
+    min-width: 175px;
   }
 
-  &:active {
-    background: #c6281b; /* Darker red for active state */
-    transform: translateY(0); /* Resets hover lift */
+  .CTAButtonPrimary {
+    color: $white;
+    background: $primary-color;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
+    }
   }
-}
+
+  .CTAButtonSecondary {
+    background-color: transparent;
+    border: 1px solid $white;
+    color: $white;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $white;
+      color: $black;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+  }

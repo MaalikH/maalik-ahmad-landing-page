@@ -2,16 +2,41 @@
     max-width: 1140px; // Match the hero content's max-width
     width: 100%; // Responsive width
     margin: 0 auto; // Center the navbar horizontally
+    padding: 10px 0;
     display: flex;
-    justify-content: space-between; // Adjust spacing between elements
+    position: relative; 
     align-items: center; // Center vertically
   }
 .navbarLinks {
   border-radius: 800px;
+  margin: auto;
   border: 1px solid rgba(255, 255, 255, 0.11);
   display: flex;
-  gap: 20px;
+  gap: 5px;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  padding: 5px 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Ensures perfect centering */
+
+}
+
+.navbarBrand {
+   flex: 0; /* Keeps it on the left */
+
+}
+
+.navLink {
+  position: relative;
+  font-weight: 500;
+  color: white;
+  padding: 8px 16px; /* Add padding to create space around the text */
+  border-radius: 20px; /* Rounded background */
+  transition: background-color 0.3s ease-in-out;
+  min-width: 120px; /* Ensure all nav items have the same width */
+
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Light grey background */
+  }
 }

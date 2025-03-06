@@ -3,9 +3,14 @@ import Hero from "../components/Hero/Hero";
 import Head from "next/head";
 import PortfolioMA from "@/components/Portfolio/portfolio";
 import { useEffect, useRef, useState } from "react";
+import { aboutMeContent } from "@/app/content/aboutMe";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Services from "@/components/Services/Services";
 import Contact from "@/components/ContactForm/ContactForm";
+import { portfolioContent } from "@/app/content/portfolio";
+import { heroContent } from "@/app/content/hero";
+import { servicesContent } from "@/app/content/services";
+import { contactContent } from "@/app/content/contact";
 
 export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
@@ -15,48 +20,23 @@ export default function Home() {
     useState(true);
   const swiperInstanceRef = useRef<any>(null); // Store Swiper instance
   const scrollDeltaRef = useRef(0); // Accumulate scroll delta
-  const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrolling
-
-  const handleSwiperEvents = (swiper: any) => {
-    swiper.on("reachBeginning", () => {
-      console.log("Reached Beginning");
-      if (isFullpageEnabled) {
-        setIsFullpageScrollingEnabled(true);
-        window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
-      }
-    });
-
-    swiper.on("reachEnd", () => {
-      console.log("Reached End");
-      if (isFullpageEnabled) {
-        setIsFullpageScrollingEnabled(true);
-        window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
-      }
-    });
-  };
+  const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log(
-          `[DEBUG] Observer triggered: isIntersecting=${entry.isIntersecting}`
-        );
 
         if (entry.isIntersecting) {
-          console.log("[DEBUG] Portfolio in view");
           setIsPortfolioVisible(true);
 
           if (isFullpageEnabled) {
-            console.log("[DEBUG] Disabling FullPage.js scrolling");
             setIsFullpageScrollingEnabled(false);
             window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
           }
         } else {
-          console.log("[DEBUG] Portfolio out of view");
           setIsPortfolioVisible(false);
 
           if (isFullpageEnabled) {
-            console.log("[DEBUG] Enabling FullPage.js scrolling");
             setIsFullpageScrollingEnabled(false);
             window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
           }
@@ -66,13 +46,11 @@ export default function Home() {
     );
 
     if (portfolioRef.current) {
-      console.log("[DEBUG] Attaching observer to Portfolio section");
       observer.observe(portfolioRef.current);
     }
 
     return () => {
       if (portfolioRef.current) {
-        console.log("[DEBUG] Detaching observer from Portfolio section");
         observer.unobserve(portfolioRef.current);
       }
     };
@@ -80,12 +58,13 @@ export default function Home() {
 
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
-      if (isPortfolioVisible && swiperInstanceRef.current && !isFullpageScrollingEnabled) {
-        console.log("Handle Wheel");
-        //event.preventDefault(); // Prevent default scrolling 
+      if (
+        isPortfolioVisible &&
+        swiperInstanceRef.current &&
+        !isFullpageScrollingEnabled
+      ) {
         scrollDeltaRef.current += event.deltaY / SCROLL_SENSITIVITY; // Smooth delta accumulation
 
-        // Translate slides based on scroll delta
         swiperInstanceRef.current.translateTo(
           swiperInstanceRef.current.translate - scrollDeltaRef.current,
           500,
@@ -100,15 +79,12 @@ export default function Home() {
     };
 
     if (isPortfolioVisible) {
-      console.log("Adding wheel listener");
       window.addEventListener("wheel", handleWheel, { passive: false });
     } else {
-      console.log("Removing wheel listener");
       window.removeEventListener("wheel", handleWheel);
     }
 
     return () => {
-      console.log("Cleaning up wheel listener");
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isPortfolioVisible]);
@@ -129,45 +105,53 @@ export default function Home() {
 
       {isFullpageEnabled ? (
         <ReactFullpage
+          credits={{enabled: false}}
+          licenseKey={process.env.NEXT_PUBLIC_FULLPAGE_LICENSE}
           navigation
-          anchors={["hero", "portfolio", "about-me", "services", "contact"]}
+          anchors={["hero", "portfolio", "aboutMe", "services", "contact"]}
           scrollingSpeed={700}
+          afterLoad={(origin, destination) => {
+            console.log(`Scrolled to section: ${destination.anchor}`);
+          }}
           render={() => (
             <ReactFullpage.Wrapper>
               <section className="section container-fluid bg-black">
-                <Hero />
+                <Hero content={heroContent} />
               </section>
-              <section className="section container-fluid" ref={portfolioRef}>
+              <section
+                className="section container-fluid"
+                ref={portfolioRef}
+              >
                 <PortfolioMA
                   swiperInstanceRef={swiperInstanceRef}
-                  onSwiperReady={handleSwiperEvents}
+                  content={portfolioContent}
                 />
               </section>
               <section className="section container-fluid">
-                <AboutMe />
+                <AboutMe content={aboutMeContent} />
               </section>
               <section className="section container-fluid">
-                <Services />
+                <Services content={servicesContent} />
               </section>
               <section className="section container-fluid">
-                <Contact />
+                <Contact content={contactContent} />
               </section>
             </ReactFullpage.Wrapper>
           )}
         />
       ) : (
         <div>
-          <section className="section">
-            <Hero />
+          <section className="section container-fluid bg-black" id="hero">
+            <Hero content={heroContent} />
           </section>
-          <section className="section" ref={portfolioRef}>
-            <PortfolioMA swiperInstanceRef={swiperInstanceRef} />
+          <section className="section container-fluid" id="aboutMe">
+            <AboutMe content={aboutMeContent} />
           </section>
-          <section className="section">
-            <AboutMe />
+          <section className="section container-fluid" id="services">
+            <Services content={servicesContent} />
           </section>
-          <section className="section">
-            <AboutMe />
+          <section className="section container-fluid" id="contact">
+            <Contact content={contactContent} />
           </section>
         </div>
       )}

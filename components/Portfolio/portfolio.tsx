@@ -3,24 +3,26 @@ import styles from "./portfolio.module.scss";
 import Carousel from "./Carousel/Carousel";
 
 interface Props {
-  swiperInstanceRef: any; // Swiper instance reference
-  onSwiperReady?: (swiper: any) => void; // Pass Swiper event handler
+  swiperInstanceRef: any;
+  onSwiperReady?: (swiper: any) => void; 
+  content: any;
 }
 
-const PortfolioMA = ({ swiperInstanceRef, onSwiperReady}: Props) => {
+const PortfolioMA = ({ swiperInstanceRef, onSwiperReady, content }: Props) => {
   return (
-      <div className={classNames("container", styles.portfolioMAContent)}>
-        <div className={classNames(styles.portfolioMATitleContainer)}>
-          <h5>PORTFOLIO</h5>
-          <h1>Featured Works</h1>
-        </div>
-        <div className={classNames(styles.portfolioMACarousel)}>
-          <Carousel
-            swiperInstanceRef={swiperInstanceRef}
-            onSwiperReady={onSwiperReady}
-          />
-        </div>
+    <div className={classNames("container", styles.portfolioContainer)}>
+      <div className={styles.portfolioHeader}>
+        <h5>{content.title}</h5>
+        <h1>{content.subtitle}</h1>
       </div>
+      <div className={styles.portfolioCarousel}>
+        <Carousel
+          swiperInstanceRef={swiperInstanceRef}
+          onSwiperReady={onSwiperReady}
+          featuredProjects={content.projects}
+        />
+      </div>
+    </div>
   );
 };
 

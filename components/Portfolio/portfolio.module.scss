@@ -1,24 +1,26 @@
+@import "@/styles/variables"; // Import global variables
 
-    .portfolioMAContent {
-        background-color: white;
-        color: black;
-        padding: 80px 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        gap: 60px;
-    }
+.portfolioContainer {
+  background-color: $white;
+  color: $black;
+  padding: 80px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 
-    .portfolioMATitleContainer{
-        text-align: center;
-    }
+  .portfolioHeader {
+    text-align: center;
+  }
 
-    .portfolioMACarousel {
+  .portfolioCarousel {
+    display: flex;
+    justify-content: center;
+  }
 
-    }
-
-    .portfolioMACarouselItem {
-        width: 734px;
-        height: 490px;
-        background-color: red;
-    }
+  .portfolioCarouselItem {
+    width: 734px;
+    height: 490px;
+    border-radius: 20px;
+  }
+}

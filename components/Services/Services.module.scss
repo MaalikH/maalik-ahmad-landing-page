@@ -1,43 +1,65 @@
-.servicesContainer{
-    padding: 80px 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-   
+@use "../../styles/variables" as *; // Import global variables
 
-    .serviceCard {
-        display: flex;
-        flex-direction: row;
-        padding: 30px;
-        gap: 30px;
-        text-align: left;
+.servicesContainer {
+  padding: $spacing-large 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+
+  .serviceCards {
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(500px, 1fr));
+    gap: $spacing-medium; // Maintaining original spacing
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .serviceCard {
+    display: flex;
+    flex-direction: row;
+    padding: $spacing-medium; // Original padding maintained
+    gap: $spacing-medium;
+    text-align: left;
+    border-radius: $border-radius-large;
+    border: none;
+    background: $white;
+    box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
+    max-width: 650px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: $shadow-dark;
+      background: rgba($white, 0.95);
     }
 
     .iconContainer {
-        width: 175px;
-        height: 50px;
-        background-color: red;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        color:white;
-        align-items: center;
+      width: 100px;
+      height: 50px;
+      background-color: $primary-color;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      color: $white;
+      align-items: center;
     }
 
     .icon {
-      vertical-align: middle; /* Aligns the icon with the text's middle */
+      vertical-align: middle;
       display: inline-block;
-      margin: 5px 0;
+      margin: $spacing-xsmall 0;
     }
-    .serviceCards {
-        position: absolute;
-        width: 80%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: grid;  
-        grid-template-columns: repeat(2,1fr);
-        gap: 30px;
-    }
+  }
+
+  .serviceTitle {
+    margin-bottom: $spacing-xsmall;
+  }
 }

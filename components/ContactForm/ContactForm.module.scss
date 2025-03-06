@@ -4,34 +4,70 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  
-  .contactTitle {
-    text-align: center;
-    margin-bottom: 50px;
+
+  .contactCard {
+    border-radius: 18px;
+    background: var(--Background-White-Color, #fff);
+    box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
+    padding: 60px 50px;
+    width: 100%;
+
+    .contactTitle {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .ContactForm {
+      border-radius: 20px;
+      display: flex;
+      gap: 30px;
+
+      .formGroupContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+        padding: 30px;
+      }
+
+      .formGroup {
+        width: 100%;
+      }
+    }
   }
-}
 
-.contactCard {
-  border-radius: 18px;
-  background: var(--Background-White-Color, #fff);
-  box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
-  padding: 60px 50px;
-}
+  .CTAButtonPrimary {
+    color: #fff;
+    background: var(--primary-color, #fe2d1a);
+    border: none;
 
-.ContactForm{
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background: #d82b18;
+      transform: translateY(-2px);
+      box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
+    }
+  }
+
+  .CTAButton {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    gap: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
     border-radius: 20px;
-    display: flex;
-    gap: 30px;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-    padding: 30px;
-}
-
-.formGroup {
-    width: 100%;
+    min-width: 175px;
+  }
 }

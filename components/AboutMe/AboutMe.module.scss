@@ -1,38 +1,40 @@
+@use "../../styles/variables" as *; // Import global variables
+
 .aboutMeContent {
   display: flex;
   align-items: center;
-  color: black;
+  color: $black;
   text-align: left;
-  padding: 20px;
+  padding: $spacing-small;
   height: 100%;
 
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: $spacing-small;
   }
 
   p {
-    font-size: 1rem;
+    font-size: $font-size-small;
     line-height: 1.5;
   }
 
   hr {
-    margin: 20px 0;
-    color: #ebebeb;
+    margin: $spacing-small 0;
+    color: $gray-light;
     opacity: 1;
   }
 
   .aboutPills {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: $spacing-xsmall;
+    margin-bottom: $spacing-small;
   }
 
   .metricContainer {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    gap: 60px;
-    margin-bottom: 20px;
+    gap: $spacing-medium;
+    margin-bottom: $spacing-small;
   }
 
   .metric {
@@ -40,7 +42,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: $spacing-xsmall;
 
     &:not(:last-child)::after {
       content: "";
@@ -50,11 +52,42 @@
       transform: translateY(-50%);
       width: 1px;
       height: 50%;
-      background-color: #ebebeb;
+      background-color: $gray-light;
     }
 
     h1 {
-      margin-bottom: 0px;
+      margin-bottom: 0;
+    }
+  }
+
+  .pillBtn {
+    padding: $spacing-xsmall $spacing-small;
+    border-radius: $border-radius-large;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pillBtnActive {
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  .pillBtnInactive {
+    background-color: transparent;
+    color: $gray-dark;
+    border: 1px solid $gray-light;
+  
+    &:hover {
+      background-color: rgba($primary-color, 0.15); // Light red tint
+      border-color: $primary-color; // Change border to red
+      color: $primary-color; // Text changes to red
+      transform: scale(1.05);
     }
   }
 }
