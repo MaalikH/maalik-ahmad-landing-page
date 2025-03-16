@@ -39,9 +39,9 @@ const AboutMe = ({ content }: Props) => {
             <Image
               src="/maalik-avatar.png"
               alt="Portrait of Maalik Ahmad"
-              layout="fill"
-              objectFit="contain"
-            />
+              style={{ objectFit: "cover" }}  
+              fill
+              />
           </div>
         </motion.div>
 

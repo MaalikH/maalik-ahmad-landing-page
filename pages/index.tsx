@@ -24,9 +24,11 @@ export default function Home() {
 
   useEffect(() => {
 
+
     const currentPortfolioRef = portfolioRef.current; 
 
     if (!currentPortfolioRef) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
 
@@ -49,13 +51,13 @@ export default function Home() {
       { threshold: 0.1 } // Sensitivity for detecting visibility
     );
 
-    observer.observe(currentPortfolioRef);
+      observer.observe(currentPortfolioRef);
 
     return () => {
-        observer.unobserve(currentPortfolioRef); 
-    
+        observer.unobserve(currentPortfolioRef);
+      
     };
-  }, [isFullpageEnabled, portfolioRef, isFullpageScrollingEnabled]);
+  }, [isFullpageEnabled, portfolioRef]);
 
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
@@ -89,7 +91,6 @@ export default function Home() {
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isPortfolioVisible, isFullpageScrollingEnabled]);
-
   return (
     <>
       <Head>
