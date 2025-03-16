@@ -1,4 +1,4 @@
-@use "../../styles/variables" as *; // Import global variables
+@use "../../styles/variables" as *;
 
 .aboutMeContent {
   display: flex;
@@ -7,6 +7,11 @@
   text-align: left;
   padding: $spacing-small;
   height: 100%;
+
+  @include respond-to("xs") {
+    padding: 0;
+    overflow: hidden;
+  }
 
   h1 {
     margin-bottom: $spacing-small;
@@ -29,12 +34,25 @@
     margin-bottom: $spacing-small;
   }
 
+  .aboutMeImageContainer {
+    position: relative;
+    width: 100%;
+    height: 500px;
+
+    @include respond-to("xs") {
+      height: 250px;
+      margin-bottom: 20px;
+    }
+  }
   .metricContainer {
     display: flex;
     justify-content: space-between;
     align-content: center;
     gap: $spacing-medium;
     margin-bottom: $spacing-small;
+    @include respond-to("sm") {
+      gap: $spacing-small;
+    }
   }
 
   .metric {
@@ -62,7 +80,7 @@
 
   .pillBtn {
     padding: $spacing-xsmall $spacing-small;
-    border-radius: $border-radius-large;
+    border-radius: $border-radius-medium;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;

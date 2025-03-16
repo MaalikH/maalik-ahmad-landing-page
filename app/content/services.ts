@@ -1,4 +1,4 @@
-import { faLaptopCode, faMobileAlt, faTshirt, faBoxOpen, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faLaptopCode, faMobileAlt, faTshirt, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export const servicesContent = {
   sectionName: "Services",

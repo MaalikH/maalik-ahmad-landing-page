@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import styles from "./Services.module.scss";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 
@@ -31,7 +30,12 @@ const Services = ({ content }: props) => {
             className={classNames("card", styles.serviceCard)}
             variants={{
               hidden: { opacity: 0, y: 20, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { duration: 0.5 },
+              },
             }}
           >
             <motion.div
@@ -42,7 +46,7 @@ const Services = ({ content }: props) => {
             </motion.div>
             <div>
               <h3 className={styles.serviceTitle}>{service.title}</h3>
-              <span>{service.description}</span>
+              <span className="d-none d-sm-block">{service.description}</span>
             </div>
           </motion.div>
         ))}

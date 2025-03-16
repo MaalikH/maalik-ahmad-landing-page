@@ -1,4 +1,4 @@
-@use "../../styles/variables" as *; // Import global variables
+@use "../../styles/variables" as *;
 
 .servicesContainer {
   padding: $spacing-large 0;
@@ -20,6 +20,17 @@
     justify-content: center;
     max-width: 900px;
     margin: 0 auto;
+
+    @include respond-to("md") {
+      gap: $spacing-small;
+      grid-template-columns: repeat(2, minmax(400px, 1fr));
+    }
+
+    @include respond-to("sm") {
+      gap: $spacing-medium;
+      grid-template-columns: 1fr;
+      width: 90%;
+    }
   }
 
   .serviceCard {
@@ -34,6 +45,11 @@
     box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
     max-width: 650px;
     transition: all 0.3s ease-in-out;
+
+    @include respond-to("md") {
+      gap: $spacing-small;
+      padding: $spacing-small; // Original padding maintained
+    }
 
     &:hover {
       transform: scale(1.05);
@@ -50,6 +66,10 @@
       justify-content: center;
       color: $white;
       align-items: center;
+
+      @include respond-to("xs") {
+       // width: 75px;
+      }
     }
 
     .icon {

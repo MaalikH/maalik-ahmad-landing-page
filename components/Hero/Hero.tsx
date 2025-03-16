@@ -8,11 +8,8 @@ import { ReactTyped } from "react-typed";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-interface Props {
-  content: any;
-}
 
-const Hero = ({ content }: Props) => {
+const Hero = () => {
   const [isTypingDone, setIsTypingDone] = useState(false);
 
   const socialVariants = {
@@ -28,7 +25,7 @@ const Hero = ({ content }: Props) => {
     <div className={styles.heroContainer}>
       <Navbar />
       <div className={classNames("container", styles.heroMA)}>
-        <motion.span initial="hidden" animate="visible" variants={socialVariants} className={styles.email}>email</motion.span>
+        <motion.a href="mailto:someone@example.com" initial="hidden" animate="visible" variants={socialVariants} className={styles.email}>maalikahmadtech@gmail.com</motion.a>
         <div className={styles.heroMainContent}>
           <motion.h1
             className={styles.title}
@@ -56,13 +53,13 @@ const Hero = ({ content }: Props) => {
               transition={{ duration: 1, delay: 0.5 }}
               className={styles.ctaButtonContainer}
             >
-              <HeroCTA btnText="View Portfolio" btnLink="google.com" btnType="primary" />
-              <HeroCTA btnText="Hire Me" btnLink="google.com" btnType="secondary" />
+              <HeroCTA btnText="View Portfolio" btnLink="google.com" btnType="primary" sectionId="portfolio" />
+              <HeroCTA btnText="Hire Me" btnLink="google.com" btnType="secondary" sectionId="contact" />
             </motion.div>
           )}
         </div>
         <motion.span className={styles.social} initial="hidden" animate="visible" variants={socialVariants}>
-          {["instagram", "twitter", "github", "youtube"].map((platform, index) => (
+          {["instagram", "twitter", "github", "youtube"].map((platform) => (
             <motion.div key={platform} variants={socialVariants}>
               <Link href={`https://www.${platform}.com`} className={styles.socialIcon}>
                 <Image src={`/${platform}.svg`} alt={platform} width={25} height={25} />

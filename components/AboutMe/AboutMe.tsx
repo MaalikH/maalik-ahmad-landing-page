@@ -11,7 +11,10 @@ interface Props {
 
 const AboutMe = ({ content }: Props) => {
   const [activeTab, setActiveTab] = useState<"tech" | "merch">("tech");
-  const activeContent = useMemo(() => content.sections[activeTab], [activeTab, content]);
+  const activeContent = useMemo(
+    () => content.sections[activeTab],
+    [activeTab, content]
+  );
 
   const metricRef = useRef(null);
   const isMetricInView = useInView(metricRef, { once: true });
@@ -32,12 +35,14 @@ const AboutMe = ({ content }: Props) => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <Image
-            src="/maalik-avatar.png"
-            alt="Portrait of Maalik Ahmad"
-            width={500}
-            height={500}
-          />
+          <div className={styles.aboutMeImageContainer}>
+            <Image
+              src="/maalik-avatar.png"
+              alt="Portrait of Maalik Ahmad"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
         </motion.div>
 
         <motion.div
@@ -75,27 +80,27 @@ const AboutMe = ({ content }: Props) => {
 
           {activeContent.metrics.length > 0 && (
             <motion.div
-              ref={metricRef} 
+              ref={metricRef}
               className={styles.metricContainer}
               initial={{ opacity: 0, y: 30 }}
               animate={isMetricInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
             >
-              {activeContent.metrics.map((metric:any) => (
+              {activeContent.metrics.map((metric: any) => (
                 <div key={metric.label} className={styles.metric}>
                   <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     {isMetricInView ? (
                       <div>
-                      <CountUp
-                        start={0}
-                        end={parseInt(metric.value)}
-                        duration={3}
-                        key={metric.label}
-                      /> 
-                      <span>+</span>
+                        <CountUp
+                          start={0}
+                          end={parseInt(metric.value)}
+                          duration={3}
+                          key={metric.label}
+                        />
+                        <span>+</span>
                       </div>
                     ) : (
-                      0 
+                      0
                     )}
                   </motion.h1>
                   <h5>{metric.label}</h5>

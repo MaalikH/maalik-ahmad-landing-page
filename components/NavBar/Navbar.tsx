@@ -7,7 +7,6 @@ const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleNavClick = (sectionId: string) => {
-    console.log("HANDLE NAV CLICK");
     if (window.fullpage_api) {
       window.fullpage_api?.moveTo(sectionId);
     } else {
@@ -23,7 +22,7 @@ const Navbar = () => {
     <nav className={classNames("navbar navbar-expand-lg navbar-dark navbar-transparent", styles.navBar)}>
       <div className={classNames("container", styles.navbarMA)}>
         <Link className={classNames("navbar-brand", styles.navbarBrand)} href="/">
-          Maalik Ahmad
+          MaalikAhmadTech
         </Link>
 
         {/* Hamburger Button */}

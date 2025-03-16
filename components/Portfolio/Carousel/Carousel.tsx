@@ -40,7 +40,7 @@ const Carousel = ({
         }}
       >
         {featuredProjects.map((project: any) => (
-          <SwiperSlide>
+          <SwiperSlide key={project.id}>
             <div
               style={{
                 height: "700px",

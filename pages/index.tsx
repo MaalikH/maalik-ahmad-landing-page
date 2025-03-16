@@ -23,6 +23,10 @@ export default function Home() {
   const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
   useEffect(() => {
+
+    const currentPortfolioRef = portfolioRef.current; 
+
+    if (!currentPortfolioRef) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
 
@@ -45,16 +49,13 @@ export default function Home() {
       { threshold: 0.1 } // Sensitivity for detecting visibility
     );
 
-    if (portfolioRef.current) {
-      observer.observe(portfolioRef.current);
-    }
+    observer.observe(currentPortfolioRef);
 
     return () => {
-      if (portfolioRef.current) {
-        observer.unobserve(portfolioRef.current);
-      }
+        observer.unobserve(currentPortfolioRef); 
+    
     };
-  }, [isFullpageEnabled]);
+  }, [isFullpageEnabled, portfolioRef, isFullpageScrollingEnabled]);
 
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
@@ -87,7 +88,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [isPortfolioVisible]);
+  }, [isPortfolioVisible, isFullpageScrollingEnabled]);
 
   return (
     <>

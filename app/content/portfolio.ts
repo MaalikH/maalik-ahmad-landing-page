@@ -5,7 +5,7 @@ export const portfolioContent = {
       {
         id: "BlackIsHistory",
         title: "Black Is History",
-        image: "/BISMockup.png",
+        image: "/ComingSoonBIH.png",
         link: "https://www.BlackIsHistory.com",
       },
       {

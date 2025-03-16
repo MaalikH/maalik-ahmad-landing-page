@@ -1,3 +1,7 @@
+@use "sass:map";
+@use "sass:color";
+
+
 // Colors
 $primary-color: #FE2D1A;
 $secondary-color: #000000;
@@ -49,8 +53,8 @@ $breakpoints: (
 
 // ✅ Mixin for Media Queries
 @mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (max-width: map-get($breakpoints, $breakpoint)) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (max-width: map.get($breakpoints, $breakpoint)) {  
       @content;
     }
   } @else {

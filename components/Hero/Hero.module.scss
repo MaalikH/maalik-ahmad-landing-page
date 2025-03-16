@@ -1,4 +1,6 @@
-@use "../../styles/variables" as *; // Import global variables
+@use "../../styles/variables" as *;
+@use "sass:color";
+
 
 .heroContainer {
   display: flex;
@@ -74,7 +76,7 @@
   .email {
     left: 0;
     text-align: center;
-    writing-mode: vertical-rl;
+    writing-mode: sideways-lr;
   }
 
   .social {
@@ -126,7 +128,7 @@
   cursor: pointer;
 
   &:hover {
-    background: darken($primary-color, 10%);
+    background: color.adjust($primary-color, $lightness: -10%);
     transform: translateY(-2px);
     box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
   }
