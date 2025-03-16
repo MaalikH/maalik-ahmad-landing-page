@@ -1,9 +1,9 @@
 export const aboutMeContent = {
     title: "About Me",
     pills: [
-      { id: "tech", title: "Tech" },
-      { id: "merch", title: "Merch" },
-    ],
+      { id: "tech", title: "Tech" }, 
+      { id: "merch", title: "Merch" }, 
+    ]  as unknown as { id: "tech" | "merch"; title: string }[],
     sections: {
       tech: {
         title: "Building Impactful Digital Experiences",

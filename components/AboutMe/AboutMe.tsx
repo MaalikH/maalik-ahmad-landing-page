@@ -6,8 +6,29 @@ import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
 
 interface Props {
-  content: any;
+  content: Content;
 }
+
+interface Metric {
+  label: string;
+  value: string;
+}
+
+interface Section {
+  title: string;
+  description: string;
+  metrics: Metric[];
+}
+
+interface Content {
+  title: string;
+  sections: {
+    tech: Section;
+    merch: Section;
+  };
+  pills: { id: "tech" | "merch"; title: string }[];
+}
+
 
 const AboutMe = ({ content }: Props) => {
   const [activeTab, setActiveTab] = useState<"tech" | "merch">("tech");
@@ -56,7 +77,7 @@ const AboutMe = ({ content }: Props) => {
           <h1>{activeContent.title}</h1>
 
           <div className={styles.aboutPills}>
-            {content.pills.map((pill: any) => (
+            {content.pills.map((pill) => (
               <motion.button
                 key={pill.id}
                 className={classNames(
@@ -86,7 +107,7 @@ const AboutMe = ({ content }: Props) => {
               animate={isMetricInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
             >
-              {activeContent.metrics.map((metric: any) => (
+              {activeContent.metrics.map((metric) => (
                 <div key={metric.label} className={styles.metric}>
                   <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     {isMetricInView ? (

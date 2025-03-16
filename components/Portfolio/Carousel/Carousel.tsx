@@ -7,11 +7,14 @@ import styles from "./Carousel.module.scss";
 import Image from "next/image";
 import classNames from "classnames";
 import Link from "next/link";
+import { RefObject } from "react";
+import { Swiper as SwiperType } from "swiper";
+import { Project } from '../portfolio';
 
 interface Props {
-  swiperInstanceRef: any; 
-  onSwiperReady?: (swiper: any) => void;
-  featuredProjects: any;
+  swiperInstanceRef: RefObject<SwiperType>; 
+  onSwiperReady?: (swiper: SwiperType) => void;
+  featuredProjects: Project[];
 }
 
 const Carousel = ({
@@ -39,7 +42,7 @@ const Carousel = ({
           }
         }}
       >
-        {featuredProjects.map((project: any) => (
+        {featuredProjects.map((project: Project) => (
           <SwiperSlide key={project.id}>
             <div
               style={{

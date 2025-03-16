@@ -3,8 +3,18 @@ import classNames from "classnames";
 import styles from "./ContactForm.module.scss";
 import { motion } from "framer-motion";
 
+interface Content {
+  title: string;
+  description: string;
+}
+
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
 interface Props {
-  content: any;
+  content: Content;
 }
 
 const Contact = ({ content }: Props) => {
@@ -14,7 +24,7 @@ const Contact = ({ content }: Props) => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);

@@ -1,13 +1,25 @@
 import classNames from "classnames";
 import styles from "./Services.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface props {
-  content: any;
+interface Service {
+  title: string;
+  description: string;
+  icon: IconDefinition; // FontAwesome icons don't have strict types, but we can improve this later
 }
 
-const Services = ({ content }: props) => {
+interface Content {
+  sectionName: string;
+  title: string;
+  services: Service[];
+}
+
+interface Props {
+  content: Content;
+}
+const Services = ({ content }: Props) => {
   return (
     <motion.div
       className={classNames("container", styles.servicesContainer)}
@@ -24,7 +36,7 @@ const Services = ({ content }: props) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {content.services.map((service: any, index: number) => (
+        {content.services.map((service, index) => (
           <motion.div
             key={index}
             className={classNames("card", styles.serviceCard)}

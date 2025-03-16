@@ -1,11 +1,26 @@
 import classNames from "classnames";
 import styles from "./portfolio.module.scss";
 import Carousel from "./Carousel/Carousel";
+import { Swiper as SwiperType } from "swiper";
+import { RefObject } from "react";
+
+export interface Project {
+  id: string;
+  title: string;
+  image: string;
+  link: string;
+}
+
+interface Content {
+  title: string;
+  subtitle: string;
+  projects: Project[];
+}
 
 interface Props {
-  swiperInstanceRef: any;
-  onSwiperReady?: (swiper: any) => void; 
-  content: any;
+  swiperInstanceRef: RefObject<SwiperType>;
+  onSwiperReady?: (swiper: SwiperType) => void;
+  content: Content;
 }
 
 const PortfolioMA = ({ swiperInstanceRef, onSwiperReady, content }: Props) => {

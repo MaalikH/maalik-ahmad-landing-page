@@ -11,6 +11,7 @@ import { portfolioContent } from "@/app/content/portfolio";
 import { heroContent } from "@/app/content/hero";
 import { servicesContent } from "@/app/content/services";
 import { contactContent } from "@/app/content/contact";
+import Swiper from "swiper";
 
 export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
@@ -18,8 +19,8 @@ export default function Home() {
   const [isFullpageEnabled, setIsFullpageEnabled] = useState(true);
   const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] =
     useState(true);
-  const swiperInstanceRef = useRef<any>(null); // Store Swiper instance
-  const scrollDeltaRef = useRef(0); // Accumulate scroll delta
+    const swiperInstanceRef = useRef<Swiper | null>(null);
+    const scrollDeltaRef = useRef(0); // Accumulate scroll delta
   const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
   useEffect(() => {
