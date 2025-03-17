@@ -9,10 +9,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import { RefObject } from "react";
 import { Swiper as SwiperType } from "swiper";
-import { Project } from '../portfolio';
+import { Project } from "../portfolio";
 
 interface Props {
-  swiperInstanceRef: RefObject<SwiperType>; 
+  swiperInstanceRef: RefObject<SwiperType>;
   onSwiperReady?: (swiper: SwiperType) => void;
   featuredProjects: Project[];
 }
@@ -29,16 +29,24 @@ const Carousel = ({
         spaceBetween={20}
         slidesPerView={1.1}
         navigation
-        freeMode={true}
+        freeMode={false}
         mousewheel={{
           forceToAxis: true,
           sensitivity: 1,
         }}
         speed={500}
+        onSlideChange={() => {console.log('slide change')}}
         onSwiper={(swiper) => {
-          swiperInstanceRef.current = swiper; 
+          console.log("🎯 Swiper instance set:", swiper);
+          swiperInstanceRef.current = swiper;
+
+          // Attach progress event
+          swiper.on("progress", (s, progress) => {
+            console.log(`📊 Swiper Progress: ${progress}`);
+          });
+
           if (onSwiperReady) {
-            onSwiperReady(swiper); 
+            onSwiperReady(swiper);
           }
         }}
       >
@@ -46,7 +54,7 @@ const Carousel = ({
           <SwiperSlide key={project.id}>
             <div
               style={{
-                height: "700px",
+                height: "650px",
                 backgroundColor: "#f5f5f5",
                 borderRadius: "20px",
               }}

@@ -23,75 +23,102 @@ export default function Home() {
     const scrollDeltaRef = useRef(0); // Accumulate scroll delta
   const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
+
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+
   useEffect(() => {
+    const currentPortfolioRef = portfolioRef.current;
+    if (!currentPortfolioRef || observerRef.current) return;
 
-
-    const currentPortfolioRef = portfolioRef.current; 
-
-    if (!currentPortfolioRef) return;
-
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
+        console.log("📌 Intersection Observer triggered:", entry.isIntersecting);
 
         if (entry.isIntersecting) {
+          console.log("🛑 Portfolio section visible → Disabling Fullpage.js");
           setIsPortfolioVisible(true);
-
           if (isFullpageEnabled) {
             setIsFullpageScrollingEnabled(false);
-            window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
+            window.fullpage_api?.setAllowScrolling(false);
           }
         } else {
+          console.log("✅ Portfolio section hidden → Enabling Fullpage.js");
           setIsPortfolioVisible(false);
-
           if (isFullpageEnabled) {
-            setIsFullpageScrollingEnabled(false);
-            window.fullpage_api?.setAllowScrolling(isFullpageScrollingEnabled);
+            setIsFullpageScrollingEnabled(true);
+            window.fullpage_api?.setAllowScrolling(true);
           }
         }
       },
-      { threshold: 0.1 } // Sensitivity for detecting visibility
+      { threshold: 0.1 }
     );
 
-      observer.observe(currentPortfolioRef);
+    observerRef.current.observe(currentPortfolioRef);
 
     return () => {
-        observer.unobserve(currentPortfolioRef);
-      
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+      console.log("🗑️ Cleanup IntersectionObserver");
     };
-  }, [isFullpageEnabled, portfolioRef]);
+  }, [isFullpageEnabled]);
+  
 
+  const BUFFER_SCROLL_THRESHOLD = 50; // How much extra scroll before switching back
+  const MAX_SCROLL_SPEED = 250; // The maximum delta change allowed per scroll event
+  
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
+      const swiper = swiperInstanceRef.current;
+      if (!swiper || !isPortfolioVisible || isFullpageScrollingEnabled) return;
+  
+      let delta = event.deltaY / SCROLL_SENSITIVITY;
+  
+      // 🔥 Clamp scroll speed to prevent zooming past content
+      delta = Math.max(-MAX_SCROLL_SPEED, Math.min(MAX_SCROLL_SPEED, delta));
+  
+      scrollDeltaRef.current += delta;
+  
+      // Move Swiper
+      swiper.translateTo(
+        swiper.translate - scrollDeltaRef.current,
+        500, // Animation duration
+        false // Disable auto-animation
+      );
+  
+      // 📌 Check when Swiper is at its edges (0 or 1) and extra scroll has accumulated
       if (
-        isPortfolioVisible &&
-        swiperInstanceRef.current &&
-        !isFullpageScrollingEnabled
+        (swiper.progress === 0 && scrollDeltaRef.current < -BUFFER_SCROLL_THRESHOLD) || 
+        (swiper.progress === 1 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
       ) {
-        scrollDeltaRef.current += event.deltaY / SCROLL_SENSITIVITY; // Smooth delta accumulation
-
-        swiperInstanceRef.current.translateTo(
-          swiperInstanceRef.current.translate - scrollDeltaRef.current,
-          500,
-          false // Disable animation for immediate response
-        );
-
-        // Reset delta when it exceeds a threshold
-        if (Math.abs(scrollDeltaRef.current) > 100) {
-          scrollDeltaRef.current = 0;
-        }
+        console.log("🔄 Exceeded scroll threshold at edge → Switching to Fullpage.js");
+        setIsFullpageScrollingEnabled(true);
+        window.fullpage_api?.setAllowScrolling(true);
+        scrollDeltaRef.current = 0; // Reset accumulated scroll
+      }
+  
+      // Reset accumulated delta if it's too large
+      if (Math.abs(scrollDeltaRef.current) > 100) {
+        scrollDeltaRef.current = 0;
       }
     };
-
+  
     if (isPortfolioVisible) {
+      console.log("🎯 Adding 'wheel' event listener with BUFFER");
       window.addEventListener("wheel", handleWheel, { passive: false });
     } else {
+      console.log("🛑 Removing 'wheel' event listener");
       window.removeEventListener("wheel", handleWheel);
     }
-
+  
     return () => {
+      console.log("🗑️ Cleanup: Removing 'wheel' event listener");
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isPortfolioVisible, isFullpageScrollingEnabled]);
+  
+  
+  
   return (
     <>
       <Head>
