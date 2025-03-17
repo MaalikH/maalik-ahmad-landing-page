@@ -12,6 +12,7 @@ import { heroContent } from "@/app/content/hero";
 import { servicesContent } from "@/app/content/services";
 import { contactContent } from "@/app/content/contact";
 import Swiper from "swiper";
+import GarageFooter from '@/components/Footer/GarageFooter';
 
 export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,9 @@ export default function Home() {
   const [isFullpageEnabled, setIsFullpageEnabled] = useState(true);
   const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] =
     useState(true);
-    const swiperInstanceRef = useRef<Swiper | null>(null);
-    const scrollDeltaRef = useRef(0); // Accumulate scroll delta
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const swiperInstanceRef = useRef<Swiper | null>(null);
+  const scrollDeltaRef = useRef(0); // Accumulate scroll delta
   const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
 
@@ -142,6 +144,8 @@ export default function Home() {
           scrollingSpeed={700}
           afterLoad={(origin, destination) => {
             console.log(`Scrolled to section: ${destination.anchor}`);
+            // Show footer only when on the last section (contact)
+            setIsFooterVisible(destination.anchor === 'contact');
           }}
           render={() => (
             <ReactFullpage.Wrapper>
@@ -185,6 +189,7 @@ export default function Home() {
           </section>
         </div>
       )}
+      <GarageFooter isVisible={isFooterVisible} />
     </>
   );
 }

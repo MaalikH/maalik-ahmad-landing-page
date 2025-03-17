@@ -1,0 +1,76 @@
+@use "sass:color";
+@use "../../styles/variables" as *;
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($black, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba($white, 0.1);
+  z-index: 100;
+  padding: $spacing-small 0;
+  transform-origin: bottom;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-medium;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialLinks {
+  display: flex;
+  gap: $spacing-medium;
+
+  a {
+    color: $white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.copyright {
+  color: rgba($white, 0.6);
+  font-size: $font-size-small;
+  margin: 0;
+}
+
+// Responsive Design
+@include respond-to("sm") {
+  .content {
+    flex-direction: column;
+    gap: $spacing-small;
+    text-align: center;
+  }
+
+  .socialLinks {
+    justify-content: center;
+  }
+}
+
+@include respond-to("xs") {
+  .footer {
+    padding: $spacing-xsmall 0;
+  }
+
+  .content {
+    padding: 0 $spacing-small;
+  }
+
+  .socialLinks {
+    gap: $spacing-small;
+
+    a {
+      font-size: 1rem;
+    }
+  }
+} 

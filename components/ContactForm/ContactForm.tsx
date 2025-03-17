@@ -66,7 +66,7 @@ const Contact = ({ content }: Props) => {
           </motion.div>
 
           <motion.div
-            className={classNames("col-md-6 bg-light", styles.ContactForm)}
+            className={classNames("col-md-6", styles.ContactForm)}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}

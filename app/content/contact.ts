@@ -1,7 +1,5 @@
 export const contactContent = {
     title: "Let's Work Together",
-    description: "Reach out for project collaborations or business inquiries.",
-    email: "contact@maalikahmad.com",
-    phone: "+1 234-567-890",
-  };
+    description: "I take projects on a case-by-case basis, ensuring each collaboration is meaningful and impactful. I encourage reaching out through any social media platform you're most comfortable with for more continuous conversation. Whether it's a quick chat or a detailed project discussion, I'm here to help bring your ideas to life."
+};
   
