@@ -2,7 +2,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Hero from "../components/Hero/Hero";
 import Head from "next/head";
 import PortfolioMA from "@/components/Portfolio/portfolio";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { aboutMeContent } from "@/app/content/aboutMe";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Services from "@/components/Services/Services";
@@ -14,44 +14,85 @@ import { contactContent } from "@/app/content/contact";
 import Swiper from "swiper";
 import GarageFooter from '@/components/Footer/GarageFooter';
 
+// Types
+interface SectionAnchor {
+  anchor: string;
+  index: number;
+  item: HTMLElement;
+  isFirst: boolean;
+  isLast: boolean;
+}
+
+interface FullpageCallback {
+  origin: SectionAnchor;
+  destination: SectionAnchor;
+  direction: string;
+}
+
+// Constants
+const SCROLL_SENSITIVITY = 1;
+const BUFFER_SCROLL_THRESHOLD = 50;
+const MAX_SCROLL_SPEED = 250;
+const SCROLL_ANIMATION_DURATION = 500;
+
 export default function Home() {
+  // Refs
   const portfolioRef = useRef<HTMLDivElement>(null);
+  const swiperInstanceRef = useRef<Swiper | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const scrollDeltaRef = useRef(0);
+
+  // State
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
   const [isFullpageEnabled, setIsFullpageEnabled] = useState(true);
-  const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] =
-    useState(true);
+  const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] = useState(true);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
-  const swiperInstanceRef = useRef<Swiper | null>(null);
-  const scrollDeltaRef = useRef(0); // Accumulate scroll delta
-  const SCROLL_SENSITIVITY = 1; // Adjust for smoother or snappier scrollingß
 
+  // Handlers
+  const handlePortfolioVisibility = useCallback((isVisible: boolean) => {
+    setIsPortfolioVisible(isVisible);
+    if (isFullpageEnabled) {
+      setIsFullpageScrollingEnabled(!isVisible);
+      window.fullpage_api?.setAllowScrolling(!isVisible);
+    }
+  }, [isFullpageEnabled]);
 
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const handleWheel = useCallback((event: WheelEvent) => {
+    const swiper = swiperInstanceRef.current;
+    if (!swiper || !isPortfolioVisible || isFullpageScrollingEnabled) return;
 
+    let delta = event.deltaY / SCROLL_SENSITIVITY;
+    delta = Math.max(-MAX_SCROLL_SPEED, Math.min(MAX_SCROLL_SPEED, delta));
+    scrollDeltaRef.current += delta;
 
+    swiper.translateTo(
+      swiper.translate - scrollDeltaRef.current,
+      SCROLL_ANIMATION_DURATION,
+      false
+    );
+
+    if (
+      (swiper.progress === 0 && scrollDeltaRef.current < -BUFFER_SCROLL_THRESHOLD) || 
+      (swiper.progress === 1 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
+    ) {
+      setIsFullpageScrollingEnabled(true);
+      window.fullpage_api?.setAllowScrolling(true);
+      scrollDeltaRef.current = 0;
+    }
+
+    if (Math.abs(scrollDeltaRef.current) > 100) {
+      scrollDeltaRef.current = 0;
+    }
+  }, [isPortfolioVisible, isFullpageScrollingEnabled]);
+
+  // Effects
   useEffect(() => {
     const currentPortfolioRef = portfolioRef.current;
     if (!currentPortfolioRef || observerRef.current) return;
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        console.log("📌 Intersection Observer triggered:", entry.isIntersecting);
-
-        if (entry.isIntersecting) {
-          console.log("🛑 Portfolio section visible → Disabling Fullpage.js");
-          setIsPortfolioVisible(true);
-          if (isFullpageEnabled) {
-            setIsFullpageScrollingEnabled(false);
-            window.fullpage_api?.setAllowScrolling(false);
-          }
-        } else {
-          console.log("✅ Portfolio section hidden → Enabling Fullpage.js");
-          setIsPortfolioVisible(false);
-          if (isFullpageEnabled) {
-            setIsFullpageScrollingEnabled(true);
-            window.fullpage_api?.setAllowScrolling(true);
-          }
-        }
+        handlePortfolioVisibility(entry.isIntersecting);
       },
       { threshold: 0.1 }
     );
@@ -61,75 +102,32 @@ export default function Home() {
     return () => {
       observerRef.current?.disconnect();
       observerRef.current = null;
-      console.log("🗑️ Cleanup IntersectionObserver");
     };
-  }, [isFullpageEnabled]);
-  
+  }, [handlePortfolioVisibility]);
 
-  const BUFFER_SCROLL_THRESHOLD = 50; // How much extra scroll before switching back
-  const MAX_SCROLL_SPEED = 250; // The maximum delta change allowed per scroll event
-  
   useEffect(() => {
-    const handleWheel = (event: WheelEvent) => {
-      const swiper = swiperInstanceRef.current;
-      if (!swiper || !isPortfolioVisible || isFullpageScrollingEnabled) return;
-  
-      let delta = event.deltaY / SCROLL_SENSITIVITY;
-  
-      // 🔥 Clamp scroll speed to prevent zooming past content
-      delta = Math.max(-MAX_SCROLL_SPEED, Math.min(MAX_SCROLL_SPEED, delta));
-  
-      scrollDeltaRef.current += delta;
-  
-      // Move Swiper
-      swiper.translateTo(
-        swiper.translate - scrollDeltaRef.current,
-        500, // Animation duration
-        false // Disable auto-animation
-      );
-  
-      // 📌 Check when Swiper is at its edges (0 or 1) and extra scroll has accumulated
-      if (
-        (swiper.progress === 0 && scrollDeltaRef.current < -BUFFER_SCROLL_THRESHOLD) || 
-        (swiper.progress === 1 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
-      ) {
-        console.log("🔄 Exceeded scroll threshold at edge → Switching to Fullpage.js");
-        setIsFullpageScrollingEnabled(true);
-        window.fullpage_api?.setAllowScrolling(true);
-        scrollDeltaRef.current = 0; // Reset accumulated scroll
-      }
-  
-      // Reset accumulated delta if it's too large
-      if (Math.abs(scrollDeltaRef.current) > 100) {
-        scrollDeltaRef.current = 0;
-      }
-    };
-  
     if (isPortfolioVisible) {
-      console.log("🎯 Adding 'wheel' event listener with BUFFER");
       window.addEventListener("wheel", handleWheel, { passive: false });
     } else {
-      console.log("🛑 Removing 'wheel' event listener");
       window.removeEventListener("wheel", handleWheel);
     }
-  
+
     return () => {
-      console.log("🗑️ Cleanup: Removing 'wheel' event listener");
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [isPortfolioVisible, isFullpageScrollingEnabled]);
-  
-  
-  
+  }, [isPortfolioVisible, handleWheel]);
+
+  const handleAfterLoad = useCallback((origin: SectionAnchor, destination: SectionAnchor) => {
+    setIsFooterVisible(destination.anchor === 'contact');
+  }, []);
+
   return (
     <>
       <Head>
         <title>Maalik Ahmad | Creative Developer</title>
       </Head>
 
-      <div
-        style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1000 }}
-      >
+      <div className="fullpage-toggle" style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1000 }}>
         <button onClick={() => setIsFullpageEnabled(!isFullpageEnabled)}>
           {isFullpageEnabled ? "Disable Fullpage.js" : "Enable Fullpage.js"}
         </button>
@@ -137,25 +135,18 @@ export default function Home() {
 
       {isFullpageEnabled ? (
         <ReactFullpage
-          credits={{enabled: false}}
+          credits={{ enabled: false }}
           licenseKey={process.env.NEXT_PUBLIC_FULLPAGE_LICENSE}
           navigation
           anchors={["hero", "portfolio", "aboutMe", "services", "contact"]}
           scrollingSpeed={700}
-          afterLoad={(origin, destination) => {
-            console.log(`Scrolled to section: ${destination.anchor}`);
-            // Show footer only when on the last section (contact)
-            setIsFooterVisible(destination.anchor === 'contact');
-          }}
+          afterLoad={handleAfterLoad}
           render={() => (
             <ReactFullpage.Wrapper>
               <section className="section container-fluid bg-black">
                 <Hero content={heroContent} />
               </section>
-              <section
-                className="section container-fluid"
-                ref={portfolioRef}
-              >
+              <section className="section container-fluid" ref={portfolioRef}>
                 <PortfolioMA
                   swiperInstanceRef={swiperInstanceRef}
                   content={portfolioContent}

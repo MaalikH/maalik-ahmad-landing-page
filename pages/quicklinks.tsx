@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import styles from '../styles/QuickLinks.module.scss';
 import { quickLinksContent } from '@/app/content/quicklinks';
 
@@ -34,7 +35,7 @@ const QuickLinks = () => {
               <FaLinkedin />
             </a>
             <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
-              <FaTwitter />
+              <FaXTwitter />
             </a>
             <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
               <FaInstagram />

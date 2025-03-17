@@ -5,7 +5,7 @@
   align-items: center;
   color: $black;
   text-align: left;
-  padding: $spacing-small;
+  padding: $spacing-sm;
   height: 100%;
 
   @include respond-to("xs") {
@@ -14,24 +14,24 @@
   }
 
   h1 {
-    margin-bottom: $spacing-small;
+    margin-bottom: $spacing-sm;
   }
 
   p {
-    font-size: $font-size-small;
+    font-size: $font-size-md;
     line-height: 1.5;
   }
 
   hr {
-    margin: $spacing-small 0;
+    margin: $spacing-sm 0;
     color: $gray-light;
     opacity: 1;
   }
 
   .aboutPills {
     display: flex;
-    gap: $spacing-xsmall;
-    margin-bottom: $spacing-small;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-sm;
   }
 
   .aboutMeImageContainer {
@@ -44,14 +44,15 @@
       margin-bottom: 20px;
     }
   }
+
   .metricContainer {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    gap: $spacing-medium;
-    margin-bottom: $spacing-small;
+    gap: $spacing-md;
+    margin-bottom: $spacing-sm;
     @include respond-to("sm") {
-      gap: $spacing-small;
+      gap: $spacing-sm;
     }
   }
 
@@ -60,7 +61,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: $spacing-xsmall;
+    gap: $spacing-xs;
 
     &:not(:last-child)::after {
       content: "";
@@ -79,8 +80,8 @@
   }
 
   .pillBtn {
-    padding: $spacing-xsmall $spacing-small;
-    border-radius: $border-radius-medium;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-md;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -102,9 +103,9 @@
     border: 1px solid $gray-light;
   
     &:hover {
-      background-color: rgba($primary-color, 0.15); // Light red tint
-      border-color: $primary-color; // Change border to red
-      color: $primary-color; // Text changes to red
+      background-color: rgba($primary-color, 0.15);
+      border-color: $primary-color;
+      color: $primary-color;
       transform: scale(1.05);
     }
   }

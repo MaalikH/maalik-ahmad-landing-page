@@ -19,7 +19,7 @@
       margin-bottom: 50px;
 
       @include respond-to("xs") {
-        margin-bottom: $spacing-large;
+        margin-bottom: $spacing-lg;
       }
     }
 
@@ -49,19 +49,18 @@
     }
 
     h3 {
-      font-size: $font-size-large;
-      margin-bottom: $spacing-medium;
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-md;
       color: $black;
-      font-weight: 700;
-      line-height: 1.3;
+      font-weight: 600;
     }
 
     p {
-      font-size: $font-size-small;
-      line-height: 1.8;
-      color: rgba($black, 0.8);
-      margin-bottom: $spacing-medium;
-      max-width: 500px;
+      font-size: $font-size-lg;
+      line-height: 1.6;
+      color: $gray-dark;
+      margin-bottom: $spacing-lg;
+      max-width: 90%;
     }
   }
 
@@ -92,5 +91,79 @@
     text-transform: uppercase;
     border-radius: 20px;
     min-width: 175px;
+  }
+}
+
+.ContactForm {
+  background-color: #f8f9fa;
+  padding: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  height: 100%;
+
+  h3 {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-md;
+    color: $black;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    color: $gray-dark;
+    margin-bottom: $spacing-lg;
+    max-width: 90%;
+  }
+
+  .contactCard {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    height: 100%;
+  }
+
+  .formGroup {
+    margin-bottom: $spacing-md;
+  }
+
+  .formControl {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid $gray-light;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+
+  textarea.formControl {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .submitButton {
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 }

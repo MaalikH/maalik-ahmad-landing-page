@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ReactTyped } from "react-typed";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 type HeroProps = {
   content: {
@@ -41,6 +42,24 @@ const Hero = (props: HeroProps) => {
     },
   };
 
+  const scrollArrowVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: {
+      opacity: 1,
+      y: [0, 10, 0],
+      transition: {
+        y: {
+          repeat: Infinity,
+          duration: 2,
+          ease: "easeInOut",
+        },
+        opacity: {
+          duration: 0.5,
+        },
+      },
+    },
+  };
+
   return (
     <div className={styles.heroContainer}>
       <Navbar />
@@ -63,22 +82,32 @@ const Hero = (props: HeroProps) => {
             />
           </motion.h1>
           {isTypingDone && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className={styles.ctaButtonContainer}
-            >
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                className={styles.ctaButtonContainer}
+              >
                 {props.content.ctaButtons.map((btn, index) => (
-                <HeroCTA
-                  key={index}
-                  btnText={btn.label}
-                  btnLink={btn.link}
-                  btnType={index === 0 ? "primary" : "secondary"}
-                  sectionId={index === 0 ? "portfolio" : "contact"}
-                />
-              ))}
-            </motion.div>
+                  <HeroCTA
+                    key={index}
+                    btnText={btn.label}
+                    btnLink={btn.link}
+                    btnType={index === 0 ? "primary" : "secondary"}
+                    sectionId={index === 0 ? "portfolio" : "contact"}
+                  />
+                ))}
+              </motion.div>
+              <motion.div
+                className={styles.scrollIndicator}
+                initial="hidden"
+                animate="visible"
+                variants={scrollArrowVariants}
+              >
+                <FaChevronDown />
+              </motion.div>
+            </>
           )}
         </div>
         <motion.span className={styles.social} initial="hidden" animate="visible" variants={socialVariants}>

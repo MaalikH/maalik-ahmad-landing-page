@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import styles from './GarageFooter.module.scss';
 
 interface GarageFooterProps {
@@ -9,7 +10,7 @@ interface GarageFooterProps {
 const GarageFooter = ({ isVisible }: GarageFooterProps) => {
   return (
     <motion.footer 
-      className={styles.footer}
+      className={styles.garageFooter}
       initial={{ y: '100%' }}
       animate={{ y: isVisible ? 0 : '100%' }}
       transition={{ 
@@ -18,7 +19,7 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
         damping: 20
       }}
     >
-      <div className={styles.content}>
+      <div className={styles.footerContent}>
         <div className={styles.socialLinks}>
           <a href="https://github.com/maalikahmad" target="_blank" rel="noopener noreferrer">
             <FaGithub />
@@ -27,7 +28,7 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
             <FaLinkedin />
           </a>
           <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
-            <FaTwitter />
+            <FaXTwitter />
           </a>
           <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
             <FaInstagram />

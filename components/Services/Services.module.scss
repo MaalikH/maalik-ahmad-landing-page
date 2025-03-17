@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .servicesContainer {
-  padding: $spacing-large 0;
+  padding: $spacing-xl 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -16,18 +16,18 @@
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-columns: repeat(2, minmax(500px, 1fr));
-    gap: $spacing-medium; // Maintaining original spacing
+    gap: $spacing-md;
     justify-content: center;
     max-width: 900px;
     margin: 0 auto;
 
     @include respond-to("md") {
-      gap: $spacing-small;
+      gap: $spacing-sm;
       grid-template-columns: repeat(2, minmax(400px, 1fr));
     }
 
     @include respond-to("sm") {
-      gap: $spacing-medium;
+      gap: $spacing-md;
       grid-template-columns: 1fr;
       width: 90%;
     }
@@ -36,10 +36,10 @@
   .serviceCard {
     display: flex;
     flex-direction: row;
-    padding: $spacing-medium; // Original padding maintained
-    gap: $spacing-medium;
+    padding: $spacing-md;
+    gap: $spacing-md;
     text-align: left;
-    border-radius: $border-radius-large;
+    border-radius: $border-radius-lg;
     border: none;
     background: $white;
     box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
@@ -47,13 +47,13 @@
     transition: all 0.3s ease-in-out;
 
     @include respond-to("md") {
-      gap: $spacing-small;
-      padding: $spacing-small; // Original padding maintained
+      gap: $spacing-sm;
+      padding: $spacing-sm;
     }
 
     &:hover {
       transform: scale(1.05);
-      box-shadow: $shadow-dark;
+      box-shadow: $shadow-lg;
       background: rgba($white, 0.95);
     }
 
@@ -68,18 +68,18 @@
       align-items: center;
 
       @include respond-to("xs") {
-       // width: 75px;
+        // width: 75px;
       }
     }
 
     .icon {
       vertical-align: middle;
       display: inline-block;
-      margin: $spacing-xsmall 0;
+      margin: $spacing-xs 0;
     }
-  }
 
-  .serviceTitle {
-    margin-bottom: $spacing-xsmall;
+    .serviceTitle {
+      margin-bottom: $spacing-xs;
+    }
   }
 }

@@ -3,19 +3,52 @@
 .portfolioContainer {
   background-color: $white;
   color: $black;
-  padding: 80px 0;
+  padding: $spacing-2xl 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: $spacing-xl;
+
+  @include respond-to("md") {
+    padding: $spacing-xl 0;
+    gap: $spacing-lg;
+  }
+
+  @include respond-to("sm") {
+    padding: $spacing-lg 0;
+    gap: $spacing-md;
+  }
 
   .portfolioHeader {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+
+    h5 {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba($black, 0.7);
+      margin-bottom: $spacing-sm;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: $spacing-md;
+    }
   }
 
   .portfolioCarousel {
-    display: flex;
-    justify-content: center;
+    @include flex-center;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 $spacing-md;
+
+    @include respond-to("sm") {
+      padding: 0 $spacing-sm;
+    }
   }
 
   .portfolioCarouselItem {

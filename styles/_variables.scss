@@ -1,63 +1,89 @@
 @use "sass:map";
 @use "sass:color";
 
-
 // Colors
-$primary-color: #FE2D1A;
+$primary-color: #fe2d1a;
 $secondary-color: #000000;
 $tertiary-color: #ffffff;
 
 // Common Colors
-$black: #000000;
+$black: #121212;
 $white: #ffffff;
-$gray-light: #f5f5f5;
-$gray-dark: #333130;
+$gray-light: #e0e0e0;
+$gray-dark: #333333;
 
 // Typography
 $font-primary: 'Poppins', sans-serif;
-$font-size-large: 2.5rem;
-$font-size-medium: 1.5rem;
-$font-size-small: 1rem;
-
-// Shadows
-$shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1);
-$shadow-dark: 0px 4px 10px rgba(0, 0, 0, 0.2);
-
-// Typography
-$font-primary: 'Poppins', sans-serif;
-$font-size-xlarge: 6rem;
-$font-size-large: 3rem;
-$font-size-medium: 1.5rem;
-$font-size-small: 1rem;
-$font-size-xsmall: .7rem;
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-md: 1rem;       // 16px
+$font-size-lg: 1.25rem;    // 20px
+$font-size-xl: 1.5rem;     // 24px
+$font-size-2xl: 2rem;      // 32px
+$font-size-3xl: 3rem;      // 48px
 
 // Spacing
-$spacing-xsmall: 8px;
-$spacing-small: 16px;
-$spacing-medium: 32px;
-$spacing-large: 80px;
+$spacing-xs: 0.5rem;       // 8px
+$spacing-sm: 1rem;         // 16px
+$spacing-md: 1.5rem;       // 24px
+$spacing-lg: 2rem;         // 32px
+$spacing-xl: 3rem;         // 48px
+$spacing-2xl: 4rem;        // 64px
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
 // Border Radius
-$border-radius-small: 5px;
-$border-radius-medium: 10px;
-$border-radius-large: 20px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
+$border-radius-full: 9999px;
 
-// ✅ Base Breakpoints
-$breakpoints: (
-  "xs": 480px,   // Extra Small (Phones)
-  "sm": 768px,   // Small (Tablets)
-  "md": 1024px,  // Medium (Small Laptops)
-  "lg": 1280px,  // Large (Desktops)
-  "xl": 1536px   // Extra Large (Large Screens)
-);
+// Breakpoints
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
 
-// ✅ Mixin for Media Queries
+// Mixins
 @mixin respond-to($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    @media (max-width: map.get($breakpoints, $breakpoint)) {  
-      @content;
-    }
-  } @else {
-    @warn "Breakpoint #{$breakpoint} is not defined in $breakpoints map.";
+  @if $breakpoint == "xs" {
+    @media (max-width: $breakpoint-sm) { @content; }
   }
+  @else if $breakpoint == "sm" {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) { @content; }
+  }
+  @else if $breakpoint == "md" {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) { @content; }
+  }
+  @else if $breakpoint == "lg" {
+    @media (min-width: $breakpoint-lg) and (max-width: $breakpoint-xl) { @content; }
+  }
+  @else if $breakpoint == "xl" {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin hover-scale($scale: 1.05) {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
