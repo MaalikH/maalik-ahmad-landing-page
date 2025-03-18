@@ -13,6 +13,8 @@ import { servicesContent } from "@/app/content/services";
 import { contactContent } from "@/app/content/contact";
 import Swiper from "swiper";
 import GarageFooter from '@/components/Footer/GarageFooter';
+import { trackSectionView } from '../lib/gtag';
+import GoogleAnalytics from '@/app/GoogleAnalytics';
 
 // Types
 interface SectionAnchor {
@@ -109,6 +111,7 @@ export default function Home() {
 
   const handleAfterLoad = useCallback((origin: SectionAnchor, destination: SectionAnchor) => {
     setIsFooterVisible(destination.anchor === 'contact');
+    trackSectionView(destination.anchor);
   }, []);
 
   return (
@@ -155,6 +158,8 @@ export default function Home() {
           }}
         />
       </Head>
+
+      <GoogleAnalytics />
 
       <ReactFullpage
         credits={{ enabled: false }}

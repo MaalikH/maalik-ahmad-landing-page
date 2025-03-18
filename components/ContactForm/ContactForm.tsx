@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import styles from "./ContactForm.module.scss";
 import { motion } from "framer-motion";
+import { trackFormSubmission } from '../../lib/gtag';
 
 interface FormData {
   name: string;
@@ -18,8 +19,13 @@ interface Props {
 const Contact = ({ content }: Props) => {
   const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      console.log(data);
+      trackFormSubmission('contact', true);
+    } catch (error) {
+      trackFormSubmission('contact', false);
+    }
   };
 
   return (

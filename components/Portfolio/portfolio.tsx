@@ -2,6 +2,7 @@ import { memo } from "react";
 import classNames from "classnames";
 import { Swiper as SwiperType } from "swiper";
 import type { RefObject } from "react";
+import { trackProjectClick } from '../../lib/gtag';
 
 // Components
 import Carousel from "./Carousel/Carousel";
@@ -28,6 +29,10 @@ export interface PortfolioProps {
   onSwiperReady?: (swiper: SwiperType) => void;
   content: PortfolioContent;
 }
+
+const handleProjectClick = (project: Project) => {
+  trackProjectClick(project.title, 'desktop');
+};
 
 const PortfolioMA = memo(({ swiperInstanceRef, onSwiperReady, content }: PortfolioProps) => {
   const { title, subtitle, projects } = content;

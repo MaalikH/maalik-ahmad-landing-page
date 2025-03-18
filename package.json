@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@fullpage/react-fullpage": "^0.1.47",
+    "@next/third-parties": "^15.2.3",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
     "framer-motion": "^12.5.0",

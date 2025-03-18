@@ -5,8 +5,13 @@ import { FaXTwitter } from 'react-icons/fa6';
 import styles from '../styles/QuickLinks.module.scss';
 import { quickLinksContent } from '@/app/content/quicklinks';
 import Head from 'next/head';
+import { trackProjectClick } from '../lib/gtag';
 
 const QuickLinks = () => {
+  const handleProjectClick = (project: any) => {
+    trackProjectClick(project.title, 'quicklinks');
+  };
+
   return (
     <>
       <Head>
@@ -59,6 +64,7 @@ const QuickLinks = () => {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => handleProjectClick(project)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
