@@ -73,6 +73,7 @@ const Hero = (props: HeroProps) => {
           initial="hidden"
           animate="visible"
           variants={emailVariants}
+          aria-label="Email me"
         >
           {props.content.email}
         </motion.a>

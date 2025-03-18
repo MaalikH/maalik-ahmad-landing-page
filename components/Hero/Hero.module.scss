@@ -105,60 +105,29 @@
   }
 
   .email {
-    position: fixed;
-    left: $spacing-md;
-    top: 50%;
-    transform: rotate(-90deg) translateX(-50%);
-    transform-origin: left top;
+    left: 0;
     text-align: center;
-    color: $white;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    font-size: $font-size-sm;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    z-index: 10;
-
-    &:hover {
-      color: $primary-color;
-    }
-
-    @include respond-to("xs") {
-      display: none;
-    }
+    writing-mode: sideways-lr;
   }
 
   .social {
-    position: fixed;
-    right: $spacing-md;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-xs;
-    z-index: 10;
+    right: 0;
+    text-align: center;
 
     .socialIcon {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      min-height: 50px;
       background-color: $gray-dark;
       border-radius: $border-radius-lg;
       display: flex;
       justify-content: center;
       align-items: center;
       border: 2px solid $gray-dark;
-      transition: all 0.3s ease-in-out;
-      color: $white;
+      transition: transform 0.3s ease-in-out;
 
       &:hover {
         transform: translateY(-2px);
-        border-color: $primary-color;
-        color: $primary-color;
       }
-    }
-
-    @include respond-to("xs") {
-      display: none;
     }
   }
 }

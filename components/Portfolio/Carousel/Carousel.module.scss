@@ -61,7 +61,6 @@
   background-color: $gray-light;
   border-radius: $border-radius-lg;
   overflow: hidden;
-  @include hover-scale(1.02);
 
   @include respond-to("md") {
     height: 550px;
@@ -74,18 +73,22 @@
   @include respond-to("xs") {
     height: 280px;
     border-radius: $border-radius-md;
-    @include hover-scale(1);
   }
 }
 
 .slideImage {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
   border-radius: $border-radius-lg;
-  @include hover-scale(1.05);
+  transition: transform 0.3s ease;
 
   @include respond-to("xs") {
     border-radius: $border-radius-md;
-    @include hover-scale(1);
+  }
+
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
@@ -93,18 +96,19 @@
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: $border-radius-lg;
   overflow: hidden;
-  border-radius: 8px;
-  
-  &:hover {
-    .projectImage {
-      transform: scale(1.05);
-    }
-  }
 }
 
 .projectImage {
+  width: 100%;
+  height: 100%;
   transition: transform 0.3s ease;
+  border-radius: $border-radius-lg;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 }
   
   
