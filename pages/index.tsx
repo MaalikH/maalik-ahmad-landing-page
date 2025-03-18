@@ -23,17 +23,11 @@ interface SectionAnchor {
   isLast: boolean;
 }
 
-interface FullpageCallback {
-  origin: SectionAnchor;
-  destination: SectionAnchor;
-  direction: string;
-}
-
 // Constants
-const SCROLL_SENSITIVITY = 1;
-const BUFFER_SCROLL_THRESHOLD = 50;
-const MAX_SCROLL_SPEED = 250;
-const SCROLL_ANIMATION_DURATION = 500;
+const SCROLL_SENSITIVITY = 1.25;
+const BUFFER_SCROLL_THRESHOLD = 35;
+const MAX_SCROLL_SPEED = 200;
+const SCROLL_ANIMATION_DURATION = 400;
 
 export default function Home() {
   // Refs
@@ -44,22 +38,21 @@ export default function Home() {
 
   // State
   const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
-  const [isFullpageEnabled, setIsFullpageEnabled] = useState(true);
   const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] = useState(true);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   // Handlers
   const handlePortfolioVisibility = useCallback((isVisible: boolean) => {
     setIsPortfolioVisible(isVisible);
-    if (isFullpageEnabled) {
-      setIsFullpageScrollingEnabled(!isVisible);
-      window.fullpage_api?.setAllowScrolling(!isVisible);
-    }
-  }, [isFullpageEnabled]);
+    setIsFullpageScrollingEnabled(!isVisible);
+    window.fullpage_api?.setAllowScrolling(!isVisible);
+  }, []);
 
   const handleWheel = useCallback((event: WheelEvent) => {
     const swiper = swiperInstanceRef.current;
     if (!swiper || !isPortfolioVisible || isFullpageScrollingEnabled) return;
+
+    event.preventDefault();
 
     let delta = event.deltaY / SCROLL_SENSITIVITY;
     delta = Math.max(-MAX_SCROLL_SPEED, Math.min(MAX_SCROLL_SPEED, delta));
@@ -67,20 +60,17 @@ export default function Home() {
 
     swiper.translateTo(
       swiper.translate - scrollDeltaRef.current,
-      SCROLL_ANIMATION_DURATION,
-      false
+      SCROLL_ANIMATION_DURATION
     );
 
+    const upwardThreshold = scrollDeltaRef.current < 0 ? BUFFER_SCROLL_THRESHOLD * 0.7 : BUFFER_SCROLL_THRESHOLD;
+
     if (
-      (swiper.progress === 0 && scrollDeltaRef.current < -BUFFER_SCROLL_THRESHOLD) || 
-      (swiper.progress === 1 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
+      (swiper.progress <= 0.05 && scrollDeltaRef.current < -upwardThreshold) || 
+      (swiper.progress >= 0.95 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
     ) {
       setIsFullpageScrollingEnabled(true);
       window.fullpage_api?.setAllowScrolling(true);
-      scrollDeltaRef.current = 0;
-    }
-
-    if (Math.abs(scrollDeltaRef.current) > 100) {
       scrollDeltaRef.current = 0;
     }
   }, [isPortfolioVisible, isFullpageScrollingEnabled]);
@@ -127,59 +117,36 @@ export default function Home() {
         <title>Maalik Ahmad | Creative Developer</title>
       </Head>
 
-      <div className="fullpage-toggle" style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1000 }}>
-        <button onClick={() => setIsFullpageEnabled(!isFullpageEnabled)}>
-          {isFullpageEnabled ? "Disable Fullpage.js" : "Enable Fullpage.js"}
-        </button>
-      </div>
-
-      {isFullpageEnabled ? (
-        <ReactFullpage
-          credits={{ enabled: false }}
-          licenseKey={process.env.NEXT_PUBLIC_FULLPAGE_LICENSE}
-          navigation
-          anchors={["hero", "portfolio", "aboutMe", "services", "contact"]}
-          scrollingSpeed={700}
-          afterLoad={handleAfterLoad}
-          render={() => (
-            <ReactFullpage.Wrapper>
-              <section className="section container-fluid bg-black">
-                <Hero content={heroContent} />
-              </section>
-              <section className="section container-fluid" ref={portfolioRef}>
-                <PortfolioMA
-                  swiperInstanceRef={swiperInstanceRef}
-                  content={portfolioContent}
-                />
-              </section>
-              <section className="section container-fluid">
-                <AboutMe content={aboutMeContent} />
-              </section>
-              <section className="section container-fluid">
-                <Services content={servicesContent} />
-              </section>
-              <section className="section container-fluid">
-                <Contact content={contactContent} />
-              </section>
-            </ReactFullpage.Wrapper>
-          )}
-        />
-      ) : (
-        <div>
-          <section className="section container-fluid bg-black" id="hero">
-            <Hero content={heroContent} />
-          </section>
-          <section className="section container-fluid" id="aboutMe">
-            <AboutMe content={aboutMeContent} />
-          </section>
-          <section className="section container-fluid" id="services">
-            <Services content={servicesContent} />
-          </section>
-          <section className="section container-fluid" id="contact">
-            <Contact content={contactContent} />
-          </section>
-        </div>
-      )}
+      <ReactFullpage
+        credits={{ enabled: false }}
+        licenseKey={process.env.NEXT_PUBLIC_FULLPAGE_LICENSE}
+        navigation
+        anchors={["hero", "portfolio", "aboutMe", "services", "contact"]}
+        scrollingSpeed={700}
+        afterLoad={handleAfterLoad}
+        render={() => (
+          <ReactFullpage.Wrapper>
+            <section className="section container-fluid bg-black">
+              <Hero content={heroContent} />
+            </section>
+            <section className="section container-fluid" ref={portfolioRef}>
+              <PortfolioMA
+                swiperInstanceRef={swiperInstanceRef}
+                content={portfolioContent}
+              />
+            </section>
+            <section className="section container-fluid">
+              <AboutMe content={aboutMeContent} />
+            </section>
+            <section className="section container-fluid">
+              <Services content={servicesContent} />
+            </section>
+            <section className="section container-fluid">
+              <Contact content={contactContent} />
+            </section>
+          </ReactFullpage.Wrapper>
+        )}
+      />
       <GarageFooter isVisible={isFooterVisible} />
     </>
   );

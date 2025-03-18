@@ -1,55 +1,221 @@
 @use "../../styles/variables" as *;
 
 .navBar {
-  margin-top: 10px;
-}
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: $spacing-md 0;
+  transition: all 0.3s ease;
+  background: rgba($black, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-.navbarMA {
-    max-width: 1140px; // Match the hero content's max-width
-    width: 100%; // Responsive width
-    margin: 0 auto; // Center the navbar horizontally
-    padding: 10px 0;
+  @include respond-to("xs") {
+    padding: $spacing-sm 0;
+    background: rgba($black, 0.95);
+  }
+
+  .navbarMA {
     display: flex;
-    position: relative; 
-    align-items: center; // Center vertically
-    padding-top: 10px;
-  }
-.navbarLinks {
-  border-radius: 800px;
-  margin: auto;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  display: flex;
-  gap: 5px;
-  list-style: none;
-  padding: 5px 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%); /* Ensures perfect centering */
-  @include respond-to("md") {
-    border-radius: 20px;
-    width: 100%;
-  }
-}
+    align-items: center;
+    justify-content: space-between;
 
+    @include respond-to("xs") {
+      position: relative;
+      justify-content: center;
+    }
+  }
 
-.navbarBrand {
-   flex: 0; /* Keeps it on the left */
-   @include respond-to("md") {
+  .navbarBrand {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    @include respond-to("xs") {
+      font-size: $font-size-md;
+      text-align: center;
+    }
+
+    &:hover {
+      color: $primary-color;
+      transform: translateY(-1px);
+    }
+  }
+
+  :global {
+    .navbar-toggler {
+      border: none;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      background: transparent;
+      outline: none;
+
+      @include respond-to("xs") {
+        position: absolute;
+        right: $spacing-sm;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
+      .navbar-toggler-icon {
+        background-image: none;
+        position: relative;
+        transition: all 0.3s ease;
+
+        &::before,
+        &::after,
+        & {
+          width: 24px;
+          height: 2px;
+          background-color: $white;
+          display: block;
+          position: absolute;
+          left: 8px;
+          transition: all 0.3s ease;
+        }
+
+        &::before,
+        &::after {
+          content: '';
+        }
+
+        &::before {
+          top: -8px;
+        }
+
+        &::after {
+          bottom: -8px;
+        }
+      }
+
+      &[aria-expanded="true"] {
+        .navbar-toggler-icon {
+          background-color: transparent;
+
+          &::before {
+            transform: rotate(45deg);
+            top: 0;
+          }
+
+          &::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+          }
+        }
+      }
+    }
+
+    .navbar-collapse {
+      @include respond-to("xs") {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba($black, 0.98);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: $spacing-xl $spacing-lg;
+        height: calc(100vh - 60px);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0;
+        pointer-events: none;
+        
+        &.show {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+    }
+  }
+
+  .navbarLinks {
+    display: flex;
+    gap: $spacing-md;
+    align-items: center;
+
+    @include respond-to("xs") {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-lg;
+      width: 100%;
+      margin: $spacing-xl 0;
+    }
+  }
+
+  .navLink {
+    color: rgba($white, 0.7);
+    font-size: $font-size-sm;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    padding: $spacing-xs $spacing-sm;
+    cursor: pointer;
+
+    @include respond-to("xs") {
+      width: 100%;
+      text-align: left;
+      padding: 0;
+      font-size: $font-size-xl;
+      text-transform: none;
+      letter-spacing: -0.5px;
+      font-weight: 400;
+      
+      &:active {
+        color: $white;
+      }
+    }
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .socialLinks {
     display: none;
-  }
-}
 
-.navLink {
-  position: relative;
-  font-weight: 500;
-  color: white;
-  padding: 8px 16px; /* Add padding to create space around the text */
-  border-radius: 20px; /* Rounded background */
-  transition: background-color 0.3s ease-in-out;
-  min-width: 120px; /* Ensure all nav items have the same width */
+    @include respond-to("xs") {
+      display: flex;
+      justify-content: flex-start;
+      gap: $spacing-md;
+      width: 100%;
+      margin-top: auto;
+      padding-top: $spacing-lg;
+      border-top: 1px solid rgba($white, 0.1);
 
+      .socialIcon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgba($white, 0.7);
+        transition: all 0.3s ease;
+        font-size: $font-size-xl;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.15); /* Light grey background */
+        &:hover {
+          color: $white;
+          transform: translateY(-2px);
+        }
+      }
+    }
   }
 }

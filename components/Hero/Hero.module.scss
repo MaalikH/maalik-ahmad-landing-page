@@ -35,6 +35,7 @@
         max-width: 800px;
         line-height: 1.2;
         margin: 0 auto;
+        padding: 0 $spacing-xl;
 
         @include respond-to("md") {
           max-width: 600px;
@@ -44,7 +45,10 @@
         @include respond-to("sm") {
           max-width: 400px;
           font-size: 2.5rem;
-          padding: 0 $spacing-md;
+        }
+
+        @include respond-to("xs") {
+          font-size: 2.2rem;
         }
       }
 
@@ -96,7 +100,7 @@
     font-size: $font-size-sm;
     min-width: 100px;
 
-    @include respond-to("sm") {
+    @include respond-to("xs") {
       display: none;
     }
   }
@@ -140,6 +144,7 @@
   text-transform: uppercase;
   border-radius: $border-radius-lg;
   min-width: 175px;
+  
   @include respond-to("lg") {
     padding: $spacing-sm $spacing-xs;
     gap: $spacing-xs;
@@ -258,5 +263,17 @@
         transform: translateY(-2px);
       }
     }
+  }
+}
+
+.titleContainer {
+  @include respond-to("xs") {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.socialButtons {
+  @include respond-to("xs") {
+    display: none;
   }
 }

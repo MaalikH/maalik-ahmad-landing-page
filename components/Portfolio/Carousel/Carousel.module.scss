@@ -3,12 +3,31 @@
 .carouselContainer {
     width: 100%;
     height: auto; /* Adjust height based on your layout */
-    overflow: hidden; /* Prevent overflow */
-    padding: $spacing-lg 0;
+    overflow: visible;
+    padding: $spacing-lg $spacing-lg;
+
+    @include respond-to("xs") {
+      padding: $spacing-sm $spacing-sm;
+    }
 }
 
 .swiperWrapper {
   :global {
+    .swiper {
+      overflow: visible;
+      margin: 0 -#{$spacing-lg};
+      padding: 0 $spacing-lg;
+
+      @include respond-to("xs") {
+        margin: 0 -#{$spacing-sm};
+        padding: 0 $spacing-sm;
+      }
+    }
+
+    .swiper-wrapper {
+      overflow: visible;
+    }
+
     .swiper-button-next,
     .swiper-button-prev {
       color: $black;
@@ -18,6 +37,12 @@
       border-radius: 50%;
       transition: all 0.3s ease;
 
+      @include respond-to("xs") {
+        width: 32px;
+        height: 32px;
+        top: 50%;
+      }
+
       &:hover {
         background: $white;
         transform: scale(1.1);
@@ -25,6 +50,10 @@
 
       &::after {
         font-size: $font-size-sm;
+
+        @include respond-to("xs") {
+          font-size: $font-size-xs;
+        }
       }
     }
 
@@ -56,12 +85,23 @@
   @include respond-to("sm") {
     height: 450px;
   }
+
+  @include respond-to("xs") {
+    height: 280px;
+    border-radius: $border-radius-md;
+    @include hover-scale(1);
+  }
 }
 
 .slideImage {
   object-fit: cover;
   border-radius: $border-radius-lg;
   @include hover-scale(1.05);
+
+  @include respond-to("xs") {
+    border-radius: $border-radius-md;
+    @include hover-scale(1);
+  }
 }
   
   

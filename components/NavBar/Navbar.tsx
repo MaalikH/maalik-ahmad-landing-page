@@ -1,6 +1,8 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
@@ -61,6 +63,20 @@ const Navbar = () => {
               </button>
             </li>
           </ul>
+          <div className={styles.socialLinks}>
+            <a href="https://github.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+              <FaGithub />
+            </a>
+            <a href="https://linkedin.com/in/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+              <FaLinkedin />
+            </a>
+            <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+              <FaXTwitter />
+            </a>
+            <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+              <FaInstagram />
+            </a>
+          </div>
         </div>
       </div>
     </nav>

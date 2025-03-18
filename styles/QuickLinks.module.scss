@@ -5,7 +5,7 @@
   min-height: 100vh;
   background-color: #121212;
   color: $white;
-  padding: $spacing-medium;
+  padding: $spacing-md;
 }
 
 .title {
@@ -19,7 +19,7 @@
   align-items: center;
   min-height: 60vh;
   text-align: center;
-  padding: $spacing-large 0;
+  padding: $spacing-xl 0;
 
   .heroContent {
     max-width: 600px;
@@ -29,7 +29,7 @@
   .profileImage {
     width: 150px;
     height: 150px;
-    margin: 0 auto $spacing-medium;
+    margin: 0 auto $spacing-md;
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid $primary-color;
@@ -42,21 +42,21 @@
   }
 
   h1 {
-    font-size: $font-size-xlarge;
-    margin-bottom: $spacing-small;
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-sm;
     font-weight: 700;
   }
 
   .subtitle {
-    font-size: $font-size-medium;
+    font-size: $font-size-lg;
     color: rgba($white, 0.8);
-    margin-bottom: $spacing-medium;
+    margin-bottom: $spacing-md;
   }
 
   .socialLinks {
     display: flex;
     justify-content: center;
-    gap: $spacing-medium;
+    gap: $spacing-md;
 
     a {
       color: $white;
@@ -80,19 +80,19 @@
 .nav {
   display: flex;
   justify-content: center;
-  gap: $spacing-small;
-  margin-bottom: $spacing-large;
-  padding: 0 $spacing-small;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-xl;
+  padding: 0 $spacing-sm;
 
   .tab {
     background: transparent;
     border: none;
     color: rgba($white, 0.6);
-    padding: $spacing-small $spacing-medium;
-    font-size: $font-size-small;
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-sm;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: $border-radius-medium;
+    border-radius: $border-radius-md;
 
     &:hover {
       color: $white;
@@ -109,13 +109,13 @@
 .main {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 $spacing-small;
+  padding: 0 $spacing-sm;
 }
 
 .projects {
   display: flex;
   flex-direction: column;
-  gap: $spacing-medium;
+  gap: $spacing-md;
 }
 
 .projectCard {
@@ -128,47 +128,64 @@
   }
 
   img {
-    border-radius: $border-radius-large;
+    border-radius: $border-radius-lg;
   }
 }
 
 .contact {
   text-align: center;
-  padding: $spacing-large 0;
+  padding: $spacing-xl 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h2 {
-    margin-bottom: $spacing-medium;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-2xl;
   }
 
   .contactForm {
     display: flex;
     flex-direction: column;
-    gap: $spacing-small;
+    gap: $spacing-sm;
+    width: 100%;
     max-width: 400px;
-    margin: 0 auto $spacing-medium;
+    margin: 0 auto;
 
-    input {
-      padding: $spacing-small;
-      border-radius: $border-radius-medium;
+    input, textarea {
+      padding: $spacing-sm;
+      border-radius: $border-radius-md;
       border: 1px solid rgba($white, 0.1);
-      background: rgba($white, 0.05);
+      background: transparent;
       color: $white;
-      font-size: $font-size-small;
+      font-size: $font-size-sm;
+      width: 100%;
 
       &::placeholder {
         color: rgba($white, 0.5);
       }
+
+      &:focus {
+        outline: none;
+        border-color: rgba($white, 0.3);
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
     }
   }
 
   .subscribeButton,
   .contactButton {
     display: inline-block;
-    padding: $spacing-small $spacing-medium;
-    border-radius: $border-radius-medium;
-    font-size: $font-size-small;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
     text-decoration: none;
     transition: all 0.3s ease;
+    width: 100%;
   }
 
   .subscribeButton {
@@ -183,24 +200,26 @@
     }
   }
 
-  .contactButton {
-    background: transparent;
-    color: $white;
-    border: 1px solid rgba($white, 0.2);
+  @include respond-to("xs") {
+    padding: $spacing-lg 0;
+    
+    h2 {
+      margin-bottom: $spacing-sm;
+      font-size: $font-size-xl;
+    }
 
-    &:hover {
-      background: rgba($white, 0.1);
-      transform: translateY(-2px);
+    .contactForm {
+      gap: $spacing-xs;
     }
   }
 }
 
 .about {
   text-align: center;
-  padding: $spacing-large 0;
+  padding: $spacing-xl 0;
 
   h2 {
-    margin-bottom: $spacing-medium;
+    margin-bottom: $spacing-md;
   }
 
   p {
@@ -215,7 +234,7 @@
 @include respond-to("sm") {
   .hero {
     min-height: 50vh;
-    padding: $spacing-medium 0;
+    padding: $spacing-md 0;
 
     .profileImage {
       width: 120px;
@@ -223,21 +242,21 @@
     }
 
     h1 {
-      font-size: $font-size-large;
+      font-size: $font-size-xl;
     }
 
     .subtitle {
-      font-size: $font-size-small;
+      font-size: $font-size-sm;
     }
   }
 
   .nav {
     flex-wrap: wrap;
-    gap: $spacing-xsmall;
+    gap: $spacing-xs;
 
     .tab {
-      padding: $spacing-xsmall $spacing-small;
-      font-size: $font-size-xsmall;
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-xs;
     }
   }
 
@@ -250,16 +269,16 @@
 
 @include respond-to("xs") {
   .container {
-    padding: $spacing-small;
+    padding: $spacing-sm;
   }
 
   .hero {
     min-height: 40vh;
-    padding: $spacing-small 0;
+    padding: $spacing-sm 0;
   }
 
   .socialLinks {
-    gap: $spacing-small;
+    gap: $spacing-sm;
 
     a {
       font-size: 1.2rem;
@@ -268,8 +287,36 @@
 
   .nav {
     .tab {
-      padding: $spacing-xsmall;
-      font-size: $font-size-xsmall;
+      padding: $spacing-xs;
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.quickLinks {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $spacing-md;
+  z-index: 100;
+  
+  .quickLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: $spacing-xs 0;
+    background-color: rgba($black, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: $border-radius-lg;
+    color: $white;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: rgba($white, 0.1);
+      transform: translateX(-2px);
     }
   }
 } 

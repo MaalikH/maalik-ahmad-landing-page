@@ -1,17 +1,16 @@
 import { memo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Mousewheel } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import type { RefObject } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import Link from "next/link";
-import classNames from "classnames";
+import styles from "./Carousel.module.scss";
 
 // Styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import styles from "./Carousel.module.scss";
 
 // Types
 import type { Project } from "../portfolio";
@@ -23,37 +22,43 @@ export interface CarouselProps {
 }
 
 const SWIPER_CONFIG = {
-  modules: [Mousewheel, Navigation, Pagination],
+  modules: [Navigation, Pagination],
   spaceBetween: 20,
   slidesPerView: 1.1,
   navigation: true,
-  freeMode: false,
-  mousewheel: {
-    forceToAxis: true,
-    sensitivity: 1,
-  },
   speed: 500,
-} as const;
+  allowTouchMove: true,
+  preventInteractionOnTransition: false,
+  touchRatio: 1,
+  pagination: {
+    clickable: true,
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+    768: {
+      slidesPerView: 1.1,
+      spaceBetween: 20,
+    },
+  },
+};
 
 const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects }: CarouselProps) => {
   const handleSwiperReady = useCallback((swiper: SwiperType) => {
     swiperInstanceRef.current = swiper;
-
-    swiper.on("progress", () => {
-      // Handle progress updates if needed
-    });
-
     onSwiperReady?.(swiper);
   }, [swiperInstanceRef, onSwiperReady]);
 
   return (
-    <div className={classNames(styles.carouselContainer, "container")}>
+    <div className={styles.carouselContainer}>
       <div className={styles.swiperWrapper}>
         <Swiper
           {...SWIPER_CONFIG}
           onSwiper={handleSwiperReady}
         >
-          {featuredProjects.map((project) => (
+          {featuredProjects.map((project, index) => (
             <SwiperSlide key={project.id}>
               <div className={styles.slideContainer}>
                 <Link
@@ -62,11 +67,14 @@ const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects }: C
                   rel="noopener noreferrer"
                 >
                   <Image
-                    fill
                     src={project.image}
                     alt={project.title}
                     className={styles.slideImage}
-                    priority={project.id === featuredProjects[0].id}
+                    fill
+                    loading={index <= 1 ? "eager" : "lazy"}
+                    priority={index <= 1}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    quality={90}
                   />
                 </Link>
               </div>

@@ -7,10 +7,23 @@
   text-align: left;
   padding: $spacing-sm;
   height: 100%;
+  width: 90%;
+  margin: 0 auto;
+
+  @include respond-to("sm") {
+    width: 85%;
+    padding: $spacing-sm 0;
+  }
 
   @include respond-to("xs") {
-    padding: 0;
+    width: 85%;
+    padding: $spacing-xs 0;
     overflow: hidden;
+  }
+
+  .row {
+    width: 100%;
+    margin: 0;
   }
 
   h1 {
@@ -38,10 +51,51 @@
     position: relative;
     width: 75%;
     height: 500px;
+    display: block;
+    margin: 0 auto;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+
+    @include respond-to("md") {
+      width: 85%;
+      height: 400px;
+    }
+
+    @include respond-to("sm") {
+      width: 90%;
+      height: 350px;
+    }
 
     @include respond-to("xs") {
-      height: 250px;
-      margin-bottom: 20px;
+      display: none;
+    }
+
+    img {
+      object-fit: cover;
+      border-radius: $border-radius-lg;
+    }
+  }
+
+  .mobileAvatar {
+    display: none;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto $spacing-sm;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid $primary-color;
+    position: relative;
+    background-color: $white;
+
+    @include respond-to("xs") {
+      display: block;
+    }
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+      position: relative !important;
     }
   }
 
@@ -51,8 +105,15 @@
     align-content: center;
     gap: $spacing-md;
     margin-bottom: $spacing-sm;
+    
     @include respond-to("sm") {
       gap: $spacing-sm;
+    }
+
+    @include respond-to("xs") {
+      flex-wrap: nowrap;
+      gap: $spacing-xs;
+      margin: $spacing-md 0;
     }
   }
 
@@ -62,20 +123,43 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-xs;
+    text-align: left;
 
-    &:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      right: -10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 50%;
-      background-color: $gray-light;
+    @include respond-to("xs") {
+      text-align: center;
+      
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: -$spacing-xs;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 40%;
+        background-color: $gray-light;
+        opacity: 0.5;
+      }
     }
 
     h1 {
       margin-bottom: 0;
+      font-size: $font-size-2xl;
+      text-align: left;
+
+      @include respond-to("xs") {
+        font-size: $font-size-lg;
+        text-align: center;
+      }
+    }
+
+    h5 {
+      text-align: left;
+      font-size: $font-size-md;
+
+      @include respond-to("xs") {
+        font-size: $font-size-xs;
+        text-align: center;
+      }
     }
   }
 
@@ -85,6 +169,11 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
+
+    @include respond-to("xs") {
+      padding: $spacing-xs;
+      font-size: 0.8rem;
+    }
   }
   
   .pillBtnActive {
@@ -109,4 +198,16 @@
       transform: scale(1.05);
     }
   }
+}
+
+.divider {
+  margin: 2rem 0;
+  opacity: 0.2;
+}
+
+.description {
+  margin: 2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba($black, 0.8);
 }

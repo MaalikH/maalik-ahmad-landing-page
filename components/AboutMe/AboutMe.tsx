@@ -60,9 +60,21 @@ const AboutMe = ({ content }: Props) => {
             <Image
               src="/maalik-avatar.png"
               alt="Portrait of Maalik Ahmad"
-              style={{ objectFit: "cover" }}  
               fill
-              />
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className={styles.mobileAvatar}>
+            <Image
+              src="/maalik-avatar-ql.png"
+              alt="Portrait of Maalik Ahmad"
+              width={150}
+              height={150}
+              priority
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </motion.div>
 
@@ -95,9 +107,9 @@ const AboutMe = ({ content }: Props) => {
             ))}
           </div>
 
-          <hr />
-          <p>{activeContent.description}</p>
-          <hr />
+          <hr className={styles.divider} />
+          <p className={styles.description}>{activeContent.description}</p>
+          <hr className={styles.divider} />
 
           {activeContent.metrics.length > 0 && (
             <motion.div

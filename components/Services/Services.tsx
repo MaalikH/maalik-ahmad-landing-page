@@ -19,6 +19,7 @@ interface Content {
 interface Props {
   content: Content;
 }
+
 const Services = ({ content }: Props) => {
   return (
     <motion.div
@@ -28,8 +29,10 @@ const Services = ({ content }: Props) => {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
-      <h5>{content.sectionName}</h5>
-      <h1>{content.title}</h1>
+      <div>
+        <h5>{content.sectionName}</h5>
+        <h1>{content.title}</h1>
+      </div>
       <motion.div
         className={styles.serviceCards}
         initial="hidden"
@@ -46,7 +49,7 @@ const Services = ({ content }: Props) => {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: { duration: 0.5 },
+                transition: { duration: 0.5, delay: index * 0.1 },
               },
             }}
           >
@@ -58,7 +61,7 @@ const Services = ({ content }: Props) => {
             </motion.div>
             <div>
               <h3 className={styles.serviceTitle}>{service.title}</h3>
-              <span className="d-none d-sm-block">{service.description}</span>
+              <p className={styles.serviceDescription}>{service.description}</p>
             </div>
           </motion.div>
         ))}
