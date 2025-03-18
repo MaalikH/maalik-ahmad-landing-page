@@ -1,5 +1,6 @@
 @use "../../styles/variables" as *;
 
+/* Local module classes */
 .navBar {
   position: fixed;
   top: 0;
@@ -16,206 +17,197 @@
     padding: $spacing-sm 0;
     background: rgba($black, 0.95);
   }
+}
 
-  .navbarMA {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.navbarMA {
+  composes: container from global;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    @include respond-to("md") {
-      position: relative;
-      justify-content: center;
-    }
+  @include respond-to("md") {
+    position: relative;
+    justify-content: center;
+  }
+}
+
+.navbarBrand {
+  composes: navbar-brand from global;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  @include respond-to("md") {
+    font-size: $font-size-md;
+    text-align: center;
   }
 
-  .navbarBrand {
-    font-size: $font-size-lg;
-    font-weight: 700;
-    color: $white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-
-    @include respond-to("md") {
-      font-size: $font-size-md;
-      text-align: center;
-    }
-
-    &:hover {
-      color: $primary-color;
-      transform: translateY(-1px);
-    }
+  &:hover {
+    color: $primary-color;
+    transform: translateY(-1px);
   }
+}
 
-  :global {
-    .navbar-toggler {
-      border: none;
-      padding: 0;
-      width: 40px;
-      height: 40px;
-      position: relative;
-      background: transparent;
-      outline: none;
+.navbarLinks {
+  composes: navbar-nav ms-auto from global;
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
 
-      @include respond-to("md") {
-        position: absolute;
-        right: $spacing-sm;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      &:focus {
-        box-shadow: none;
-        outline: none;
-      }
-
-      .navbar-toggler-icon {
-        background-image: none;
-        position: relative;
-        transition: all 0.3s ease;
-
-        &::before,
-        &::after,
-        & {
-          width: 24px;
-          height: 2px;
-          background-color: $white;
-          display: block;
-          position: absolute;
-          left: 8px;
-          transition: all 0.3s ease;
-        }
-
-        &::before,
-        &::after {
-          content: '';
-        }
-
-        &::before {
-          top: -8px;
-        }
-
-        &::after {
-          bottom: -8px;
-        }
-      }
-
-      &[aria-expanded="true"] {
-        .navbar-toggler-icon {
-          background-color: transparent;
-
-          &::before {
-            transform: rotate(45deg);
-            top: 0;
-          }
-
-          &::after {
-            transform: rotate(-45deg);
-            bottom: 0;
-          }
-        }
-      }
-    }
-
-    .navbar-collapse {
-      @include respond-to("md") {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: rgba($black, 0.98);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: $spacing-xl $spacing-lg;
-        height: calc(100vh - 60px);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        border-radius: 0;
-        pointer-events: none;
-        
-        &.show {
-          transform: translateY(0);
-          opacity: 1;
-          pointer-events: auto;
-        }
-      }
-    }
+  @include respond-to("md") {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-lg;
+    width: 100%;
+    margin: $spacing-xl 0;
   }
+}
 
-  .navbarLinks {
-    display: flex;
-    gap: $spacing-md;
-    align-items: center;
+.navLink {
+  composes: nav-link from global;
+  color: rgba($white, 0.7);
+  font-size: $font-size-sm;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  padding: $spacing-xs $spacing-sm;
+  cursor: pointer;
 
-    @include respond-to("md") {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: $spacing-lg;
-      width: 100%;
-      margin: $spacing-xl 0;
-    }
-  }
-
-  .navLink {
-    color: rgba($white, 0.7);
-    font-size: $font-size-sm;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    background: none;
-    border: none;
-    padding: $spacing-xs $spacing-sm;
-    cursor: pointer;
-
-    @include respond-to("md") {
-      width: 100%;
-      text-align: left;
-      padding: 0;
-      font-size: $font-size-xl;
-      text-transform: none;
-      letter-spacing: -0.5px;
-      font-weight: 400;
-      
-      &:active {
-        color: $white;
-      }
-    }
-
-    &:hover {
+  @include respond-to("md") {
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    font-size: $font-size-xl;
+    text-transform: none;
+    letter-spacing: -0.5px;
+    font-weight: 400;
+    
+    &:active {
       color: $white;
     }
   }
 
-  .socialLinks {
-    display: none;
+  &:hover {
+    color: $white;
+  }
+}
 
-    @include respond-to("md") {
-      display: flex;
-      justify-content: flex-start;
-      gap: $spacing-md;
-      width: 100%;
-      margin-top: auto;
-      padding-top: $spacing-lg;
-      border-top: 1px solid rgba($white, 0.1);
+.socialLinks {
+  display: none;
 
-      .socialIcon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: rgba($white, 0.7);
-        transition: all 0.3s ease;
-        font-size: $font-size-xl;
+  @include respond-to("md") {
+    display: flex;
+    justify-content: flex-start;
+    gap: $spacing-md;
+    width: 100%;
+    margin-top: auto;
+    padding-top: $spacing-lg;
+    border-top: 1px solid rgba($white, 0.1);
+  }
+}
 
-        &:hover {
-          color: $white;
-          transform: translateY(-2px);
-        }
-      }
+.socialIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba($white, 0.7);
+  transition: all 0.3s ease;
+  font-size: $font-size-xl;
+
+  &:hover {
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+/* Bootstrap overrides */
+.navbarToggler {
+  composes: navbar-toggler from global;
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  background: transparent;
+  outline: none;
+
+  @include respond-to("md") {
+    position: absolute;
+    right: $spacing-sm;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.navbarTogglerIcon {
+  composes: navbar-toggler-icon from global;
+  background-image: none;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &::before,
+  &::after,
+  & {
+    width: 24px;
+    height: 2px;
+    background-color: $white;
+    display: block;
+    position: absolute;
+    left: 8px;
+    transition: all 0.3s ease;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+  }
+
+  &::before {
+    top: -8px;
+  }
+
+  &::after {
+    bottom: -8px;
+  }
+}
+
+.navbarCollapse {
+  composes: collapse navbar-collapse from global;
+
+  @include respond-to("md") {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba($black, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: $spacing-xl $spacing-lg;
+    height: calc(100vh - 60px);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    pointer-events: none;
+
+    &.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 }

@@ -19,9 +19,12 @@ export interface CarouselProps {
 
 const SWIPER_CONFIG = {
   modules: [Navigation],
-  spaceBetween: 20,
+  spaceBetween: 40,
   slidesPerView: 1.1,
-  navigation: true,
+  navigation: {
+    nextEl: `.${styles.swiperButtonNext}`,
+    prevEl: `.${styles.swiperButtonPrev}`,
+  },
   speed: 500,
   allowTouchMove: true,
   preventInteractionOnTransition: false,
@@ -29,11 +32,11 @@ const SWIPER_CONFIG = {
   breakpoints: {
     320: {
       slidesPerView: 1,
-      spaceBetween: 10,
+      spaceBetween: 20,
     },
     768: {
       slidesPerView: 1.1,
-      spaceBetween: 20,
+      spaceBetween: 40,
     },
   },
 };
@@ -44,25 +47,31 @@ const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects, onP
     onSwiperReady?.(swiper);
   }, [swiperInstanceRef, onSwiperReady]);
 
+  if (!featuredProjects?.length) {
+    return null;
+  }
+
   return (
     <div className={styles.carouselContainer}>
       <div className={styles.swiperWrapper}>
         <Swiper
           {...SWIPER_CONFIG}
           onSwiper={handleSwiperReady}
+          className={styles.swiper}
         >
           {featuredProjects.map((project, index) => (
-            <SwiperSlide key={project.id}>
+            <SwiperSlide key={project.id} className={styles.swiperSlide}>
               <div className={styles.slideContainer}>
                 <Link
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => onProjectClick?.(project)}
+                  style={{ position: 'relative', display: 'block', width: '100%', height: '100%' }}
                 >
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={project.title || ''}
                     className={styles.slideImage}
                     fill
                     loading={index <= 1 ? "eager" : "lazy"}
@@ -75,6 +84,8 @@ const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects, onP
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className={styles.swiperButtonPrev} />
+        <div className={styles.swiperButtonNext} />
       </div>
     </div>
   );

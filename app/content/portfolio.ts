@@ -17,7 +17,7 @@ export const portfolioContent = {
       {
         id: "Github",
         title: "Github Main",
-        image: "/githubBG.png",
+        image: "/GithubBG.png",
         link: "https://www.github.com/maalikh",
       },
     ],

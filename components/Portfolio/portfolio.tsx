@@ -31,17 +31,23 @@ export interface PortfolioProps {
 }
 
 const handleProjectClick = (project: Project) => {
-  trackProjectClick(project.title, 'desktop');
+  if (project?.title) {
+    trackProjectClick(project.title, 'desktop');
+  }
 };
 
 const PortfolioMA = memo(({ swiperInstanceRef, onSwiperReady, content }: PortfolioProps) => {
-  const { title, subtitle, projects } = content;
+  const { title, subtitle, projects } = content || {};
+
+  if (!content || !projects?.length) {
+    return null;
+  }
 
   return (
     <div className={classNames("container", styles.portfolioContainer)}>
       <div className={styles.portfolioHeader}>
-        <h5>{title}</h5>
-        <h1>{subtitle}</h1>
+        <h5 className={styles.portfolioTitle}>{title || ''}</h5>
+        <h1 className={styles.portfolioHeading}>{subtitle || ''}</h1>
       </div>
       <div className={styles.portfolioCarousel}>
         <Carousel

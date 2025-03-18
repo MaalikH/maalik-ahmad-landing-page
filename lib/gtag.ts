@@ -7,6 +7,7 @@ export const pageview = (url: string) => {
   if (!GA_MEASUREMENT_ID) return
   sendGAEvent('config', GA_MEASUREMENT_ID, {
     page_path: url,
+    send_page_view: true,
   })
 }
 
@@ -48,7 +49,7 @@ export const trackFormSubmission = (formName: string, success: boolean) => {
   if (!GA_MEASUREMENT_ID) return
   event({
     action: 'form_submission',
-    category: 'Form Interaction',
-    label: `${formName} - ${success ? 'success' : 'failed'}`,
+    category: 'Form',
+    label: `${formName} - ${success ? 'success' : 'failure'}`,
   })
 } 

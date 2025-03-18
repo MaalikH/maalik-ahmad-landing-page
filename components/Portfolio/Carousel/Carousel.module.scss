@@ -12,49 +12,45 @@
 }
 
 .swiperWrapper {
-  :global {
-    .swiper {
-      overflow: visible;
-      margin: 0 -#{$spacing-lg};
-      padding: 0 $spacing-lg;
+  overflow: visible;
+  margin: 0 -#{$spacing-lg};
+  padding: 0 $spacing-lg;
 
-      @include respond-to("xs") {
-        margin: 0 -#{$spacing-sm};
-        padding: 0 $spacing-sm;
-      }
-    }
+  @include respond-to("xs") {
+    margin: 0 -#{$spacing-sm};
+    padding: 0 $spacing-sm;
+  }
+}
 
-    .swiper-wrapper {
-      overflow: visible;
-    }
+.swiperSlide {
+  overflow: visible;
+}
 
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: $black;
-      background: rgba($white, 0.9);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      transition: all 0.3s ease;
+.swiperButtonNext,
+.swiperButtonPrev {
+  color: $black;
+  background: rgba($white, 0.9);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 
-      @include respond-to("xs") {
-        width: 32px;
-        height: 32px;
-        top: 50%;
-      }
+  @include respond-to("xs") {
+    width: 32px;
+    height: 32px;
+    top: 50%;
+  }
 
-      &:hover {
-        background: $white;
-        transform: scale(1.1);
-      }
+  &:hover {
+    background: $white;
+    transform: scale(1.1);
+  }
 
-      &::after {
-        font-size: $font-size-sm;
+  &::after {
+    font-size: $font-size-sm;
 
-        @include respond-to("xs") {
-          font-size: $font-size-xs;
-        }
-      }
+    @include respond-to("xs") {
+      font-size: $font-size-xs;
     }
   }
 }

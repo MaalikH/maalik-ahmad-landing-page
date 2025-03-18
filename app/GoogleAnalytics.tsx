@@ -16,5 +16,19 @@ export default function GoogleAnalytics() {
 
   if (!GA_MEASUREMENT_ID) return null
 
-  return <GA gaId={GA_MEASUREMENT_ID} dataLayerName="dataLayer" />
+  return (
+    <>
+      <GA gaId={GA_MEASUREMENT_ID} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `,
+        }}
+      />
+    </>
+  )
 } 

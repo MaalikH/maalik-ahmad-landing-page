@@ -22,43 +22,43 @@ const Navbar = () => {
 
   return (
     <nav className={classNames("navbar navbar-expand-lg navbar-dark navbar-transparent", styles.navBar)}>
-      <div className={classNames("container", styles.navbarMA)}>
-        <Link className={classNames("navbar-brand", styles.navbarBrand)} href="/">
+      <div className={styles.navbarMA}>
+        <Link className={styles.navbarBrand} href="/">
           MaalikAhmadTech
         </Link>
 
         {/* Hamburger Button */}
         <button
-          className="navbar-toggler"
+          className={styles.navbarToggler}
           type="button"
           onClick={() => setIsCollapsed(!isCollapsed)}
           aria-controls="navbarNav"
           aria-expanded={!isCollapsed}
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className={styles.navbarTogglerIcon}></span>
         </button>
 
         {/* Collapsible Navbar */}
-        <div className={classNames("collapse navbar-collapse", { show: !isCollapsed })} id="navbarNav">
-          <ul className={classNames("navbar-nav ms-auto", styles.navbarLinks)}>
+        <div className={classNames(styles.navbarCollapse, { show: !isCollapsed })} id="navbarNav">
+          <ul className={styles.navbarLinks}>
             <li className="nav-item">
-              <button className={classNames("nav-link", styles.navLink)} onClick={() => handleNavClick("portfolio")}>
+              <button className={styles.navLink} onClick={() => handleNavClick("portfolio")}>
                 Portfolio
               </button>
             </li>
             <li className="nav-item">
-              <button className={classNames("nav-link", styles.navLink)} onClick={() => handleNavClick("aboutMe")}>
+              <button className={styles.navLink} onClick={() => handleNavClick("aboutMe")}>
                 About Me
               </button>
             </li>
             <li className="nav-item">
-              <button className={classNames("nav-link", styles.navLink)} onClick={() => handleNavClick("services")}>
+              <button className={styles.navLink} onClick={() => handleNavClick("services")}>
                 Services
               </button>
             </li>
             <li className="nav-item">
-              <button className={classNames("nav-link", styles.navLink)} onClick={() => handleNavClick("contact")}>
+              <button className={styles.navLink} onClick={() => handleNavClick("contact")}>
                 Contact
               </button>
             </li>

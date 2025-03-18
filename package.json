@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_ENV=development NEXT_TELEMETRY_DISABLED=1 next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +16,7 @@
     "@next/third-parties": "^15.2.3",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
+    "critters": "^0.0.23",
     "framer-motion": "^12.5.0",
     "fullpage.js": "^4.0.32",
     "next": "15.1.5",

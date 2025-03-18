@@ -47,7 +47,9 @@ export default function Home() {
   const handlePortfolioVisibility = useCallback((isVisible: boolean) => {
     setIsPortfolioVisible(isVisible);
     setIsFullpageScrollingEnabled(!isVisible);
-    window.fullpage_api?.setAllowScrolling(!isVisible);
+    if (window.fullpage_api) {
+      window.fullpage_api.setAllowScrolling(!isVisible);
+    }
   }, []);
 
   const handleWheel = useCallback((event: WheelEvent) => {
@@ -72,7 +74,9 @@ export default function Home() {
       (swiper.progress >= 0.95 && scrollDeltaRef.current > BUFFER_SCROLL_THRESHOLD)
     ) {
       setIsFullpageScrollingEnabled(true);
-      window.fullpage_api?.setAllowScrolling(true);
+      if (window.fullpage_api) {
+        window.fullpage_api.setAllowScrolling(true);
+      }
       scrollDeltaRef.current = 0;
     }
   }, [isPortfolioVisible, isFullpageScrollingEnabled]);
@@ -92,8 +96,10 @@ export default function Home() {
     observerRef.current.observe(currentPortfolioRef);
 
     return () => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
     };
   }, [handlePortfolioVisibility]);
 
@@ -140,6 +146,8 @@ export default function Home() {
           href="/maalik-avatar.png" 
           as="image" 
           type="image/png"
+          media="(min-width: 768px)"
+          fetchPriority="high"
         />
         
         {/* Structured Data */}
