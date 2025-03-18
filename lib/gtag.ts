@@ -1,6 +1,10 @@
 import { sendGAEvent } from '@next/third-parties/google'
 
-export const GA_MEASUREMENT_ID = 'G-CEWJZQ90G'
+if (!process.env.NEXT_PUBLIC_GA_ID) {
+  throw new Error('Missing NEXT_PUBLIC_GA_ID environment variable')
+}
+
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
