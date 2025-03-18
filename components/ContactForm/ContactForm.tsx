@@ -24,6 +24,7 @@ const Contact = ({ content }: Props) => {
       console.log(data);
       trackFormSubmission('contact', true);
     } catch (error) {
+      console.error('Form submission failed:', error);
       trackFormSubmission('contact', false);
     }
   };

@@ -14,6 +14,7 @@ export interface CarouselProps {
   swiperInstanceRef: RefObject<SwiperType>;
   onSwiperReady?: (swiper: SwiperType) => void;
   featuredProjects: Project[];
+  onProjectClick?: (project: Project) => void;
 }
 
 const SWIPER_CONFIG = {
@@ -37,7 +38,7 @@ const SWIPER_CONFIG = {
   },
 };
 
-const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects }: CarouselProps) => {
+const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects, onProjectClick }: CarouselProps) => {
   const handleSwiperReady = useCallback((swiper: SwiperType) => {
     swiperInstanceRef.current = swiper;
     onSwiperReady?.(swiper);
@@ -57,6 +58,7 @@ const Carousel = memo(({ swiperInstanceRef, onSwiperReady, featuredProjects }: C
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => onProjectClick?.(project)}
                 >
                   <Image
                     src={project.image}

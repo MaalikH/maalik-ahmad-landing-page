@@ -48,6 +48,7 @@ const PortfolioMA = memo(({ swiperInstanceRef, onSwiperReady, content }: Portfol
           swiperInstanceRef={swiperInstanceRef}
           onSwiperReady={onSwiperReady}
           featuredProjects={projects}
+          onProjectClick={handleProjectClick}
         />
       </div>
     </div>
