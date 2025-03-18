@@ -30,7 +30,7 @@ interface SectionAnchor {
 // Constants
 const SCROLL_SENSITIVITY = 1.25;
 const BUFFER_SCROLL_THRESHOLD = 35;
-const MAX_SCROLL_SPEED = 200;
+const MAX_SCROLL_SPEED = 75;
 const SCROLL_ANIMATION_DURATION = 400;
 
 export default function Home() {
