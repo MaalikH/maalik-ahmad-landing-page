@@ -56,17 +56,6 @@
         }
       }
     }
-
-    .swiper-pagination-bullet {
-      background: $black;
-      opacity: 0.5;
-      transition: all 0.3s ease;
-
-      &-active {
-        opacity: 1;
-        transform: scale(1.2);
-      }
-    }
   }
 }
 

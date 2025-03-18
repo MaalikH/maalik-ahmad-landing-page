@@ -13,7 +13,6 @@
     align-items: center;
     position: relative;
     @include respond-to("sm") {
-      flex-direction: column;
     }
 
     .heroMainContent {

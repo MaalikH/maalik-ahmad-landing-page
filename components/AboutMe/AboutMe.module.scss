@@ -61,12 +61,8 @@
       height: 400px;
     }
 
-    @include respond-to("sm") {
-      width: 90%;
-      height: 350px;
-    }
 
-    @include respond-to("xs") {
+    @include respond-to("sm") {
       display: none;
     }
 
@@ -87,7 +83,7 @@
     position: relative;
     background-color: $white;
 
-    @include respond-to("xs") {
+    @include respond-to("sm") {
       display: block;
     }
 

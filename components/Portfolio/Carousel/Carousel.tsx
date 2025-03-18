@@ -1,18 +1,13 @@
 import { memo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import type { RefObject } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Carousel.module.scss";
-
-// Styles
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-// Types
 import type { Project } from "../portfolio";
 
 export interface CarouselProps {
@@ -22,7 +17,7 @@ export interface CarouselProps {
 }
 
 const SWIPER_CONFIG = {
-  modules: [Navigation, Pagination],
+  modules: [Navigation],
   spaceBetween: 20,
   slidesPerView: 1.1,
   navigation: true,
@@ -30,9 +25,6 @@ const SWIPER_CONFIG = {
   allowTouchMove: true,
   preventInteractionOnTransition: false,
   touchRatio: 1,
-  pagination: {
-    clickable: true,
-  },
   breakpoints: {
     320: {
       slidesPerView: 1,

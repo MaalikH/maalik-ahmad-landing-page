@@ -10,12 +10,12 @@
   margin: 0 auto;
   padding: $spacing-2xl 0;
 
-  @include respond-to("sm") {
+  @include respond-to("md") {
     width: 85%;
     padding: $spacing-xl 0;
   }
 
-  @include respond-to("xs") {
+  @include respond-to("sm") {
     width: 85%;
     padding: $spacing-lg 0;
   }
@@ -24,11 +24,11 @@
     width: 100%;
     padding: $spacing-xl $spacing-lg;
 
-    @include respond-to("sm") {
+    @include respond-to("md") {
       padding: $spacing-lg;
     }
 
-    @include respond-to("xs") {
+    @include respond-to("sm") {
       padding: $spacing-md 0;
     }
 
@@ -36,7 +36,7 @@
       text-align: center;
       margin-bottom: 50px;
 
-      @include respond-to("xs") {
+      @include respond-to("sm") {
         margin-bottom: $spacing-lg;
       }
     }
@@ -45,7 +45,7 @@
       margin-top: $spacing-xl;
       width: 100%;
 
-      @include respond-to("xs") {
+      @include respond-to("sm") {
         margin-top: $spacing-lg;
       }
 
@@ -55,7 +55,7 @@
         gap: $spacing-lg;
         width: 100%;
 
-        @include respond-to("xs") {
+        @include respond-to("sm") {
           gap: $spacing-md;
         }
       }
@@ -66,7 +66,7 @@
         gap: $spacing-md;
         width: 100%;
 
-        @include respond-to("xs") {
+        @include respond-to("sm") {
           gap: $spacing-sm;
         }
       }
@@ -82,7 +82,7 @@
           font-size: $font-size-md;
           background: transparent;
 
-          @include respond-to("xs") {
+          @include respond-to("sm") {
             padding: $spacing-sm;
             font-size: $font-size-sm;
           }
@@ -101,7 +101,7 @@
           min-height: 120px;
           resize: vertical;
           
-          @include respond-to("xs") {
+          @include respond-to("sm") {
             min-height: 100px;
           }
         }
@@ -126,7 +126,7 @@
       font-weight: 600;
       text-align: center;
 
-      @include respond-to("xs") {
+      @include respond-to("sm") {
         font-size: $font-size-xl;
         margin-bottom: $spacing-sm;
       }
@@ -140,7 +140,7 @@
       text-align: center;
       margin: 0 auto $spacing-lg;
 
-      @include respond-to("xs") {
+      @include respond-to("sm") {
         font-size: $font-size-md;
         margin-bottom: $spacing-md;
         line-height: 1.4;
@@ -161,7 +161,7 @@
     font-weight: 600;
     font-size: $font-size-md;
 
-    @include respond-to("xs") {
+    @include respond-to("sm") {
       padding: $spacing-sm;
       font-size: $font-size-sm;
     }
