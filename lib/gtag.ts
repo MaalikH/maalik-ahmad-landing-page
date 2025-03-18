@@ -1,13 +1,10 @@
 import { sendGAEvent } from '@next/third-parties/google'
 
-if (!process.env.NEXT_PUBLIC_GA_ID) {
-  throw new Error('Missing NEXT_PUBLIC_GA_ID environment variable')
-}
-
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || ''
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
+  if (!GA_MEASUREMENT_ID) return
   sendGAEvent('config', GA_MEASUREMENT_ID, {
     page_path: url,
   })
@@ -20,6 +17,7 @@ export const event = ({ action, category, label, value }: {
   label?: string
   value?: number
 }) => {
+  if (!GA_MEASUREMENT_ID) return
   sendGAEvent('event', action, {
     event_category: category,
     event_label: label,
@@ -29,6 +27,7 @@ export const event = ({ action, category, label, value }: {
 
 // Custom events
 export const trackSectionView = (sectionName: string) => {
+  if (!GA_MEASUREMENT_ID) return
   event({
     action: 'section_view',
     category: 'Section Navigation',
@@ -37,6 +36,7 @@ export const trackSectionView = (sectionName: string) => {
 }
 
 export const trackProjectClick = (projectName: string, platform: 'desktop' | 'quicklinks') => {
+  if (!GA_MEASUREMENT_ID) return
   event({
     action: 'project_click',
     category: 'Project Interaction',
@@ -45,6 +45,7 @@ export const trackProjectClick = (projectName: string, platform: 'desktop' | 'qu
 }
 
 export const trackFormSubmission = (formName: string, success: boolean) => {
+  if (!GA_MEASUREMENT_ID) return
   event({
     action: 'form_submission',
     category: 'Form Interaction',

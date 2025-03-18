@@ -9,10 +9,12 @@ export default function GoogleAnalytics() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (pathname) {
+    if (pathname && GA_MEASUREMENT_ID) {
       pageview(pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ''))
     }
   }, [pathname, searchParams])
+
+  if (!GA_MEASUREMENT_ID) return null
 
   return <GA gaId={GA_MEASUREMENT_ID} dataLayerName="dataLayer" />
 } 
