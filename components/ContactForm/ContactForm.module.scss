@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
 
 .contactContent {
@@ -167,7 +168,7 @@
     }
 
     &:hover {
-      background: darken($primary-color, 10%);
+      background: color.scale($primary-color, $lightness: -10%);
       transform: translateY(-2px);
       box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
     }

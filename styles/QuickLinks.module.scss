@@ -3,6 +3,8 @@
 
 .container {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #121212;
   color: $white;
   padding: $spacing-md;
@@ -119,16 +121,24 @@
 }
 
 .projectCard {
-  display: block;
-  text-decoration: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
   transition: transform 0.3s ease;
+  margin: 0;
+  padding: 0;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: scale(1.02);
   }
 
   img {
-    border-radius: $border-radius-lg;
+    width: 300px;
+    height: auto;
+    display: block;
   }
 }
 
@@ -318,5 +328,45 @@
       background-color: rgba($white, 0.1);
       transform: translateX(-2px);
     }
+  }
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  margin-top: auto;
+}
+
+.desktopLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .desktopLinkIcon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .desktopLinkIcon {
+    transform: translate(2px, -2px);
   }
 } 
