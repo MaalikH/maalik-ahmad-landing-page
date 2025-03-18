@@ -120,7 +120,7 @@
       }
     }
 
-    h3 {
+    .title {
       font-size: $font-size-2xl;
       margin-bottom: $spacing-md;
       color: $black;
@@ -133,7 +133,7 @@
       }
     }
 
-    p {
+    .description {
       font-size: $font-size-lg;
       line-height: 1.6;
       color: rgba($black, 0.7);
@@ -141,11 +141,8 @@
       text-align: center;
       margin: 0 auto $spacing-lg;
 
-      @include respond-to("sm") {
-        font-size: $font-size-md;
-        margin-bottom: $spacing-md;
-        line-height: 1.4;
-        max-width: 100%;
+      @include respond-to("xs") {
+        display: none;
       }
     }
   }

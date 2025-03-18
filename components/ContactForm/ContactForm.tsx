@@ -8,7 +8,14 @@ interface FormData {
   message: string;
 }
 
-const ContactForm = () => {
+interface Props {
+  content: {
+    title: string;
+    description: string;
+  };
+}
+
+const Contact = ({ content }: Props) => {
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
@@ -24,11 +31,8 @@ const ContactForm = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h3>Let&apos;s Connect</h3>
-          <p>
-            Have a project in mind? Looking to partner or work together? Reach out
-            through the form below and I&apos;ll get back to you in the next 24-48 hours.
-          </p>
+          <h3 className={styles.title}>{content.title}</h3>
+          <p className={styles.description}>{content.description}</p>
         </motion.div>
         
         <motion.div 
@@ -71,4 +75,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default Contact;

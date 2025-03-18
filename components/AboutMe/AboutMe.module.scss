@@ -66,6 +66,10 @@
       display: none;
     }
 
+    @include respond-to("xs") {
+      display: none;
+    }
+
     img {
       object-fit: cover;
       border-radius: $border-radius-lg;
@@ -86,6 +90,11 @@
     @include respond-to("sm") {
       display: block;
     }
+
+    @include respond-to("xs") {
+      display: block;
+    }
+
 
     img {
       width: 100% !important;
