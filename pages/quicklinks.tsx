@@ -40,16 +40,16 @@ const QuickLinks = () => {
             <h2 className={styles.title}>Maalik Ahmad</h2>
             <p className={styles.subtitle}>Software Engineer</p>
             <div className={styles.socialLinks}>
-              <a href="https://github.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer">
                 <FaGithub />
               </a>
-              <a href="https://linkedin.com/in/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <a href="https://linkedin.com/in/maalikhornbuckle" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin />
               </a>
-              <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <a href="https://twitter.com/maalikahmadtech" target="_blank" rel="noopener noreferrer">
                 <FaXTwitter />
               </a>
-              <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <a href="https://instagram.com/maalikahmad.tech" target="_blank" rel="noopener noreferrer">
                 <FaInstagram />
               </a>
             </div>

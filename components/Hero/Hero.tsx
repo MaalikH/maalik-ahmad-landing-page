@@ -42,20 +42,23 @@ const Hero = (props: HeroProps) => {
     },
   };
 
+  const emailVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", stiffness: 300, damping: 10, delay: 4 },
+    },
+  };
+
   const scrollArrowVariants = {
     hidden: { opacity: 0, y: -10 },
     visible: {
       opacity: 1,
       y: [0, 10, 0],
       transition: {
-        y: {
-          repeat: Infinity,
-          duration: 2,
-          ease: "easeInOut",
-        },
-        opacity: {
-          duration: 0.5,
-        },
+        repeat: Infinity,
+        duration: 2,
       },
     },
   };
@@ -64,7 +67,15 @@ const Hero = (props: HeroProps) => {
     <div className={styles.heroContainer}>
       <Navbar />
       <div className={classNames("container", styles.heroMA)}>
-        <motion.a href="mailto:someone@example.com" initial="hidden" animate="visible" variants={socialVariants} className={styles.email}>{props.content.email}</motion.a>
+        <motion.a
+          href={`mailto:${props.content.email}`}
+          className={styles.email}
+          initial="hidden"
+          animate="visible"
+          variants={emailVariants}
+        >
+          {props.content.email}
+        </motion.a>
         <div className={styles.heroMainContent}>
           <motion.h1
             className={styles.title}
