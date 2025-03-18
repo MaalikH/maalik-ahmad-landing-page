@@ -8,7 +8,7 @@
   max-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: $spacing-xl;
+  gap: $spacing-sm;
   width: 100%;
 
   @include respond-to("md") {
