@@ -1,6 +1,6 @@
 import { sendGAEvent } from '@next/third-parties/google'
 
-export const GA_MEASUREMENT_ID = 'AIzaSyC2MaCOy9uAGL4RPLuOtOIQ5S1DNOEuLmw'
+export const GA_MEASUREMENT_ID = 'G-CEWJZQ90G'
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
