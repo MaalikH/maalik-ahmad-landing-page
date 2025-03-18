@@ -135,7 +135,12 @@ export default function Home() {
         <meta name="twitter:image" content="/maalik-avatar.png" />
         
         {/* Preload critical assets */}
-        <link rel="preload" href="/maalik-avatar.png" as="image" />
+        <link 
+          rel="preload" 
+          href="/maalik-avatar.png" 
+          as="image" 
+          type="image/png"
+        />
         
         {/* Structured Data */}
         <script

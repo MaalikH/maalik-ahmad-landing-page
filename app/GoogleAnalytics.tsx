@@ -1,22 +1,18 @@
 import { GoogleAnalytics as GA } from '@next/third-parties/google'
 import { GA_MEASUREMENT_ID } from '../lib/gtag'
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { pageview } from '../lib/gtag'
 
 export default function GoogleAnalytics() {
-  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      pageview(url)
+    if (pathname) {
+      pageview(pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ''))
     }
+  }, [pathname, searchParams])
 
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
-
-  return <GA gaId={GA_MEASUREMENT_ID} />
+  return <GA gaId={GA_MEASUREMENT_ID} dataLayerName="dataLayer" />
 } 
