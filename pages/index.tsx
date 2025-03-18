@@ -43,6 +43,9 @@ export default function Home() {
   const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] = useState(true);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
 
+  // Ensure fullpage.js is properly initialized
+  const fullpageLicenseKey = process.env.NEXT_PUBLIC_FULLPAGE_LICENSE || 'GPL3';
+
   // Handlers
   const handlePortfolioVisibility = useCallback((isVisible: boolean) => {
     setIsPortfolioVisible(isVisible);
@@ -176,11 +179,18 @@ export default function Home() {
 
       <ReactFullpage
         credits={{ enabled: false }}
-        licenseKey={process.env.NEXT_PUBLIC_FULLPAGE_LICENSE}
+        licenseKey={fullpageLicenseKey}
         navigation
         anchors={["hero", "portfolio", "aboutMe", "services", "contact"]}
         scrollingSpeed={700}
         afterLoad={handleAfterLoad}
+        onLeave={(_origin, destination) => {
+          // Handle section changes
+          const sectionName = destination.anchor?.toString();
+          if (sectionName) {
+            trackSectionView(sectionName);
+          }
+        }}
         render={() => (
           <ReactFullpage.Wrapper>
             <section className="section container-fluid bg-black">
