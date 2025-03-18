@@ -114,7 +114,46 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Maalik Ahmad | Creative Developer</title>
+        <title>Maalik Ahmad | Creative Developer & Software Engineer</title>
+        <meta name="description" content="Maalik Ahmad (Maalik Hornbuckle) is a creative developer and software engineer specializing in modern web applications and user experiences." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Maalik Ahmad | Creative Developer" />
+        <meta property="og:description" content="Creative developer and software engineer specializing in modern web applications." />
+        <meta property="og:image" content="/maalik-avatar.png" />
+        <meta property="og:url" content="https://maalikahmad.com" />
+        <meta property="og:type" content="website" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Maalik Ahmad | Creative Developer" />
+        <meta name="twitter:description" content="Creative developer and software engineer specializing in modern web applications." />
+        <meta name="twitter:image" content="/maalik-avatar.png" />
+        
+        {/* Preload critical assets */}
+        <link rel="preload" href="/maalik-avatar.png" as="image" />
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Maalik Ahmad Hornbuckle",
+              "alternateName": ["Maalik Ahmad", "Maalik Hornbuckle"],
+              "jobTitle": "Software Engineer",
+              "image": "/maalik-avatar.png",
+              "url": "https://maalikahmad.com",
+              "sameAs": [
+                "https://github.com/maalikahmad",
+                "https://linkedin.com/in/maalikahmad",
+                "https://twitter.com/maalikahmad"
+              ]
+            })
+          }}
+        />
       </Head>
 
       <ReactFullpage

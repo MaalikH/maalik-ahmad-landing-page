@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /quicklinks
+
+# Allow images to be indexed
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+
+# Sitemap
+Sitemap: https://maalikahmad.com/sitemap.xml 
