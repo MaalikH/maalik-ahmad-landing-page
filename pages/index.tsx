@@ -15,6 +15,8 @@ import Swiper from "swiper";
 import GarageFooter from '@/components/Footer/GarageFooter';
 import { trackSectionView } from '../lib/gtag';
 import GoogleAnalytics from '@/app/GoogleAnalytics';
+import { useRouter } from 'next/router';
+import { shouldRedirectToQuickLinks } from '../lib/deviceDetection';
 
 // Types
 interface SectionAnchor {
@@ -32,6 +34,15 @@ const MAX_SCROLL_SPEED = 200;
 const SCROLL_ANIMATION_DURATION = 400;
 
 export default function Home() {
+  const router = useRouter();
+  
+  // Check for mobile redirect
+  useEffect(() => {
+    if (shouldRedirectToQuickLinks()) {
+      router.push('/quicklinks');
+    }
+  }, [router]);
+
   // Refs
   const portfolioRef = useRef<HTMLDivElement>(null);
   const swiperInstanceRef = useRef<Swiper | null>(null);
@@ -134,7 +145,7 @@ export default function Home() {
         <meta property="og:title" content="Maalik Ahmad | Creative Developer" />
         <meta property="og:description" content="Creative developer and software engineer specializing in modern web applications." />
         <meta property="og:image" content="/maalik-avatar.png" />
-        <meta property="og:url" content="https://maalikahmad.com" />
+        <meta property="og:url" content="https://maalikahmad.tech" />
         <meta property="og:type" content="website" />
         
         {/* Twitter */}
@@ -164,7 +175,7 @@ export default function Home() {
               "alternateName": ["Maalik Ahmad", "Maalik Hornbuckle"],
               "jobTitle": "Software Engineer",
               "image": "/maalik-avatar.png",
-              "url": "https://maalikahmad.com",
+              "url": "https://maalikahmad.tech",
               "sameAs": [
                 "https://github.com/maalikh",
                 "https://linkedin.com/in/maalikhornbuckle",

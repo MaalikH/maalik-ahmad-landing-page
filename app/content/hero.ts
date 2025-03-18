@@ -19,5 +19,5 @@ export const heroContent = {
     { platform: "github", url: "https://github.com/maalikh" },
     { platform: "linkedin", url: "https://linkedin.com/in/maalikhornbuckle" }
   ],
-  email: "contact@maalikahmad.com",
+  email: "contact@maalikahmad.tech",
 };

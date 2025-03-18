@@ -10,4 +10,4 @@ Allow: /*.gif$
 Allow: /*.webp$
 
 # Sitemap
-Sitemap: https://maalikahmad.com/sitemap.xml 
+Sitemap: https://maalikahmad.tech/sitemap.xml 

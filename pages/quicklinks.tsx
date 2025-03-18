@@ -7,10 +7,31 @@ import { quickLinksContent } from '@/app/content/quicklinks';
 import Head from 'next/head';
 import { trackProjectClick } from '../lib/gtag';
 import { Project } from '../types/gtag';
+import { useRouter } from 'next/router';
+import { isMobileDevice } from '../lib/deviceDetection';
 
 const QuickLinks = () => {
+  const router = useRouter();
+  
   const handleProjectClick = (project: Project) => {
     trackProjectClick(project.title, 'quicklinks');
+  };
+
+  const handleFullExperienceClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // If on mobile, show a confirmation dialog
+    if (isMobileDevice()) {
+      const confirmed = window.confirm(
+        'The full experience is optimized for desktop devices. Would you like to continue?'
+      );
+      
+      if (!confirmed) return;
+    }
+    
+    // Set flag in localStorage and redirect
+    localStorage.setItem('hasSeenFullExperience', 'true');
+    router.push('/');
   };
 
   return (
@@ -88,6 +109,7 @@ const QuickLinks = () => {
         <footer className={styles.footer}>
           <motion.a 
             href="/"
+            onClick={handleFullExperienceClick}
             className={styles.desktopLink}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
