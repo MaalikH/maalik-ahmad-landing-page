@@ -21,10 +21,10 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
     >
       <div className={styles.footerContent}>
         <div className={styles.socialLinks}>
-          <a href="https://github.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer">
             <FaGithub />
           </a>
-          <a href="https://linkedin.com/in/maalikahmad" target="_blank" rel="noopener noreferrer">
+          <a href="https://linkedin.com/in/maalikhornbuckle" target="_blank" rel="noopener noreferrer">
             <FaLinkedin />
           </a>
           <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">

@@ -14,10 +14,10 @@ export const heroContent = {
     { label: "Hire Me", link: "/contact" },
   ],
   socialLinks: [
-    { platform: "instagram", url: "https://www.instagram.com/maalikahmadtech" },
-    { platform: "twitter", url: "https://www.twitter.com/maalikahmadtech" },
-    { platform: "github", url: "https://www.github.com/maalikh" },
-    { platform: "linkedin", url: "https://www.linkedin.com/in/maalik.hornbuckle" }
+    { platform: "instagram", url: "https://instagram.com/maalikahmadtech" },
+    { platform: "twitter", url: "https://twitter.com/maalikahmadtech" },
+    { platform: "github", url: "https://github.com/maalikh" },
+    { platform: "linkedin", url: "https://linkedin.com/in/maalikhornbuckle" }
   ],
   email: "contact@maalikahmad.com",
 };

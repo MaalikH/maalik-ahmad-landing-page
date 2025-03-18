@@ -166,8 +166,8 @@ export default function Home() {
               "image": "/maalik-avatar.png",
               "url": "https://maalikahmad.com",
               "sameAs": [
-                "https://github.com/maalikahmad",
-                "https://linkedin.com/in/maalikahmad",
+                "https://github.com/maalikh",
+                "https://linkedin.com/in/maalikhornbuckle",
                 "https://twitter.com/maalikahmad"
               ]
             })
