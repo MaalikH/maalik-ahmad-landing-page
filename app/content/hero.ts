@@ -14,7 +14,7 @@ export const heroContent = {
     { label: "Hire Me", link: "/contact" },
   ],
   socialLinks: [
-    { platform: "instagram", url: "https://instagram.com/maalikahmadtech" },
+    { platform: "instagram", url: "https://instagram.com/maalikahmad.tech" },
     { platform: "twitter", url: "https://twitter.com/maalikahmadtech" },
     { platform: "github", url: "https://github.com/maalikh" },
     { platform: "linkedin", url: "https://linkedin.com/in/maalikhornbuckle" }
