@@ -29,8 +29,7 @@ const QuickLinks = () => {
       if (!confirmed) return;
     }
     
-    // Set flag in localStorage and redirect
-    localStorage.setItem('hasSeenFullExperience', 'true');
+    document.cookie = "hasSeenFullExperience=true; path=/";
     router.push('/');
   };
 

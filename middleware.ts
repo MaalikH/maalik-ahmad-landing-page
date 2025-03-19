@@ -13,9 +13,10 @@ export function middleware(request: NextRequest) {
   // Check if user is on mobile
   const userAgent = request.headers.get('user-agent') || '';
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const hasSeenFullExperience = request.cookies.get('hasSeenFullExperience');
 
   // Only redirect mobile users from the homepage to quicklinks
-  if (isMobile && request.nextUrl.pathname === '/') {
+  if (isMobile && request.nextUrl.pathname === '/' && !hasSeenFullExperience) {
     return NextResponse.redirect(new URL('/quicklinks', request.url));
   }
 

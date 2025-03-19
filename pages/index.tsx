@@ -38,7 +38,9 @@ export default function Home() {
   
   // Check for mobile redirect
   useEffect(() => {
-    if (shouldRedirectToQuickLinks()) {
+    const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
+    if (!hasSeenFullExperience && shouldRedirectToQuickLinks()) {
+      console.log('Redirecting to quicklinks');
       router.push('/quicklinks');
     }
   }, [router]);
