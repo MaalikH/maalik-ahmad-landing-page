@@ -18,7 +18,7 @@ export const aboutMeContent = {
       merch: {
         title: "Crafting Culture Through Design and Expression",
         description:
-          "As the founder of [Excuses Don’t Work When the Rent’s Due], I create clothing that tells stories and inspires confidence. My designs blend cultural inspiration with modern aesthetics to deliver pieces that stand out.",
+          "As the founder of 'TBD', I create clothing that tells stories and inspires confidence. My designs blend cultural inspiration with modern aesthetics to deliver pieces that stand out.",
         metrics: [],
       },
     },
