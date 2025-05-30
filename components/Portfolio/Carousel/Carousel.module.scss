@@ -110,7 +110,20 @@
     transform: scale(1.05);
   }
 }
-  
-  
 
-  
+.horizontalScrollWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontalScrollTrack {
+  display: flex;
+  gap: 2rem;
+  scroll-snap-type: x mandatory;
+}
+
+
+

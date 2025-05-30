@@ -1,0 +1,10 @@
+@use "../../styles/variables" as *;
+
+.logoBlack {
+  filter: brightness(0) invert(0);
+}
+
+
+.logoMarqueeContainer {
+    margin-top: $spacing-xl;
+}

@@ -9,9 +9,9 @@
   z-index: 1000;
   padding: $spacing-md 0;
   transition: all 0.3s ease;
-  background: rgba($black, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: $white;
+  // backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px);
 
   @include respond-to("md") {
     padding: $spacing-sm 0;
@@ -35,7 +35,7 @@
   composes: navbar-brand from global;
   font-size: $font-size-lg;
   font-weight: 700;
-  color: $white;
+  color: $black;
   text-decoration: none;
   transition: all 0.3s ease;
 
@@ -67,7 +67,7 @@
 
 .navLink {
   composes: nav-link from global;
-  color: rgba($white, 0.7);
+  color: $black;
   font-size: $font-size-sm;
   font-weight: 500;
   text-transform: uppercase;

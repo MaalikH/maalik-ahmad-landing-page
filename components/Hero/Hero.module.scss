@@ -4,7 +4,8 @@
 .heroContainer {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
+  background-color: white;
 
   .heroMA {
     display: flex;
@@ -30,7 +31,7 @@
       .title {
         font-size: 4.5rem;
         font-weight: bold;
-        color: $white;
+        color: $black;
         max-width: 800px;
         line-height: 1.2;
         margin: 0 auto;
@@ -117,12 +118,11 @@
     .socialIcon {
       width: 50px;
       min-height: 50px;
-      background-color: $gray-dark;
       border-radius: $border-radius-lg;
       display: flex;
+      color: red;
       justify-content: center;
       align-items: center;
-      border: 2px solid $gray-dark;
       transition: transform 0.3s ease-in-out;
 
       &:hover {

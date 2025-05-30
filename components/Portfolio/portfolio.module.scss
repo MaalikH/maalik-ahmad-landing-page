@@ -3,7 +3,7 @@
 .portfolioContainer {
   background-color: $white;
   color: $black;
-  padding: $spacing-2xl 0;
+  padding: $spacing-xl 0;
   min-height: 100vh;
   max-height: 100vh;
   display: flex;
@@ -29,10 +29,10 @@
 }
 
 .portfolioHeader {
-  text-align: center;
+  text-align: left;
   max-width: 800px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
+  margin: 0;
+  padding: 0;
   width: 90%;
 
   @include respond-to("sm") {
@@ -49,8 +49,7 @@
 .portfolioTitle {
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: rgba($black, 0.7);
-  margin-bottom: $spacing-sm;
+  //color: rgba($black, 0.7);
   font-weight: 500;
 
   @include respond-to("xs") {
@@ -70,9 +69,10 @@
 }
 
 .portfolioCarousel {
-  @include flex-center;
+  display: block;
   width: 90%;
-  overflow: initial;
+  overflow-x: auto;
+  overflow-y: hidden;
   margin: 0 auto;
 
   @include respond-to("sm") {

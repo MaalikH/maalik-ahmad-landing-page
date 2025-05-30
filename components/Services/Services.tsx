@@ -1,73 +1,80 @@
+"use client";
+
+import { useRef, createRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGSAP } from "@gsap/react";
+import Lenis from "lenis";
+
 import classNames from "classnames";
 import styles from "./Services.module.scss";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Service {
   title: string;
   description: string;
-  icon: IconDefinition; // FontAwesome icons don't have strict types, but we can improve this later
-}
-
-interface Content {
-  sectionName: string;
-  title: string;
-  services: Service[];
+  icon: IconDefinition;
 }
 
 interface Props {
-  content: Content;
+  content: {
+    sectionName: string;
+    title: string;
+    services: Service[];
+  };
 }
 
-const Services = ({ content }: Props) => {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function Services({ content }: Props) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+  if (cardRefs.current.length !== content.services.length) {
+    cardRefs.current = content.services.map(() => createRef<HTMLDivElement>());
+  }
+
+  useGSAP(() => {
+    // Pin the title
+    gsap.to(titleRef.current, {
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "top top+=120px",
+        end: "+=120",
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        // markers: true,
+      }
+    });
+  }, { scope: sectionRef });
+
   return (
-    <motion.div
-      className={classNames("container", styles.servicesContainer)}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >
-      <div>
-        <h5>{content.sectionName}</h5>
-        <h1>{content.title}</h1>
+    <div ref={sectionRef} className={classNames("container", styles.servicesContainer)}>
+      <div className="text-start mb-16" ref={titleRef}>
+        <h5 className="text-primary/70 tracking-widest uppercase">
+          {content.sectionName}
+        </h5>
+        <h2 className="text-4xl font-semibold">{content.title}</h2>
       </div>
-      <motion.div
-        className={styles.serviceCards}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div className={styles.serviceCards} style={{ gap: '2.5rem' }}>
         {content.services.map((service, index) => (
-          <motion.div
+          <div
             key={index}
             className={classNames("card", styles.serviceCard)}
-            variants={{
-              hidden: { opacity: 0, y: 20, scale: 0.95 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: { duration: 0.5, delay: index * 0.1 },
-              },
-            }}
+            ref={cardRefs.current[index]}
           >
-            <motion.div
-              className={styles.iconContainer}
-              whileHover={{ scale: 1.1 }}
-            >
-              <FontAwesomeIcon className={styles.icon} icon={service.icon} />
-            </motion.div>
             <div>
+              <div className={styles.iconContainer}>
+                <FontAwesomeIcon className={styles.icon} icon={service.icon} />
+              </div>
               <h3 className={styles.serviceTitle}>{service.title}</h3>
               <p className={styles.serviceDescription}>{service.description}</p>
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
-};
-
-export default Services;
+}

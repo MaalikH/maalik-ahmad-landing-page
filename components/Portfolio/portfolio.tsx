@@ -25,8 +25,6 @@ export interface PortfolioContent {
 }
 
 export interface PortfolioProps {
-  swiperInstanceRef: RefObject<SwiperType>;
-  onSwiperReady?: (swiper: SwiperType) => void;
   content: PortfolioContent;
 }
 
@@ -36,7 +34,7 @@ const handleProjectClick = (project: Project) => {
   }
 };
 
-const PortfolioMA = memo(({ swiperInstanceRef, onSwiperReady, content }: PortfolioProps) => {
+const PortfolioMA = memo(({ content }: PortfolioProps) => {
   const { title, subtitle, projects } = content || {};
 
   if (!content || !projects?.length) {
@@ -51,8 +49,6 @@ const PortfolioMA = memo(({ swiperInstanceRef, onSwiperReady, content }: Portfol
       </div>
       <div className={styles.portfolioCarousel}>
         <Carousel
-          swiperInstanceRef={swiperInstanceRef}
-          onSwiperReady={onSwiperReady}
           featuredProjects={projects}
           onProjectClick={handleProjectClick}
         />

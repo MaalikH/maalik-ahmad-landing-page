@@ -96,28 +96,12 @@ const Hero = (props: HeroProps) => {
           {isTypingDone && (
             <>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className={styles.ctaButtonContainer}
-              >
-                {props.content.ctaButtons.map((btn, index) => (
-                  <HeroCTA
-                    key={index}
-                    btnText={btn.label}
-                    btnLink={btn.link}
-                    btnType={index === 0 ? "primary" : "secondary"}
-                    sectionId={index === 0 ? "portfolio" : "contact"}
-                  />
-                ))}
-              </motion.div>
-              <motion.div
                 className={styles.scrollIndicator}
                 initial="hidden"
                 animate="visible"
                 variants={scrollArrowVariants}
               >
-                <FaChevronDown />
+                <FaChevronDown color="black" />
               </motion.div>
             </>
           )}
