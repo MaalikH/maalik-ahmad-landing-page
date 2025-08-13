@@ -1,12 +1,13 @@
 @use "../../styles/variables" as *;
 
 .servicesContainer {
-  padding: $spacing-xl 0;
+  padding: 0 0;
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: center;
+  height: 100vh;
+  justify-content: flex-start; // align items to the top
+  align-items: stretch;
   gap: $spacing-xl;
 
   @include respond-to("md") {
@@ -19,39 +20,55 @@
     gap: $spacing-xs;
   }
 
-  .serviceCards {
-    width: 100%;
-    //max-width: 1200px;
-    margin: 0 auto;
+  .servicesTitleSection {
+    text-align: left;
+    align-items: flex-start;
+    margin-bottom: $spacing-xl;
+  }
+
+  .servicesCardsWrapper {
+    flex: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: stretch;
-    align-items: stretch;
-    gap: 1.5rem;
-    flex-wrap: nowrap;
+    align-items: center; // center cards vertically in available space
+    justify-content: center; // center cards horizontally in container
+    max-width: 1200px;
+    margin: 0 auto;
 
-    @include respond-to("md") {
+    .serviceCards {
+      width: 100%; // allow to shrink/grow within wrapper
+      //max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    @include respond-to("sm") {
-      width: 100%;
-      flex-direction: column;
+      justify-content: stretch;
+      align-items: stretch;
+      gap: 1.5rem;
       flex-wrap: nowrap;
-    }
 
-    @include respond-to("xs") {
-      width: 100%;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      gap: 0.5rem;
+      @include respond-to("md") {
+        flex-direction: row;
+        flex-wrap: nowrap;  // ensure no wrapping for horizontal scroll on medium screens
+        gap: 1rem;
+      }
+
+      // Keep nowrap across small breakpoints
+      @include respond-to("sm") {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+      }
+
+      @include respond-to("xs") {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+      }
     }
   }
 
   .serviceCard {
-    flex: 1 1 0%;
+    flex: 1 0 0; // cards always fill the container equally
     min-width: 0;
     display: flex;
     flex-direction: column;
