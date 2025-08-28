@@ -33,6 +33,12 @@
     color: var(--tertiary-color);
   }
 
+  h4 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--tertiary-color);
+  }
+
   h5 {
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -73,7 +79,7 @@
   .section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    //min-height: 100vh;
     overflow: hidden;
     
     &.container-fluid {
@@ -81,4 +87,8 @@
       margin: 0;
       max-width: none;
     }
+  }
+
+  .logo-black {
+    filter: brightness(0) invert(0);
   }

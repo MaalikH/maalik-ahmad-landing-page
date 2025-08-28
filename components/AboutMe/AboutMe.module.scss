@@ -1,29 +1,80 @@
 @use "../../styles/variables" as *;
 
 .aboutMeContent {
-  display: flex;
-  align-items: center;
+  display: block;
   color: $black;
   text-align: left;
-  padding: $spacing-sm;
-  height: 100%;
-  width: 90%;
-  margin: 0 auto;
-
-  @include respond-to("sm") {
-    width: 85%;
-    padding: $spacing-sm 0;
+  // No default padding - let Bootstrap handle mobile
+  height: 100vh; // Match Services and Portfolio: fixed height creates spacing
+  margin-bottom: $spacing-xl; // Add bottom margin for section spacing
+  
+  // Only apply custom padding for larger screens (tablet and up) if needed
+  @media (min-width: 992px) {
+    // Add any desktop-specific padding here if needed
+  }
+  
+  @include respond-to("md") {
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg; // Title-to-content spacing
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   @include respond-to("xs") {
-    width: 85%;
-    padding: $spacing-xs 0;
-    overflow: hidden;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md; // Title-to-content spacing
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+  }
+
+  .aboutMeHeader {
+    text-align: left;
+    align-items: flex-start;
+    margin-bottom: $spacing-lg;
+    
+    h4.sectionName {
+      color: $primary-color !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      margin-bottom: 0.5rem !important;
+    }
+    
+    h2.title {
+      font-size: 2.5rem !important;
+      font-weight: 600 !important;
+      color: $black !important;
+      margin: 0 !important;
+      line-height: 1.2 !important;
+      
+      @include respond-to("md") {
+        font-size: 2rem !important;
+      }
+      
+      @include respond-to("xs") {
+        font-size: 1.75rem !important;
+      }
+    }
   }
 
   .row {
     width: 100%;
     margin: 0;
+    align-items: flex-start;
+    
+    @include respond-to("md") {
+      flex-direction: column;
+      gap: $spacing-lg;
+    }
+    
+    @include respond-to("xs") {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
   }
 
   h1 {
@@ -106,19 +157,26 @@
 
   .metricContainer {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-content: center;
     gap: $spacing-md;
     margin-bottom: $spacing-sm;
     
-    @include respond-to("sm") {
-      gap: $spacing-sm;
+    @include respond-to("md") {
+      flex-direction: row;
+      justify-content: space-around;
+      gap: $spacing-md;
+      margin: $spacing-lg 0;
+      width: 100%;
     }
 
     @include respond-to("xs") {
-      flex-wrap: nowrap;
-      gap: $spacing-xs;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: $spacing-sm;
       margin: $spacing-md 0;
+      width: 100%;
     }
   }
 
@@ -128,9 +186,15 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-xs;
-    text-align: left;
+    text-align: center;
+
+    @include respond-to("md") {
+      flex: 1 0 0; // Ensure equal width distribution on mobile
+      text-align: center;
+    }
 
     @include respond-to("xs") {
+      flex: 1 0 0; // Ensure equal width distribution on mobile
       text-align: center;
       
       &:not(:last-child)::after {
@@ -148,18 +212,30 @@
 
     h1 {
       margin-bottom: 0;
-      font-size: $font-size-2xl;
-      text-align: left;
+      font-size: 5rem;
+      text-align: center;
+      color: $primary-color;
+      -webkit-text-stroke: 2px $primary-color;
+      text-stroke: 2px $primary-color;
 
       @include respond-to("xs") {
         font-size: $font-size-lg;
         text-align: center;
+        -webkit-text-stroke: 1px $primary-color;
+        text-stroke: 1px $primary-color;
+      }
+      
+      span {
+        -webkit-text-stroke: none;
+        text-stroke: none;
+        color: $primary-color;
       }
     }
 
     h5 {
-      text-align: left;
-      font-size: $font-size-md;
+      text-align: center;
+      font-size: $font-size-xl;
+      color: $primary-color;
 
       @include respond-to("xs") {
         font-size: $font-size-xs;
@@ -215,4 +291,26 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: rgba($black, 0.8);
+  
+  @include respond-to("md") {
+    margin: $spacing-md 0;
+    font-size: 1rem;
+  }
+  
+  @include respond-to("xs") {
+    margin: $spacing-sm 0;
+    font-size: 0.95rem;
+  }
+}
+
+.logoMarqueeWrapper {
+  margin-top: $spacing-xl;
+  
+  @include respond-to("md") {
+    margin-top: $spacing-lg;
+  }
+  
+  @include respond-to("xs") {
+    margin-top: $spacing-md;
+  }
 }

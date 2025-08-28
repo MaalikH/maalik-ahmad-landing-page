@@ -1,7 +1,6 @@
 import styles from "./Hero.module.scss";
 import classNames from "classnames";
 import Navbar from "../NavBar/Navbar";
-import HeroCTA from "./HeroCTA";
 import Link from "next/link";
 import Image from "next/image";
 import { ReactTyped } from "react-typed";
@@ -96,28 +95,12 @@ const Hero = (props: HeroProps) => {
           {isTypingDone && (
             <>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className={styles.ctaButtonContainer}
-              >
-                {props.content.ctaButtons.map((btn, index) => (
-                  <HeroCTA
-                    key={index}
-                    btnText={btn.label}
-                    btnLink={btn.link}
-                    btnType={index === 0 ? "primary" : "secondary"}
-                    sectionId={index === 0 ? "portfolio" : "contact"}
-                  />
-                ))}
-              </motion.div>
-              <motion.div
                 className={styles.scrollIndicator}
                 initial="hidden"
                 animate="visible"
                 variants={scrollArrowVariants}
               >
-                <FaChevronDown />
+                <FaChevronDown color="black" />
               </motion.div>
             </>
           )}

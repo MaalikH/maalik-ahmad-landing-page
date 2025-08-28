@@ -3,89 +3,277 @@
 .portfolioContainer {
   background-color: $white;
   color: $black;
-  padding: $spacing-2xl 0;
-  min-height: 100vh;
-  max-height: 100vh;
+  // Remove padding override - let Bootstrap handle mobile padding
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
-  width: 100%;
+  height: 100vh; // Match Services and About Me: fixed height creates spacing
+  margin-bottom: $spacing-xl; // Add bottom margin for section spacing
+  gap: 0; // Match Services: no gap
+  // Let Bootstrap handle container width and padding on mobile
+  position: relative; // For sticky positioning
+  justify-content: flex-start; // Ensure content starts at the top
+  // Removed all negative margins to see natural positioning
 
   @include respond-to("md") {
-    padding: $spacing-xl 0;
-    gap: $spacing-lg;
-  }
-
-  @include respond-to("sm") {
-    padding: $spacing-lg 0;
-    gap: $spacing-md;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg; // This is the title-to-cards spacing (matches Services)
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   @include respond-to("xs") {
-    padding: $spacing-md 0;
-    gap: $spacing-sm;
-    justify-content: center;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md; // This is the title-to-cards spacing (matches Services)
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+  }
+
+  // Transition states
+  &[aria-hidden="true"] {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+    animation: none !important;
   }
 }
 
 .portfolioHeader {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
-  width: 90%;
+  text-align: left;
+  // Removed max-width and width constraints to match Services
+  margin: 0;
+  padding: 0;
+  // Removed width: 90% and max-width: 800px to match Services
+  transition: position 0.3s ease-out;
 
   @include respond-to("sm") {
-    width: 85%;
+    // Removed width: 85% to match Services
   }
 
   @include respond-to("xs") {
-    width: 85%;
+    // Removed width: 85% to match Services
     padding: 0;
-    margin-bottom: $spacing-xs;
+    margin-bottom: 0; // Match Services: no margin bottom
   }
+
+  // Removed CSS sticky positioning - GSAP will handle this
 }
 
 .portfolioTitle {
+  color: $primary-color;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba($black, 0.7);
-  margin-bottom: $spacing-sm;
-  font-weight: 500;
-
-  @include respond-to("xs") {
-    margin-bottom: $spacing-xs;
-  }
+  margin-bottom: 0.5rem;
 }
 
 .portfolioHeading {
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: $black;
+  margin: 0;
   line-height: 1.2;
-  margin-bottom: $spacing-md;
-
+  
+  @include respond-to("md") {
+    font-size: 2rem;
+  }
+  
   @include respond-to("xs") {
-    margin-bottom: $spacing-sm;
-    font-size: $font-size-2xl;
+    font-size: 1.75rem;
   }
 }
 
 .portfolioCarousel {
-  @include flex-center;
-  width: 90%;
-  overflow: initial;
-  margin: 0 auto;
+  width: 100%;
+}
 
-  @include respond-to("sm") {
-    width: 85%;
+// Stacked Cards Container
+.stackedCardsContainer {
+  position: relative;
+  width: 100%;
+  height: 70vh; // Use viewport height for better centering
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px; // Add 3D perspective
+  
+  @include respond-to("md") {
+    // Mobile: convert to vertical stack with same gap as Services cards
+    height: auto;
+    flex-direction: column;
+    gap: $spacing-md;
+    align-items: stretch;
+    justify-content: flex-start;
+    perspective: none;
   }
-
+  
   @include respond-to("xs") {
-    width: 85%;
+    height: auto;
+    flex-direction: column;
+    gap: $spacing-sm;
+    align-items: stretch;
+    justify-content: flex-start;
+    perspective: none;
   }
 }
 
-.portfolioCarouselItem {
-  width: 734px;
-  height: 490px;
-  border-radius: 20px;
+// Individual stacked card styling
+.stackedCard {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%); // Only center horizontally, let GSAP handle vertical
+  transform-origin: center center; // Ensure scaling happens from center
+  width: 90%; // Increased from 80% for larger size
+  max-width: 1000px; // Increased from 600px for much larger cards
+  
+  @include respond-to("md") {
+    // Mobile: regular positioned cards in vertical stack
+    position: relative !important;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 200px; // Keep proper card height
+    background: $white; // Ensure all cards have white background
+  }
+  
+  @include respond-to("xs") {
+    position: relative !important;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 200px; // Keep proper card height
+    background: $white; // Ensure all cards have white background
+  }
+  
+  // Add shadow and depth - stronger for better stacking visual
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  
+  @include respond-to("md") {
+    // Mobile: no box-shadow, cleaner look
+    box-shadow: none;
+  }
+  
+  @include respond-to("xs") {
+    box-shadow: none;
+  }
+  
+  // Prevent any CSS transitions - GSAP will handle everything
+  transition: none !important;
+  
+  // Ensure proper stacking context
+  isolation: isolate;
+  
+  .projectImage {
+    border-radius: 0; // Remove border radius since card has it
+    display: block; // Ensure no gaps
+    width: 100%;
+    height: 400px; // Fixed height for consistent card sizes
+    object-fit: cover; // Ensure images fill the container without distortion
+  }
+  
+  @include respond-to("md") {
+    .projectImage {
+      border-radius: 0; // Keep card border radius, not image
+      height: 300px; // Fixed height for mobile consistency
+      object-fit: cover;
+    }
+  }
+  
+  @include respond-to("xs") {
+    .projectImage {
+      border-radius: 0; // Keep card border radius, not image
+      height: 300px; // Same height for all mobile sizes
+      object-fit: cover;
+    }
+  }
+}
+
+
+.portfolioCard {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0; // Remove padding since these are just images
+  gap: 0;
+  text-align: left;
+  border-radius: 0; // Remove card border radius
+  border: none;
+  background: transparent; // Remove white background
+  transition: all 0.3s ease-in-out;
+
+  // Remove left padding from first card to align with title
+  &:first-child {
+    padding-left: 0;
+    
+    &:hover {
+      padding-left: 0; // Keep no padding on hover
+    }
+  }
+
+  @include respond-to("md") {
+    padding: 0;
+    gap: 0;
+  }
+
+  @include respond-to("xs") {
+    padding: 0;
+    gap: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &.scrolling {
+    pointer-events: none;
+  }
+  
+  &:hover {
+    background: transparent; // Keep transparent on hover
+    border: none;
+    border-radius: 0;
+    transform: scale(1.02);
+    
+    .projectImage {
+      filter: brightness(0.9);
+    }
+  }
+
+  .projectImage {
+    width: 100%;
+    height: 400px; // Fixed height for consistent card sizes
+    border-radius: $border-radius-md;
+    transition: filter 0.3s ease-in-out;
+    object-fit: cover; // Ensure images fill the container without distortion
+    display: block; // Ensure it displays as a block element
+    
+    @include respond-to("md") {
+      // Mobile: ensure image actually renders with proper dimensions
+      max-width: 100%;
+      height: 300px; // Fixed height for mobile consistency
+      object-fit: cover;
+    }
+    
+    @include respond-to("xs") {
+      max-width: 100%;
+      height: 300px; // Same height for all mobile sizes
+      object-fit: cover;
+    }
+  }
 }

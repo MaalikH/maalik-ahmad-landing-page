@@ -243,7 +243,7 @@
 // Responsive Design
 @include respond-to("sm") {
   .hero {
-    min-height: 50vh;
+    min-height: 40vh;
     padding: $spacing-md 0;
 
     .profileImage {

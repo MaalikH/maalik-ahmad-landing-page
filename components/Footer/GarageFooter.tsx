@@ -2,12 +2,17 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import styles from './GarageFooter.module.scss';
+import { useEffect } from 'react';
 
 interface GarageFooterProps {
   isVisible: boolean;
 }
 
 const GarageFooter = ({ isVisible }: GarageFooterProps) => {
+  useEffect(() => {
+    // console.log('GarageFooter isVisible:', isVisible);
+  }, [isVisible]);
+  
   return (
     <motion.footer 
       className={styles.garageFooter}
@@ -34,7 +39,7 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
             <FaInstagram />
           </a>
         </div>
-        <p className={styles.copyright}>© {new Date().getFullYear()} Maalik Ahmad. All rights reserved.</p>
+        <p className={styles.copyright}>© {new Date().getFullYear()} HBKL Labs. All rights reserved.</p>
       </div>
     </motion.footer>
   );

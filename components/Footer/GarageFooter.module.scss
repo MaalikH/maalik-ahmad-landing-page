@@ -9,13 +9,8 @@
   background-color: $black;
   color: $white;
   z-index: 1000;
-  transform: translateY(100%);
-  transition: transform 0.3s ease-in-out;
   padding: $spacing-sm 0;
-
-  &.visible {
-    transform: translateY(0);
-  }
+  // Removed transform and transition - Framer Motion handles this
 
   .footerContent {
     display: flex;

@@ -1,82 +1,232 @@
 @use "../../styles/variables" as *;
 
 .servicesContainer {
-  padding: $spacing-xl 0;
+  // Remove padding override - let Bootstrap handle mobile padding
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  gap: $spacing-lg;
+  height: 100vh;
+  justify-content: flex-start; // align items to the top
+  align-items: stretch;
+  gap: 0;
+  transition: opacity 0.6s ease-out;
+  margin-bottom: -50vh; // Pull Portfolio section up to eliminate gap
 
   @include respond-to("md") {
-    padding: $spacing-lg 0;
-    gap: $spacing-md;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    justify-content: flex-start;
   }
 
   @include respond-to("xs") {
-    padding: $spacing-sm 0;
-    gap: $spacing-xs;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    justify-content: flex-start;
   }
 
-  .serviceCards {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
-    justify-content: center;
+  // Transition states
+  &.transitioning {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 
-    @include respond-to("md") {
-      grid-template-columns: repeat(2, 1fr);
-      gap: $spacing-sm;
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+    margin-bottom: 0; // Remove negative margin for reduced motion
+  }
+
+  .servicesTitleSection {
+    text-align: left;
+    align-items: flex-start;
+    margin-bottom: 0;
+    
+    .sectionName {
+      color: $primary-color;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
-
-    @include respond-to("sm") {
-      width: 85%;
-      grid-template-columns: 1fr;
+    
+    .title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: $black;
+      margin: 0;
+      line-height: 1.2;
+      
+      @include respond-to("md") {
+        font-size: 2rem;
+      }
+      
+      @include respond-to("xs") {
+        font-size: 1.75rem;
+      }
     }
+  }
 
-    @include respond-to("xs") {
-      width: 85%;
-      grid-template-columns: 1fr;
-      gap: $spacing-xs;
+  .servicesCardsWrapper {
+    display: flex;
+    align-items: flex-start; // Position cards directly after title
+    justify-content: stretch; // Span full width instead of center
+    width: 100%;
+
+    .serviceCards {
+      width: 100%; // allow to shrink/grow within wrapper
+      display: flex;
+      flex-direction: row;
+      justify-content: stretch;
+      align-items: stretch;
+      gap: 1.5rem;
+      flex-wrap: nowrap;
+
+      @include respond-to("md") {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: $spacing-md;
+        width: 100%;
+      }
+
+      @include respond-to("xs") {
+        flex-direction: column;
+        gap: $spacing-sm;
+        width: 100%;
+      }
     }
   }
 
   .serviceCard {
+    flex: 1 0 0; // cards always fill the container equally
+    min-width: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: $spacing-md;
-    gap: $spacing-md;
+    gap: 0;
     text-align: left;
+    
+    // Remove left padding from first card to align with title
+    &:first-child {
+      padding-left: 0;
+      
+      @include respond-to("md") {
+        padding-left: 0; // Keep no left padding on mobile
+      }
+      
+      @include respond-to("xs") {
+        padding-left: 0; // Keep no left padding on mobile
+      }
+      
+      &:hover {
+        padding-left: $spacing-md; // Restore padding on hover (desktop only)
+      }
+    }
+
+    // Default hover state for first card
+    &.firstCardHovered {
+      background: $primary-color;
+      border-radius: 0;
+      padding-left: $spacing-md; // Add proper padding for hovered state
+      
+      .iconContainer {
+        color: $white;
+      }
+      
+      .serviceTitle {
+        color: $white;
+      }
+      
+      .serviceDescription {
+        color: $white;
+      }
+    }
+
+    // Hover state for other cards
+    &.cardHovered {
+      background: $primary-color;
+      border-radius: 0;
+      
+      .iconContainer {
+        color: $white;
+      }
+      
+      .serviceTitle {
+        color: $white;
+      }
+      
+      .serviceDescription {
+        color: $white;
+      }
+    }
     border-radius: $border-radius-lg;
     border: none;
     background: $white;
-    box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease-in-out;
+    // transition: all 0.3s ease-in-out; // Temporarily remove to test scroll conflict
 
     @include respond-to("md") {
-      padding: $spacing-sm;
+      padding: $spacing-md;
       gap: $spacing-sm;
+      flex: none;
+      width: 100%;
+      text-align: left;
+      // Remove hover effects on mobile
+      &:hover {
+        background: $white;
+        .iconContainer, .serviceTitle, .serviceDescription {
+          color: inherit;
+        }
+      }
+      
+      // Remove left padding on all cards for mobile
+      padding-left: 0;
     }
 
     @include respond-to("xs") {
-      padding: $spacing-xs;
+      padding: $spacing-sm;
       gap: $spacing-xs;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      flex: none;
+      width: 100%;
+      text-align: left;
+      // Remove hover effects on mobile
+      &:hover {
+        background: $white;
+        .iconContainer, .serviceTitle, .serviceDescription {
+          color: inherit;
+        }
+      }
+      
+      // Remove left padding on all cards for mobile
+      padding-left: 0;
     }
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: $shadow-lg;
-      background: rgba($white, 0.95);
-
-      @include respond-to("xs") {
-        transform: translateY(-2px);
+    &.scrolling {
+      pointer-events: none;
+    }
+    
+    // Desktop hover effects only
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: $primary-color;
+        border: none;
+        border-radius: 0;
+        
+        .iconContainer {
+          color: $white;
+        }
+        
+        .serviceTitle {
+          color: $white;
+        }
+        
+        .serviceDescription {
+          color: $white;
+        }
       }
     }
 
@@ -84,12 +234,11 @@
       width: 60px;
       height: 60px;
       min-width: 60px;
-      background-color: $primary-color;
-      border-radius: 50%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      color: $white;
+      color: $primary-color;
+      margin-bottom: $spacing-md;
 
       @include respond-to("xs") {
         width: 45px;
@@ -108,7 +257,7 @@
     }
 
     .serviceTitle {
-      margin-bottom: $spacing-xs;
+      margin-bottom: $spacing-sm;
       font-size: $font-size-lg;
       font-weight: 600;
 

@@ -2,184 +2,198 @@
 @use "../../styles/variables" as *;
 
 .contactContent {
+  // No default padding - let Bootstrap handle mobile
+  text-align: left; // Match other sections: left-aligned
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100%;
-  width: 90%;
-  margin: 0 auto;
-  padding: $spacing-2xl 0;
+  height: 100vh; // Match Services, Portfolio, and About Me: fixed height creates spacing
+  justify-content: flex-start; // align items to the top
+  align-items: stretch;
+  gap: 0;
+  transition: opacity 0.6s ease-out;
+
+  // Only apply custom padding for larger screens (tablet and up)
+  @media (min-width: 992px) {
+    padding: 120px 0 0 0; // Desktop pin offset padding
+  }
 
   @include respond-to("md") {
-    width: 85%;
-    padding: $spacing-xl 0;
+    height: auto; // Remove fixed height on mobile
+    min-height: 70vh; // Give enough height to prevent footer overlap
+    gap: $spacing-md;
   }
+
+  @include respond-to("xs") {
+    height: auto; // Remove fixed height on mobile
+    min-height: 70vh; // Give enough height to prevent footer overlap
+    gap: $spacing-xs;
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+  }
+}
+
+.contactHeader {
+  text-align: left;
+  align-items: flex-start;
+  margin-bottom: 0;
+  
+  .sectionName {
+    color: $primary-color;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $black;
+    margin: 0;
+    line-height: 1.2;
+    
+    @include respond-to("md") {
+      font-size: 2rem;
+    }
+    
+    @include respond-to("xs") {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+.description {
+  font-size: $font-size-md;
+  color: $gray-dark;
+  line-height: 1.5;
+  margin: 2rem 0;
+
+  @include respond-to("xs") {
+    font-size: $font-size-sm;
+    line-height: 1.4;
+  }
+}
+
+.ContactForm {
+  margin-top: $spacing-xl;
+  width: 100%;
 
   @include respond-to("sm") {
-    width: 85%;
-    padding: $spacing-lg 0;
+    margin-top: $spacing-lg;
   }
 
-  .contactCard {
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
     width: 100%;
-    padding: $spacing-xl $spacing-lg;
-
-    @include respond-to("md") {
-      padding: $spacing-lg;
-    }
 
     @include respond-to("sm") {
-      padding: $spacing-md 0;
+      gap: $spacing-md;
     }
 
-    .contactTitle {
-      text-align: center;
-      margin-bottom: 50px;
-
-      @include respond-to("sm") {
-        margin-bottom: $spacing-lg;
-      }
-    }
-
-    .ContactForm {
-      margin-top: $spacing-xl;
+    // Button container - prevents button from stretching
+    .buttonContainer {
+      display: flex;
+      justify-content: flex-start; // Left align the button
       width: 100%;
 
       @include respond-to("sm") {
-        margin-top: $spacing-lg;
-      }
-
-      .form {
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-lg;
-        width: 100%;
-
-        @include respond-to("sm") {
-          gap: $spacing-md;
-        }
-      }
-
-      .formGroupContainer {
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-md;
-        width: 100%;
-
-        @include respond-to("sm") {
-          gap: $spacing-sm;
-        }
-      }
-
-      .formGroup {
-        width: 100%;
-
-        input, textarea {
-          padding: $spacing-sm;
-          border-radius: 12px;
-          border: 1px solid rgba($black, 0.1);
-          width: 100%;
-          font-size: $font-size-md;
-          background: transparent;
-
-          @include respond-to("sm") {
-            padding: $spacing-sm;
-            font-size: $font-size-sm;
-          }
-
-          &::placeholder {
-            color: rgba($black, 0.5);
-          }
-
-          &:focus {
-            outline: none;
-            border-color: $primary-color;
-          }
-        }
-
-        textarea {
-          min-height: 120px;
-          resize: vertical;
-          
-          @include respond-to("sm") {
-            min-height: 100px;
-          }
-        }
-      }
-    }
-
-    .mobileHeader {
-      text-align: center;
-      margin-bottom: $spacing-md;
-      
-      p {
-        font-size: $font-size-md;
-        color: rgba($black, 0.7);
-        margin: 0;
-      }
-    }
-
-    .title {
-      font-size: $font-size-2xl;
-      margin-bottom: $spacing-md;
-      color: $black;
-      font-weight: 600;
-      text-align: center;
-
-      @include respond-to("sm") {
-        font-size: $font-size-xl;
-        margin-bottom: $spacing-sm;
-      }
-    }
-
-    .description {
-      font-size: $font-size-lg;
-      line-height: 1.6;
-      color: rgba($black, 0.7);
-      text-align: center;
-      margin: 0 auto $spacing-lg;
-
-      @include respond-to("xs") {
-        display: none;
+        justify-content: stretch; // Full width on mobile
       }
     }
   }
 
-  .CTAButtonPrimary {
-    color: $white;
-    background: $primary-color;
-    border: none;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-    padding: $spacing-sm $spacing-md;
+  .formGroupContainer {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-md;
     width: 100%;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: $font-size-md;
 
     @include respond-to("sm") {
-      padding: $spacing-sm;
-      font-size: $font-size-sm;
-    }
-
-    &:hover {
-      background: color.scale($primary-color, $lightness: -10%);
-      transform: translateY(-2px);
-      box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
+      flex-direction: column;
+      gap: $spacing-sm;
     }
   }
 
-  .CTAButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 32px;
-    gap: 10px;
-    font-size: $font-size-md;
-    font-weight: 600;
-    text-transform: uppercase;
-    border-radius: 20px;
-    min-width: 175px;
+  .formGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    input, textarea {
+      padding: $spacing-sm;
+      border-radius: 12px;
+      border: 1px solid rgba($black, 0.1);
+      width: 100%;
+      font-size: $font-size-md;
+      background: transparent;
+
+      @include respond-to("sm") {
+        padding: $spacing-sm;
+        font-size: $font-size-sm;
+      }
+
+      &::placeholder {
+        color: rgba($black, 0.5);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+
+      // Error state styling
+      &.error {
+        border-color: #dc3545;
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      
+      @include respond-to("sm") {
+        min-height: 100px;
+      }
+    }
+
+    .errorMessage {
+      color: #dc3545;
+      font-size: $font-size-sm;
+      margin-top: 4px;
+      margin-left: 4px;
+    }
+  }
+}
+
+.CTAButtonPrimary {
+  color: $white;
+  background: $primary-color;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  padding: $spacing-sm $spacing-lg; // More horizontal padding for better proportions
+  width: auto; // Let button size itself to content
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: $font-size-md;
+  display: inline-block; // Ensure it doesn't stretch
+  min-width: 140px; // Minimum width to prevent it being too small
+
+  @include respond-to("sm") {
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-sm;
+    width: 100%; // Full width only on mobile
+    display: block; // Block on mobile for full width
+  }
+
+  &:hover {
+    background: color.scale($primary-color, $lightness: -10%);
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 12px rgba(255, 0, 0, 0.8);
   }
 }
