@@ -22,11 +22,11 @@ export const shouldRedirectToQuickLinks = () => {
   const isQuickLinksPage = window.location.pathname === '/quicklinks';
   const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
 
+  // If user has seen full experience, never redirect
+  if (hasSeenFullExperience) return false;
+
   // If on mobile and not already on quicklinks, redirect to quicklinks
   if (isMobile && !isQuickLinksPage) return true;
-
-  // If on quicklinks and has seen full experience, don't redirect
-  if (isQuickLinksPage && hasSeenFullExperience) return false;
 
   return false;
 }; 

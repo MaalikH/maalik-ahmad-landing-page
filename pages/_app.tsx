@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef(null);
 
   useEffect(() => {
     function update(time) {

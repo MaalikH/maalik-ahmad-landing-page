@@ -1,8 +1,5 @@
-"use client";
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import classNames from 'classnames';
 import styles from './LogoMarquee.module.scss';
 
 const LogoMarquee = () => {

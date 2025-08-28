@@ -1,7 +1,7 @@
 import Hero from "../components/Hero/Hero";
 import Head from "next/head";
 import PortfolioMA from "@/components/Portfolio/portfolio";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { aboutMeContent } from "@/app/content/aboutMe";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Services from "@/components/Services/Services";
@@ -15,21 +15,8 @@ import { trackSectionView } from '../lib/gtag';
 import GoogleAnalytics from '@/app/GoogleAnalytics';
 import { useRouter } from 'next/router';
 import { shouldRedirectToQuickLinks } from '../lib/deviceDetection';
-
-// Types
-interface SectionAnchor {
-  anchor: string;
-  index: number;
-  item: HTMLElement;
-  isFirst: boolean;
-  isLast: boolean;
-}
-
-// Constants
-const SCROLL_SENSITIVITY = 1.25;
-const BUFFER_SCROLL_THRESHOLD = 35;
-const MAX_SCROLL_SPEED = 75;
-const SCROLL_ANIMATION_DURATION = 400;
+import { TransitionProvider } from '../context/TransitionContext';
+import ProgressBar from '../components/ProgressBar/ProgressBar';
 
 export default function Home() {
   const router = useRouter();
@@ -46,18 +33,15 @@ export default function Home() {
   // Refs
   const portfolioRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const scrollDeltaRef = useRef(0);
 
   // State
-  const [isPortfolioVisible, setIsPortfolioVisible] = useState(false);
-  const [isFullpageScrollingEnabled, setIsFullpageScrollingEnabled] = useState(true);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  
+  // Debug footer state changes
+  useEffect(() => {
+    console.log('🦶 FOOTER STATE CHANGED TO:', isFooterVisible);
+  }, [isFooterVisible]);
 
-  // Handlers
-  const handlePortfolioVisibility = useCallback((isVisible: boolean) => {
-    setIsPortfolioVisible(isVisible);
-    setIsFullpageScrollingEnabled(!isVisible);
-  }, []);
 
   // Effects
   useEffect(() => {
@@ -66,7 +50,10 @@ export default function Home() {
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        handlePortfolioVisibility(entry.isIntersecting);
+        // Track portfolio visibility for analytics
+        if (entry.isIntersecting) {
+          trackSectionView('portfolio');
+        }
       },
       { threshold: 0.1 }
     );
@@ -79,15 +66,11 @@ export default function Home() {
         observerRef.current = null;
       }
     };
-  }, [handlePortfolioVisibility]);
-
-  const handleAfterLoad = useCallback((origin: SectionAnchor, destination: SectionAnchor) => {
-    setIsFooterVisible(destination.anchor === 'contact');
-    trackSectionView(destination.anchor);
   }, []);
 
   return (
-    <>
+    <TransitionProvider>
+      <ProgressBar />
       <Head>
         <title>Maalik Ahmad | Creative Developer & Software Engineer</title>
         <meta name="description" content="Maalik Ahmad (Maalik Hornbuckle) is a creative developer and software engineer specializing in modern web applications and user experiences." />
@@ -152,13 +135,13 @@ export default function Home() {
         />
       </section>
       <section className="section container-fluid">
-        <AboutMe content={aboutMeContent} />
+        <AboutMe content={aboutMeContent} setIsFooterVisible={setIsFooterVisible} />
       </section>
 
       <section className="section container-fluid">
-        <Contact content={contactContent} />
+        <Contact content={contactContent} setIsFooterVisible={setIsFooterVisible} />
       </section>
       <GarageFooter isVisible={isFooterVisible} />
-    </>
+    </TransitionProvider>
   );
 }

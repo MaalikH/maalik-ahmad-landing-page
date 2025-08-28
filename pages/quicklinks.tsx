@@ -29,7 +29,9 @@ const QuickLinks = () => {
       if (!confirmed) return;
     }
     
+    // Set flag in both cookie and localStorage to ensure consistency
     document.cookie = "hasSeenFullExperience=true; path=/";
+    localStorage.setItem('hasSeenFullExperience', 'true');
     router.push('/');
   };
 

@@ -8,6 +8,8 @@ interface GarageFooterProps {
 }
 
 const GarageFooter = ({ isVisible }: GarageFooterProps) => {
+  console.log('GarageFooter isVisible:', isVisible);
+  
   return (
     <motion.footer 
       className={styles.garageFooter}
@@ -34,7 +36,7 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
             <FaInstagram />
           </a>
         </div>
-        <p className={styles.copyright}>© {new Date().getFullYear()} Maalik Ahmad. All rights reserved.</p>
+        <p className={styles.copyright}>© {new Date().getFullYear()} HBKL Labs. All rights reserved.</p>
       </div>
     </motion.footer>
   );

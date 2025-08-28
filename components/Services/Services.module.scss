@@ -8,36 +8,72 @@
   height: 100vh;
   justify-content: flex-start; // align items to the top
   align-items: stretch;
-  gap: $spacing-xl;
+  gap: 0;
+  transition: opacity 0.6s ease-out;
+  margin-bottom: -50vh; // Pull Portfolio section up to eliminate gap
 
   @include respond-to("md") {
     padding: $spacing-lg 0;
     gap: $spacing-md;
+    margin-bottom: -45vh;
   }
 
   @include respond-to("xs") {
     padding: $spacing-sm 0;
     gap: $spacing-xs;
+    margin-bottom: -40vh;
+  }
+
+  // Transition states
+  &.transitioning {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+    margin-bottom: 0; // Remove negative margin for reduced motion
   }
 
   .servicesTitleSection {
     text-align: left;
     align-items: flex-start;
-    margin-bottom: $spacing-xl;
+    margin-bottom: 0;
+    
+    .sectionName {
+      color: $primary-color;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    
+    .title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: $black;
+      margin: 0;
+      line-height: 1.2;
+      
+      @include respond-to("md") {
+        font-size: 2rem;
+      }
+      
+      @include respond-to("xs") {
+        font-size: 1.75rem;
+      }
+    }
   }
 
   .servicesCardsWrapper {
-    flex: 1;
     display: flex;
-    align-items: center; // center cards vertically in available space
-    justify-content: center; // center cards horizontally in container
-    max-width: 1200px;
-    margin: 0 auto;
+    align-items: flex-start; // Position cards directly after title
+    justify-content: stretch; // Span full width instead of center
+    width: 100%;
 
     .serviceCards {
       width: 100%; // allow to shrink/grow within wrapper
-      //max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       flex-direction: row;
       justify-content: stretch;
@@ -72,13 +108,59 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    padding: 0 0 $spacing-md 0;
+    padding: $spacing-md;
     gap: 0;
     text-align: left;
+    
+    // Remove left padding from first card to align with title
+    &:first-child {
+      padding-left: 0;
+      
+      &:hover {
+        padding-left: $spacing-md; // Restore padding on hover
+      }
+    }
+
+    // Default hover state for first card
+    &.firstCardHovered {
+      background: $primary-color;
+      border-radius: 0;
+      padding-left: $spacing-md; // Add proper padding for hovered state
+      
+      .iconContainer {
+        color: $white;
+      }
+      
+      .serviceTitle {
+        color: $white;
+      }
+      
+      .serviceDescription {
+        color: $white;
+      }
+    }
+
+    // Hover state for other cards
+    &.cardHovered {
+      background: $primary-color;
+      border-radius: 0;
+      
+      .iconContainer {
+        color: $white;
+      }
+      
+      .serviceTitle {
+        color: $white;
+      }
+      
+      .serviceDescription {
+        color: $white;
+      }
+    }
     border-radius: $border-radius-lg;
     border: none;
     background: $white;
-    transition: all 0.3s ease-in-out;
+    // transition: all 0.3s ease-in-out; // Temporarily remove to test scroll conflict
 
     @include respond-to("md") {
       padding: $spacing-sm;
@@ -93,13 +175,25 @@
       text-align: center;
     }
 
+    &.scrolling {
+      pointer-events: none;
+    }
+    
     &:hover {
-      transform: translateY(-5px);
-      //box-shadow: $shadow-lg;
-      background: rgba($white, 0.95);
-
-      @include respond-to("xs") {
-        transform: translateY(-2px);
+      background: $primary-color;
+      border: none;
+      border-radius: 0;
+      
+      .iconContainer {
+        color: $white;
+      }
+      
+      .serviceTitle {
+        color: $white;
+      }
+      
+      .serviceDescription {
+        color: $white;
       }
     }
 
@@ -108,7 +202,7 @@
       height: 60px;
       min-width: 60px;
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       color: $primary-color;
       margin-bottom: $spacing-md;

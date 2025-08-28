@@ -1,7 +1,6 @@
 import styles from "./Hero.module.scss";
 import classNames from "classnames";
 import Navbar from "../NavBar/Navbar";
-import HeroCTA from "./HeroCTA";
 import Link from "next/link";
 import Image from "next/image";
 import { ReactTyped } from "react-typed";
