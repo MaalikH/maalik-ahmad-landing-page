@@ -2,13 +2,16 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import styles from './GarageFooter.module.scss';
+import { useEffect } from 'react';
 
 interface GarageFooterProps {
   isVisible: boolean;
 }
 
 const GarageFooter = ({ isVisible }: GarageFooterProps) => {
-  console.log('GarageFooter isVisible:', isVisible);
+  useEffect(() => {
+    // console.log('GarageFooter isVisible:', isVisible);
+  }, [isVisible]);
   
   return (
     <motion.footer 

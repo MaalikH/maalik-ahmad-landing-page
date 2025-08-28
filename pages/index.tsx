@@ -25,7 +25,6 @@ export default function Home() {
   useEffect(() => {
     const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
     if (!hasSeenFullExperience && shouldRedirectToQuickLinks()) {
-      console.log('Redirecting to quicklinks');
       router.push('/quicklinks');
     }
   }, [router]);
@@ -39,7 +38,7 @@ export default function Home() {
   
   // Debug footer state changes
   useEffect(() => {
-    console.log('🦶 FOOTER STATE CHANGED TO:', isFooterVisible);
+    // console.log('🦶 FOOTER STATE CHANGED TO:', isFooterVisible);
   }, [isFooterVisible]);
 
 

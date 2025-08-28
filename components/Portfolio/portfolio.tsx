@@ -119,11 +119,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       return; // Exit early on mobile
     }
 
-    console.log('🎮 Portfolio: Initializing stacked cards approach');
-    console.log(`🎮 Portfolio: ${projects.length} stacked cards`);
-    
-    if (cardElements.length === 0) return;
-
     // Set initial states for stacked cards - all start below center position
     cardElements.forEach((card, index) => {
       gsap.set(card, { 
@@ -207,11 +202,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       scrub: 0.8, // Smoother scrub value for better control
       markers: false,
       onUpdate: (self) => {
-        console.log('🔄 STACKED CARDS UPDATE:', {
-          progress: Math.round(self.progress * 100) + '%',
-          direction: self.direction === 1 ? 'DOWN' : 'UP',
-          activeCard: Math.floor(self.progress * cardElements.length)
-        });
         
         // Update master timeline based on scroll progress
         if (masterTimelineRef.current) {
@@ -220,15 +210,12 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
         
         // Start transition at 85% progress (like Services section)
         if (self.progress >= 0.85 && !isServicesTransitioning) {
-          console.log('🎬 Portfolio: Starting section transition at 85%');
           startServicesTransition(); // Reuse Services transition context
         }
       },
       onEnter: () => {
-        console.log('🔥 STACKED CARDS: Section pinned');
       },
       onLeave: () => {
-        console.log('🔥 STACKED CARDS: Section unpinned');
       }
     });
 
@@ -249,7 +236,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
 
     // Cleanup function
     return () => {
-      console.log('🎮 Portfolio: Cleaning up stacked cards');
       if (stackedCardsSTRef.current) {
         stackedCardsSTRef.current.kill();
         stackedCardsSTRef.current = null;

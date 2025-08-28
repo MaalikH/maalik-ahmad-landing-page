@@ -70,23 +70,24 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
 
     // If mobile, disable GSAP animations and use simple layout
     if (isMobile) {
-      console.log('📱 AboutMe: Mobile detected - disabling GSAP animations');
-      gsap.set([titleEl, ...Array.from(paragraphsEl.children), logoMarqueeEl], {
-        clearProps: "transform,x,y,scale,rotate",
-        opacity: 1,
-        display: 'block'
+      // Reset all GSAP transforms on mobile - clear any desktop positioning
+      gsap.set([titleEl, ...paragraphsEl.children], { 
+        clearProps: "all",
+        opacity: 1 
       });
-      
-      // Keep metrics container as flex for proper column layout
-      gsap.set(metricsEl, {
-        clearProps: "transform,x,y,scale,rotate",
+      gsap.set(logoMarqueeEl, { 
+        clearProps: "all",
+        opacity: 1 
+      });
+      gsap.set(metricsEl, { 
+        clearProps: "all",
         opacity: 1,
-        display: 'flex'
+        display: 'flex' // Explicitly set display to flex for mobile metrics
       });
       
       // Enable count up immediately on mobile
       setIsMetricInView(true);
-      return;
+      return; // Exit early on mobile
     }
 
     // Get paragraph elements
@@ -165,24 +166,19 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
 
     // Hide footer when user scrolls back into AboutMe from Contact
     if (setIsFooterVisible) {
-      console.log('Creating AboutMe footer ScrollTrigger');
       ScrollTrigger.create({
         trigger: sectionEl,
         start: "top bottom", // When top of AboutMe enters from bottom
         markers: false,
         onEnter: () => {
-          console.log('AboutMe onEnter from bottom - hiding footer');
           setIsFooterVisible(false);
         },
         onEnterBack: () => {
-          console.log('AboutMe onEnterBack - also trying to hide footer');
           setIsFooterVisible(false);
         },
         onLeave: () => {
-          console.log('AboutMe onLeave - user moving away from AboutMe');
         },
         onLeaveBack: () => {
-          console.log('AboutMe onLeaveBack - user scrolling back up from AboutMe');
         }
       });
     }
@@ -207,11 +203,9 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
       if (event.detail.sectionName === 'aboutMe') {
         // Prevent multiple triggers of the same animation
         if (animationTriggered.current) {
-          console.log('AboutMe: Animation already triggered, ignoring');
           return;
         }
         
-        console.log('AboutMe: Instantly completing all animations and scrolling to final position');
         animationTriggered.current = true;
         animationCompleted.current = true;
         
@@ -220,7 +214,6 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
         
         // Immediately scroll to final position
         const scrollToPosition = aboutMePinST.end - 10;
-        console.log(`AboutMe: Scrolling to final position ${scrollToPosition} (pin end: ${aboutMePinST.end})`);
         window.scrollTo({
           top: scrollToPosition,
           behavior: 'smooth'

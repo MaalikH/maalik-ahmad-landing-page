@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useRef, RefObject, useEffect } from 'react';
 
 interface TransitionContextType {
   servicesRef: React.RefObject<HTMLDivElement>;
@@ -27,32 +27,35 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [isServicesTransitioning, setIsServicesTransitioning] = useState(false);
   const [isFeaturedWorksVisible, setIsFeaturedWorksVisible] = useState(false);
 
-  const startServicesTransition = useCallback(() => {
-    console.log('🚀 Starting Services transition');
-    console.log('📍 Services ref:', servicesRef.current);
-    console.log('📍 Featured Works ref:', featuredWorksRef.current);
+  const startServicesTransition = () => {
+    // console.log('🚀 Starting Services transition');
+    // console.log('📍 Services ref:', servicesRef.current);
+    // console.log('📍 Featured Works ref:', featuredWorksRef.current);
     setIsServicesTransitioning(true);
-  }, []);
+    
+    // Simulate transition duration
+    setTimeout(() => {
+      // console.log('✅ Completing Services transition');
+      // console.log('📍 Featured Works will now be fully visible');
+      setIsServicesTransitioning(false);
+      setIsFeaturedWorksVisible(true);
+    }, 1000);
+  };
 
-  const completeServicesTransition = useCallback(() => {
-    console.log('✅ Completing Services transition');
-    console.log('📍 Featured Works will now be fully visible');
+  const completeServicesTransition = () => {
     setIsServicesTransitioning(false);
     setIsFeaturedWorksVisible(true);
-  }, []);
+  };
 
-  const setFeaturedWorksRef = useCallback((ref: React.RefObject<HTMLDivElement>) => {
-    // Store the ref for coordination
-    if (ref.current) {
-      console.log('📌 Featured Works ref registered');
-      console.log('📍 Element:', ref.current);
-      featuredWorksRef.current = ref.current;
-    }
-  }, []);
+  const setFeaturedWorksRef = (ref: React.RefObject<HTMLDivElement>) => {
+    featuredWorksRef.current = ref.current;
+    // console.log('📌 Featured Works ref registered');
+    // console.log('📍 Element:', ref.current);
+  };
 
-  // Debug state changes
+  // Debug transition state
   useEffect(() => {
-    console.log('🔄 Transition state:', { isServicesTransitioning, isFeaturedWorksVisible });
+    // console.log('🔄 Transition state:', { isServicesTransitioning, isFeaturedWorksVisible });
   }, [isServicesTransitioning, isFeaturedWorksVisible]);
 
   const value: TransitionContextType = {

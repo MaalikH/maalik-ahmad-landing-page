@@ -22,55 +22,22 @@ const Navbar = () => {
     if (selector) {
       const section = document.querySelector(selector);
       if (section) {
-        console.log(`Navigating to ${sectionName}:`, section);
-        
         // For Contact, scroll to exact position where ScrollTrigger fires
         if (sectionName === 'contact') {
-          // Calculate the exact position for "top top" (Contact top at viewport top)
-          // But since Contact ScrollTrigger is "top top" (not "top top+=120px"), 
-          // we need Contact top to be exactly at viewport top (scroll position = Contact top)
-          const rect = section.getBoundingClientRect();
-          const currentScrollY = window.scrollY;
-          const sectionTop = rect.top + currentScrollY;
-          
-          // Add a small buffer to ensure ScrollTrigger fires
+          const sectionTop = section.getBoundingClientRect().top;
           const targetPosition = sectionTop + 5; // 5px past "top top" to ensure trigger
           
-          console.log(`Contact: Current scroll: ${currentScrollY}, Contact top: ${sectionTop}`);
-          console.log(`Contact: Scrolling to "top top" + 5px position: ${targetPosition}`);
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
           });
-          // No manual animation trigger - let the natural ScrollTrigger handle it
         } else {
-          // Scroll to section first for other sections
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-          
-          // For AboutMe, trigger animations immediately after scroll starts
-          if (sectionName === 'aboutMe') {
-            // Trigger animations with shorter delay for AboutMe
-            setTimeout(() => {
-              const event = new CustomEvent('completeAnimations', { 
-                detail: { sectionName } 
-              });
-              window.dispatchEvent(event);
-            }, 500); // Shorter delay for AboutMe
-          } else {
-            // Auto-complete animations for other sections after scroll
-            setTimeout(() => {
-              // Trigger a custom event to complete section animations
-              const event = new CustomEvent('completeAnimations', { 
-                detail: { sectionName } 
-              });
-              window.dispatchEvent(event);
-            }, 1000); // Wait for scroll to complete
-          }
+          section.scrollIntoView({ behavior: 'smooth' });
         }
         
         setActiveSection(sectionName); // Set active section
       } else {
-        console.log(`Section not found for ${sectionName} with selector:`, selector);
+        // console.log(`Section not found for ${sectionName} with selector:`, selector);
       }
     }
     setIsCollapsed(true); // Close menu on mobile after clicking a link
@@ -114,7 +81,7 @@ const Navbar = () => {
             }
           }
         } else {
-          console.log(`Section ${section.name} not found with selector: ${section.selector}`);
+          // console.log(`Section ${section.name} not found with selector: ${section.selector}`);
         }
       }
     };

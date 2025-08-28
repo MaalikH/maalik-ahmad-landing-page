@@ -225,8 +225,6 @@ export default function Services({ content }: Props) {
     // Listen for navbar navigation to auto-complete animations
     const handleCompleteAnimations = (event: CustomEvent) => {
       if (event.detail.sectionName === 'services') {
-        console.log('Services: Smoothly animating rail to show all cards');
-        
         // Animate the timeline progress smoothly to 60% (show all cards, no gap movement)
         // This simulates natural scroll behavior
         gsap.to(masterTL, {
