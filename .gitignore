@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+CHROME_EXTENSION_SETUP.md
+claude.code.json
+MCP_SETUP_README.md
+register-mcp.sh
+setup-mcp-chrome.sh
+start-mcp-bridge.sh
+start-mcp-chrome.sh
+summary-1756394474001.md
