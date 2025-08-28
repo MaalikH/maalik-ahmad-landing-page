@@ -2,7 +2,7 @@
 @use "../../styles/variables" as *;
 
 .contactContent {
-  padding: 120px 0 0 0; // Add top padding to match other sections' pin offset
+  // No default padding - let Bootstrap handle mobile
   text-align: left; // Match other sections: left-aligned
   display: flex;
   flex-direction: column;
@@ -12,13 +12,20 @@
   gap: 0;
   transition: opacity 0.6s ease-out;
 
+  // Only apply custom padding for larger screens (tablet and up)
+  @media (min-width: 992px) {
+    padding: 120px 0 0 0; // Desktop pin offset padding
+  }
+
   @include respond-to("md") {
-    padding: $spacing-lg 0;
+    height: auto; // Remove fixed height on mobile
+    min-height: 70vh; // Give enough height to prevent footer overlap
     gap: $spacing-md;
   }
 
   @include respond-to("xs") {
-    padding: $spacing-sm 0;
+    height: auto; // Remove fixed height on mobile
+    min-height: 70vh; // Give enough height to prevent footer overlap
     gap: $spacing-xs;
   }
 

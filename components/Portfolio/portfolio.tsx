@@ -1,4 +1,4 @@
-import { memo, useRef, useEffect, createRef } from "react";
+import { memo, useRef, useEffect, createRef, useState } from "react";
 import classNames from "classnames";
 import { trackProjectClick } from "../../lib/gtag";
 import { useTransition } from "../../context/TransitionContext";
@@ -57,10 +57,22 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
   const masterTimelineRef = useRef<gsap.core.Timeline | null>(null); // Timeline reference for stacked cards animation
   // Stacked cards refs
   const stackedCardsSTRef = useRef<ScrollTrigger | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
 
   if (cardRefs.current.length !== projects?.length) {
     cardRefs.current = projects?.map(() => createRef<HTMLDivElement>()) || [];
   }
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992); // Bootstrap lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Register this component with the transition context
   useEffect(() => {
@@ -72,20 +84,43 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
   //   // Complex wheel hijacking logic removed
   // }, []);
 
-  // STACKED CARDS IMPLEMENTATION with GSAP ScrollTrigger
+  // STACKED CARDS IMPLEMENTATION with GSAP ScrollTrigger (desktop only)
   useGSAP(() => {
+    // Wait until mobile detection is complete
+    if (isMobile === null) return;
+    
     const sectionEl = sectionRef.current;
     const titleEl = titleRef.current;
     
     if (!sectionEl || !titleEl || !projects?.length || cardRefs.current.length === 0) return;
 
-    console.log('🎮 Portfolio: Initializing stacked cards approach');
-    console.log(`🎮 Portfolio: ${projects.length} stacked cards`);
-
     // Get all card elements
     const cardElements = cardRefs.current
       .map(ref => ref.current)
       .filter(Boolean) as HTMLDivElement[];
+    
+    if (cardElements.length === 0) return;
+
+    if (isMobile) {
+      // Reset all GSAP transforms on mobile - clear any desktop positioning
+      gsap.set(sectionEl, { 
+        clearProps: "transform,x,y,scale,rotate",
+        opacity: 1 
+      });
+      gsap.set(titleEl, { 
+        clearProps: "transform,x,y,scale,rotate",
+        opacity: 1 
+      });
+      gsap.set(cardElements, { 
+        clearProps: "transform,x,y,scale,rotate",
+        opacity: 1,
+        display: 'block' // Ensure they're visible
+      });
+      return; // Exit early on mobile
+    }
+
+    console.log('🎮 Portfolio: Initializing stacked cards approach');
+    console.log(`🎮 Portfolio: ${projects.length} stacked cards`);
     
     if (cardElements.length === 0) return;
 
@@ -119,7 +154,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       }
       
       masterTL.to(card, {
-        y: -150, // Move higher up on screen (accounting for top: 50%)
+        y: -200, // Move higher up on screen (increased from -150)
         scale: 1, // Scale up to full size
         duration: 1.2,
         ease: "power2.out"
@@ -165,7 +200,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
     // ScrollTrigger for stacked cards
     stackedCardsSTRef.current = ScrollTrigger.create({
       trigger: sectionEl,
-      start: "top top+=120px",
+      start: "top top+=120px", // Reverted back - this is for title positioning
       end: () => `+=${window.innerHeight * (cardElements.length + 2.5)}`, // Extended to allow natural scroll after fade-out
       pin: sectionEl,
       anticipatePin: 1,
@@ -221,7 +256,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       }
     };
 
-  }, [projects?.length]);
+  }, [projects?.length, isMobile]);
 
   // Initial setup - only run once
   useEffect(() => {
@@ -255,14 +290,18 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
     return null;
   }
 
+  // Don't render until mobile detection is complete to prevent flash
+  if (isMobile === null) {
+    return null;
+  }
+
   return (
     <div
       ref={sectionRef}
-      className={classNames("container-fluid", styles.portfolioContainer)}
+      className={classNames("container", styles.portfolioContainer)}
       aria-hidden={!isFeaturedWorksVisible}
       tabIndex={isFeaturedWorksVisible ? 0 : -1}
     >
-      <div className="container">
         <div className={styles.portfolioHeader} ref={titleRef}>
           <h4 className={styles.portfolioTitle}>{title || ""}</h4>
           <h1 className={styles.portfolioHeading}>{subtitle || ""}</h1>
@@ -270,7 +309,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
         <div className={styles.portfolioCarousel}>
           {/* Stacked Cards Container */}
           <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-10">
               <div className={styles.stackedCardsContainer}>
                 {projects.map((project, index) => (
                   <div
@@ -287,19 +326,20 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
                         position: "relative",
                         display: "block",
                         width: "100%",
-                        height: "100%",
+                        height: "auto",
                       }}
                     >
                       <Image
                         src={project.image}
                         alt={project.title || ""}
                         className={styles.projectImage}
-                        width={734}
-                        height={490}
+                        width={0}
+                        height={0}
                         loading={index <= 1 ? "eager" : "lazy"}
                         priority={index <= 1}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                         quality={90}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                     </Link>
                   </div>
@@ -309,7 +349,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
           </div>
         </div>
       </div>
-    </div>
   );
 });
 

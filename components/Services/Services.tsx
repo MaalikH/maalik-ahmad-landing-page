@@ -34,13 +34,27 @@ export default function Services({ content }: Props) {
   const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
   const { startServicesTransition, completeServicesTransition, isServicesTransitioning, setIsServicesTransitioning } = useTransition();
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(0); // Start with first card hovered
+  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
   
   if (cardRefs.current.length !== content.services.length) {
     cardRefs.current = content.services.map(() => createRef<HTMLDivElement>());
   }
 
-  // initialize Lenis for horizontal scrolling of cards
+  // Mobile detection
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992); // Bootstrap lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // initialize Lenis for horizontal scrolling of cards (desktop only)
+  useEffect(() => {
+    if (isMobile) return; // Skip Lenis on mobile
+    
     const wrapper = wrapperRef.current;
     const content = contentRef.current;
     if (!wrapper || !content) return;
@@ -57,10 +71,13 @@ export default function Services({ content }: Props) {
     }
     requestAnimationFrame(animate);
     return () => lenis.destroy();
-  }, []);
+  }, [isMobile]);
 
-  // Pure GSAP-driven scroll behavior
+  // Pure GSAP-driven scroll behavior (desktop only)
   useGSAP(() => {
+    // Wait until mobile detection is complete
+    if (isMobile === null) return;
+    
     const sectionEl = sectionRef.current;
     const titleEl = titleRef.current;
     const wrapperEl = wrapperRef.current;
@@ -69,6 +86,24 @@ export default function Services({ content }: Props) {
     if (!sectionEl || !titleEl || !wrapperEl || !contentEl) return;
     
     const cardEls = Array.from(contentEl.children) as HTMLElement[];
+    
+    if (isMobile) {
+      // Reset all GSAP transforms on mobile - clear any desktop positioning
+      gsap.set([titleEl, ...cardEls], { 
+        clearProps: "all",
+        opacity: 1 
+      });
+      gsap.set(contentEl, { 
+        clearProps: "all",
+        x: 0 
+      });
+      gsap.set(wrapperEl, { 
+        clearProps: "all",
+        y: 0 
+      });
+      return; // Exit early on mobile
+    }
+    
     if (cardEls.length < 2) return;
 
     // Set initial opacity to 0.2 for fade-in effect
@@ -209,8 +244,13 @@ export default function Services({ content }: Props) {
       window.removeEventListener('completeAnimations', handleCompleteAnimations as EventListener);
     };
 
-  }, [content.services.length, startServicesTransition, completeServicesTransition, isServicesTransitioning, setIsServicesTransitioning]);
+  }, [content.services.length, startServicesTransition, completeServicesTransition, isServicesTransitioning, setIsServicesTransitioning, isMobile]);
 
+
+  // Don't render until mobile detection is complete to prevent flash
+  if (isMobile === null) {
+    return null;
+  }
 
   return (
     <div
@@ -226,22 +266,25 @@ export default function Services({ content }: Props) {
         <h2 className={styles.title}>{content.title}</h2>
       </div>
       <div className={styles.servicesCardsWrapper}>
-        <div ref={wrapperRef} style={{ overflow: "hidden", width: "100%" }}>
+        <div 
+          ref={wrapperRef} 
+          style={!isMobile ? { overflow: "hidden", width: "100%" } : {}}
+        >
           <div
             ref={contentRef}
             className={styles.serviceCards}
-            style={{ display: "flex", gap: "2.5rem" }}
+            style={!isMobile ? { display: "flex", gap: "2.5rem" } : {}}
           >
             {content.services.map((service, index) => (
               <div
                 key={index}
                 className={classNames("card", styles.serviceCard, {
-                  [styles.firstCardHovered]: hoveredCardIndex === 0 && index === 0,
-                  [styles.cardHovered]: hoveredCardIndex === index && index !== 0
+                  [styles.firstCardHovered]: hoveredCardIndex === 0 && index === 0 && !isMobile,
+                  [styles.cardHovered]: hoveredCardIndex === index && index !== 0 && !isMobile
                 })}
                 ref={cardRefs.current[index]}
-                onMouseEnter={() => setHoveredCardIndex(index)}
-                onMouseLeave={() => {}} // Keep the last hovered card active
+                onMouseEnter={!isMobile ? () => setHoveredCardIndex(index) : undefined}
+                onMouseLeave={!isMobile ? () => {} : undefined} // Keep the last hovered card active
               >
                 <div>
                   <div className={styles.iconContainer}>

@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .servicesContainer {
-  padding: 0 0;
+  // Remove padding override - let Bootstrap handle mobile padding
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -13,15 +13,21 @@
   margin-bottom: -50vh; // Pull Portfolio section up to eliminate gap
 
   @include respond-to("md") {
-    padding: $spacing-lg 0;
-    gap: $spacing-md;
-    margin-bottom: -45vh;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    justify-content: flex-start;
   }
 
   @include respond-to("xs") {
-    padding: $spacing-sm 0;
-    gap: $spacing-xs;
-    margin-bottom: -40vh;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    justify-content: flex-start;
   }
 
   // Transition states
@@ -82,23 +88,16 @@
       flex-wrap: nowrap;
 
       @include respond-to("md") {
-        flex-direction: row;
-        flex-wrap: nowrap;  // ensure no wrapping for horizontal scroll on medium screens
-        gap: 1rem;
-      }
-
-      // Keep nowrap across small breakpoints
-      @include respond-to("sm") {
-        width: 100%;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
+        gap: $spacing-md;
+        width: 100%;
       }
 
       @include respond-to("xs") {
+        flex-direction: column;
+        gap: $spacing-sm;
         width: 100%;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 0.5rem;
       }
     }
   }
@@ -116,8 +115,16 @@
     &:first-child {
       padding-left: 0;
       
+      @include respond-to("md") {
+        padding-left: 0; // Keep no left padding on mobile
+      }
+      
+      @include respond-to("xs") {
+        padding-left: 0; // Keep no left padding on mobile
+      }
+      
       &:hover {
-        padding-left: $spacing-md; // Restore padding on hover
+        padding-left: $spacing-md; // Restore padding on hover (desktop only)
       }
     }
 
@@ -163,37 +170,63 @@
     // transition: all 0.3s ease-in-out; // Temporarily remove to test scroll conflict
 
     @include respond-to("md") {
-      padding: $spacing-sm;
+      padding: $spacing-md;
       gap: $spacing-sm;
+      flex: none;
+      width: 100%;
+      text-align: left;
+      // Remove hover effects on mobile
+      &:hover {
+        background: $white;
+        .iconContainer, .serviceTitle, .serviceDescription {
+          color: inherit;
+        }
+      }
+      
+      // Remove left padding on all cards for mobile
+      padding-left: 0;
     }
 
     @include respond-to("xs") {
-      padding: $spacing-xs;
+      padding: $spacing-sm;
       gap: $spacing-xs;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      flex: none;
+      width: 100%;
+      text-align: left;
+      // Remove hover effects on mobile
+      &:hover {
+        background: $white;
+        .iconContainer, .serviceTitle, .serviceDescription {
+          color: inherit;
+        }
+      }
+      
+      // Remove left padding on all cards for mobile
+      padding-left: 0;
     }
 
     &.scrolling {
       pointer-events: none;
     }
     
-    &:hover {
-      background: $primary-color;
-      border: none;
-      border-radius: 0;
-      
-      .iconContainer {
-        color: $white;
-      }
-      
-      .serviceTitle {
-        color: $white;
-      }
-      
-      .serviceDescription {
-        color: $white;
+    // Desktop hover effects only
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: $primary-color;
+        border: none;
+        border-radius: 0;
+        
+        .iconContainer {
+          color: $white;
+        }
+        
+        .serviceTitle {
+          color: $white;
+        }
+        
+        .serviceDescription {
+          color: $white;
+        }
       }
     }
 

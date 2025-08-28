@@ -3,32 +3,33 @@
 .portfolioContainer {
   background-color: $white;
   color: $black;
-  padding: 0 0; // Match Services: no padding
+  // Remove padding override - let Bootstrap handle mobile padding
   display: flex;
   flex-direction: column;
-  height: 100vh; // Match Services: fixed height creates spacing
+  height: 100vh; // Match Services and About Me: fixed height creates spacing
+  margin-bottom: $spacing-xl; // Add bottom margin for section spacing
   gap: 0; // Match Services: no gap
-  width: 100%;
+  // Let Bootstrap handle container width and padding on mobile
   position: relative; // For sticky positioning
   justify-content: flex-start; // Ensure content starts at the top
   // Removed all negative margins to see natural positioning
 
   @include respond-to("md") {
-    padding: 0 0; // Match Services: no padding
-    gap: 0; // Match Services: no gap
-    justify-content: flex-start; // Ensure content starts at the top
-  }
-
-  @include respond-to("sm") {
-    padding: 0 0; // Match Services: no padding
-    gap: 0; // Match Services: no gap
-    justify-content: flex-start; // Ensure content starts at the top
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg; // This is the title-to-cards spacing (matches Services)
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   @include respond-to("xs") {
-    padding: 0 0; // Match Services: no padding
-    gap: 0; // Match Services: no gap
-    justify-content: flex-start; // Keep content at top
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md; // This is the title-to-cards spacing (matches Services)
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   // Transition states
@@ -104,11 +105,22 @@
   perspective: 1000px; // Add 3D perspective
   
   @include respond-to("md") {
-    height: 60vh;
+    // Mobile: convert to vertical stack with same gap as Services cards
+    height: auto;
+    flex-direction: column;
+    gap: $spacing-md;
+    align-items: stretch;
+    justify-content: flex-start;
+    perspective: none;
   }
   
   @include respond-to("xs") {
-    height: 50vh;
+    height: auto;
+    flex-direction: column;
+    gap: $spacing-sm;
+    align-items: stretch;
+    justify-content: flex-start;
+    perspective: none;
   }
 }
 
@@ -123,19 +135,43 @@
   max-width: 1000px; // Increased from 600px for much larger cards
   
   @include respond-to("md") {
-    width: 90%; // Increased from 85%
-    max-width: 800px; // Increased from 500px
+    // Mobile: regular positioned cards in vertical stack
+    position: relative !important;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 200px; // Keep proper card height
+    background: $white; // Ensure all cards have white background
   }
   
   @include respond-to("xs") {
-    width: 95%; // Increased from 90%
-    max-width: 500px; // Increased from 400px
+    position: relative !important;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 200px; // Keep proper card height
+    background: $white; // Ensure all cards have white background
   }
   
   // Add shadow and depth - stronger for better stacking visual
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
+  border-radius: $border-radius-lg;
   overflow: hidden;
+  
+  @include respond-to("md") {
+    // Mobile: no box-shadow, cleaner look
+    box-shadow: none;
+  }
+  
+  @include respond-to("xs") {
+    box-shadow: none;
+  }
   
   // Prevent any CSS transitions - GSAP will handle everything
   transition: none !important;
@@ -147,9 +183,27 @@
     border-radius: 0; // Remove border radius since card has it
     display: block; // Ensure no gaps
     width: 100%;
-    height: auto;
+    height: 400px; // Fixed height for consistent card sizes
+    object-fit: cover; // Ensure images fill the container without distortion
+  }
+  
+  @include respond-to("md") {
+    .projectImage {
+      border-radius: 0; // Keep card border radius, not image
+      height: 300px; // Fixed height for mobile consistency
+      object-fit: cover;
+    }
+  }
+  
+  @include respond-to("xs") {
+    .projectImage {
+      border-radius: 0; // Keep card border radius, not image
+      height: 300px; // Same height for all mobile sizes
+      object-fit: cover;
+    }
   }
 }
+
 
 .portfolioCard {
   flex: 1 0 0;
@@ -163,7 +217,6 @@
   border: none;
   background: transparent; // Remove white background
   transition: all 0.3s ease-in-out;
-  min-height: 400px; // Ensure consistent card height
 
   // Remove left padding from first card to align with title
   &:first-child {
@@ -177,7 +230,6 @@
   @include respond-to("md") {
     padding: 0;
     gap: 0;
-    min-height: 350px;
   }
 
   @include respond-to("xs") {
@@ -186,7 +238,6 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 300px;
   }
 
   &.scrolling {
@@ -206,10 +257,23 @@
 
   .projectImage {
     width: 100%;
-    height: auto;
+    height: 400px; // Fixed height for consistent card sizes
     border-radius: $border-radius-md;
     transition: filter 0.3s ease-in-out;
-    object-fit: cover;
-    aspect-ratio: 734/490; // Maintain original aspect ratio
+    object-fit: cover; // Ensure images fill the container without distortion
+    display: block; // Ensure it displays as a block element
+    
+    @include respond-to("md") {
+      // Mobile: ensure image actually renders with proper dimensions
+      max-width: 100%;
+      height: 300px; // Fixed height for mobile consistency
+      object-fit: cover;
+    }
+    
+    @include respond-to("xs") {
+      max-width: 100%;
+      height: 300px; // Same height for all mobile sizes
+      object-fit: cover;
+    }
   }
 }

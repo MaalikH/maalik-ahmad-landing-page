@@ -38,6 +38,7 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
   // Only one version of About Me, no pills/tabs logic
   const activeContent = content.sections.tech;
   const [isMetricInView, setIsMetricInView] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const paragraphsRef = useRef<HTMLDivElement>(null);
@@ -45,6 +46,17 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
   const logoMarqueeRef = useRef<HTMLDivElement>(null);
   const animationCompleted = useRef(false);
   const animationTriggered = useRef(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992); // Bootstrap lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // 3-Phase GSAP Animation Implementation
   useGSAP(() => {
@@ -55,6 +67,27 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
     const logoMarqueeEl = logoMarqueeRef.current;
     
     if (!sectionEl || !titleEl || !paragraphsEl || !metricsEl || !logoMarqueeEl) return;
+
+    // If mobile, disable GSAP animations and use simple layout
+    if (isMobile) {
+      console.log('📱 AboutMe: Mobile detected - disabling GSAP animations');
+      gsap.set([titleEl, ...Array.from(paragraphsEl.children), logoMarqueeEl], {
+        clearProps: "transform,x,y,scale,rotate",
+        opacity: 1,
+        display: 'block'
+      });
+      
+      // Keep metrics container as flex for proper column layout
+      gsap.set(metricsEl, {
+        clearProps: "transform,x,y,scale,rotate",
+        opacity: 1,
+        display: 'flex'
+      });
+      
+      // Enable count up immediately on mobile
+      setIsMetricInView(true);
+      return;
+    }
 
     // Get paragraph elements
     const paragraphElements = Array.from(paragraphsEl.children) as HTMLElement[];
@@ -203,7 +236,7 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
       window.removeEventListener('completeAnimations', handleCompleteAnimations as EventListener);
     };
 
-  }, []);
+  }, [isMobile]);
 
   // Fallback intersection observer for count-up (in case GSAP doesn't trigger)
   useEffect(() => {
@@ -218,60 +251,63 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
     return () => observer.disconnect();
   }, [isMetricInView]);
 
+  // Don't render until mobile detection is complete to prevent flash
+  if (isMobile === null) {
+    return null;
+  }
+
   return (
     <div
       ref={sectionRef}
-      className={classNames(styles.aboutMeContent, "container-fluid")}
+      className={classNames(styles.aboutMeContent, "container")}
     >
-      <div className="container">
-        {/* Phase 1: Title/subtitle and Phase 3: Count-ups at same level */}
-        <div className="row align-items-start">
-          <div className="col-md-9">
-            <div className={styles.aboutMeHeader} ref={titleRef}>
-              <h4 className={styles.sectionName}>{content.title}</h4>
-              <h2 className={styles.title}>{activeContent.title}</h2>
-            </div>
-            
-            {/* Phase 2: Paragraphs in same column as title */}
-            <div ref={paragraphsRef}>
-              {activeContent.description.split('\n\n').map((para, idx) => (
-                <p className={styles.description} key={idx}>{para}</p>
-              ))}
-            </div>
+      {/* Phase 1: Title/subtitle and Phase 3: Count-ups at same level */}
+      <div className="row align-items-start">
+        <div className="col-md-9">
+          <div className={styles.aboutMeHeader} ref={titleRef}>
+            <h4 className={styles.sectionName}>{content.title}</h4>
+            <h2 className={styles.title}>{activeContent.title}</h2>
           </div>
           
-          {/* Phase 3: Count-up metrics - same row as title */}
-          <div className="col-md-3 d-flex align-items-start justify-content-end">
-            {activeContent.metrics && activeContent.metrics.length > 0 && (
-              <div className={styles.metricContainer} ref={metricsRef}>
-                {activeContent.metrics.map((metric) => (
-                  <div key={metric.label} className={styles.metric}>
-                    <h1>
-                      {isMetricInView ? (
-                        <>
-                          <CountUp
-                            start={0}
-                            end={parseInt(metric.value)}
-                            duration={3}
-                            key={metric.label}
-                          />
-                          <span>+</span>
-                        </>
-                      ) : (
-                        0
-                      )}
-                    </h1>
-                    <h5>{metric.label}</h5>
-                  </div>
-                ))}
-              </div>
-            )}
+          {/* Phase 2: Paragraphs in same column as title */}
+          <div ref={paragraphsRef}>
+            {activeContent.description.split('\n\n').map((para, idx) => (
+              <p className={styles.description} key={idx}>{para}</p>
+            ))}
           </div>
         </div>
         
-        <div ref={logoMarqueeRef} className={styles.logoMarqueeWrapper}>
-          <LogoMarquee />
+        {/* Phase 3: Count-up metrics - same row as title */}
+        <div className="col-12 col-md-3 d-flex align-items-start justify-content-center justify-content-md-end">
+          {activeContent.metrics && activeContent.metrics.length > 0 && (
+            <div className={styles.metricContainer} ref={metricsRef}>
+              {activeContent.metrics.map((metric) => (
+                <div key={metric.label} className={styles.metric}>
+                  <h1>
+                    {isMetricInView ? (
+                      <>
+                        <CountUp
+                          start={0}
+                          end={parseInt(metric.value)}
+                          duration={3}
+                          key={metric.label}
+                        />
+                        <span>+</span>
+                      </>
+                    ) : (
+                      0
+                    )}
+                  </h1>
+                  <h5>{metric.label}</h5>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+      </div>
+      
+      <div ref={logoMarqueeRef} className={styles.logoMarqueeWrapper}>
+        <LogoMarquee />
       </div>
     </div>
   );

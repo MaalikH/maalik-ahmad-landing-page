@@ -4,20 +4,31 @@
   display: block;
   color: $black;
   text-align: left;
-  padding: 0 0 $spacing-xl 0;
+  // No default padding - let Bootstrap handle mobile
   height: 100vh; // Match Services and Portfolio: fixed height creates spacing
-  width: 90%;
-  margin: 0 auto;
-
-  @include respond-to("sm") {
-    width: 85%;
-    padding: 0 0 $spacing-sm 0;
+  margin-bottom: $spacing-xl; // Add bottom margin for section spacing
+  
+  // Only apply custom padding for larger screens (tablet and up) if needed
+  @media (min-width: 992px) {
+    // Add any desktop-specific padding here if needed
+  }
+  
+  @include respond-to("md") {
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-lg; // Title-to-content spacing
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   @include respond-to("xs") {
-    width: 85%;
-    padding: 0 0 $spacing-xs 0;
-    overflow: hidden;
+    height: auto;
+    min-height: auto;
+    // Remove padding property entirely to let Bootstrap handle it
+    gap: $spacing-md; // Title-to-content spacing
+    justify-content: flex-start;
+    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
   }
 
   .aboutMeHeader {
@@ -54,6 +65,16 @@
     width: 100%;
     margin: 0;
     align-items: flex-start;
+    
+    @include respond-to("md") {
+      flex-direction: column;
+      gap: $spacing-lg;
+    }
+    
+    @include respond-to("xs") {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
   }
 
   h1 {
@@ -142,14 +163,20 @@
     gap: $spacing-md;
     margin-bottom: $spacing-sm;
     
-    @include respond-to("sm") {
-      gap: $spacing-sm;
+    @include respond-to("md") {
+      flex-direction: row;
+      justify-content: space-around;
+      gap: $spacing-md;
+      margin: $spacing-lg 0;
+      width: 100%;
     }
 
     @include respond-to("xs") {
-      flex-wrap: nowrap;
-      gap: $spacing-xs;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: $spacing-sm;
       margin: $spacing-md 0;
+      width: 100%;
     }
   }
 
@@ -161,7 +188,13 @@
     gap: $spacing-xs;
     text-align: center;
 
+    @include respond-to("md") {
+      flex: 1 0 0; // Ensure equal width distribution on mobile
+      text-align: center;
+    }
+
     @include respond-to("xs") {
+      flex: 1 0 0; // Ensure equal width distribution on mobile
       text-align: center;
       
       &:not(:last-child)::after {
@@ -258,6 +291,16 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: rgba($black, 0.8);
+  
+  @include respond-to("md") {
+    margin: $spacing-md 0;
+    font-size: 1rem;
+  }
+  
+  @include respond-to("xs") {
+    margin: $spacing-sm 0;
+    font-size: 0.95rem;
+  }
 }
 
 .logoMarqueeWrapper {
@@ -267,7 +310,7 @@
     margin-top: $spacing-lg;
   }
   
-  @include respond-to("sm") {
+  @include respond-to("xs") {
     margin-top: $spacing-md;
   }
 }

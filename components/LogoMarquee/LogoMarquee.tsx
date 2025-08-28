@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from './LogoMarquee.module.scss';
 
 const LogoMarquee = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const logos = [
     "/logos/typescript.svg",
     "/logos/angular.svg",
@@ -18,13 +19,24 @@ const LogoMarquee = () => {
     "/logos/github.svg"
   ];
 
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     if (!marqueeRef.current || !trackRef.current) return;
     // Calculate the width of the track (one set of logos)
     const trackWidth = trackRef.current.scrollWidth / 2;
     const tween = gsap.to(trackRef.current, {
       x: -trackWidth,
-      duration: 20,
+      duration: isMobile ? 10 : 20, // Faster on mobile
       ease: "none",
       repeat: -1,
     });
