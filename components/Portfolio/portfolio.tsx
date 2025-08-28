@@ -102,7 +102,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
     if (cardElements.length === 0) return;
 
     if (isMobile) {
-      // Reset all GSAP transforms on mobile - clear any desktop positioning
+      // Reset GSAP transforms on mobile while preserving essential properties
       gsap.set(sectionEl, { 
         clearProps: "transform,x,y,scale,rotate",
         opacity: 1 
@@ -114,7 +114,13 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       gsap.set(cardElements, { 
         clearProps: "transform,x,y,scale,rotate",
         opacity: 1,
-        display: 'block' // Ensure they're visible
+        display: 'block', // Ensure they're visible
+        pointerEvents: 'auto', // Ensure cards are clickable
+        position: 'relative', // Force relative positioning for mobile
+        top: 'auto', // Clear absolute positioning
+        left: 'auto', // Clear absolute positioning
+        transform: 'none', // Clear any transforms
+        zIndex: 'auto' // Reset z-index for mobile
       });
       return; // Exit early on mobile
     }
@@ -302,6 +308,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
                     key={project.id}
                     className={classNames("card", styles.portfolioCard, styles.stackedCard)}
                     ref={cardRefs.current[index]}
+                    onClick={() => console.log('Card clicked:', project.title)} // Debug click
                   >
                     <Link
                       href={project.link}
