@@ -29,6 +29,18 @@ export default function Home() {
     }
   }, [router]);
 
+  // Show mobile alert for full experience
+  useEffect(() => {
+    const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
+    if (hasSeenFullExperience && typeof window !== 'undefined') {
+      // Check if screen width is small tablet or lower (992px is Bootstrap lg breakpoint)
+      const isSmallScreen = window.innerWidth < 992;
+      if (isSmallScreen) {
+        alert('This site is designed to be viewed on desktop, but the experience has been altered to work on this device. We recommend viewing on desktop for the full interactive experience.');
+      }
+    }
+  }, []);
+
   // Refs
   const portfolioRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);

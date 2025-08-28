@@ -126,7 +126,7 @@
 
 // Individual stacked card styling
 .stackedCard {
-  position: absolute !important;
+  position: absolute; // Remove !important to allow GSAP override on mobile
   top: 50%;
   left: 50%;
   transform: translateX(-50%); // Only center horizontally, let GSAP handle vertical
