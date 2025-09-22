@@ -88,17 +88,22 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Maalik Ahmad | Creative Developer" />
-        <meta property="og:description" content="Creative developer and software engineer specializing in modern web applications." />
-        <meta property="og:image" content="/maalik-avatar.png" />
+        <meta property="og:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
+        <meta property="og:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise. Explore featured works and get in touch." />
+        <meta property="og:image" content="https://maalikahmad.tech/homescreen.png" />
         <meta property="og:url" content="https://maalikahmad.tech" />
         <meta property="og:type" content="website" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Maalik Ahmad Tech" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Maalik Ahmad | Creative Developer" />
-        <meta name="twitter:description" content="Creative developer and software engineer specializing in modern web applications." />
-        <meta name="twitter:image" content="/maalik-avatar.png" />
+        <meta name="twitter:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
+        <meta name="twitter:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise." />
+        <meta name="twitter:image" content="https://maalikahmad.tech/homescreen.png" />
+        <meta name="twitter:site" content="@maalikahmadtech" />
+        <meta name="twitter:creator" content="@maalikahmadtech" />
         
         {/* Preload critical assets */}
         <link 
