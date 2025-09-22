@@ -24,22 +24,24 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
         damping: 20
       }}
     >
-      <div className={styles.footerContent}>
-        <div className={styles.socialLinks}>
-          <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer">
-            <FaGithub />
-          </a>
-          <a href="https://linkedin.com/in/maalikhornbuckle" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin />
-          </a>
-          <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
-            <FaXTwitter />
-          </a>
-          <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
-            <FaInstagram />
-          </a>
+      <div className="container">
+        <div className={styles.footerContent}>
+          <div className={styles.socialLinks}>
+            <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer">
+              <FaGithub />
+            </a>
+            <a href="https://linkedin.com/in/maalikhornbuckle" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
+            </a>
+            <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <FaXTwitter />
+            </a>
+            <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            </div>
+          <p className={styles.copyright}>© {new Date().getFullYear()} HBKL Labs. All rights reserved.</p>
         </div>
-        <p className={styles.copyright}>© {new Date().getFullYear()} HBKL Labs. All rights reserved.</p>
       </div>
     </motion.footer>
   );

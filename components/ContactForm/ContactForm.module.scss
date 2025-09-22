@@ -21,12 +21,14 @@
     height: auto; // Remove fixed height on mobile
     min-height: 70vh; // Give enough height to prevent footer overlap
     gap: $spacing-md;
+    margin-bottom: $spacing-xl * 2; // Add extra bottom margin for footer spacing
   }
 
   @include respond-to("xs") {
     height: auto; // Remove fixed height on mobile
     min-height: 70vh; // Give enough height to prevent footer overlap
     gap: $spacing-xs;
+    margin-bottom: $spacing-xl * 2; // Add extra bottom margin for footer spacing
   }
 
   // Reduced motion support
