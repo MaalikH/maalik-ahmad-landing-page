@@ -46,6 +46,7 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
   const logoMarqueeRef = useRef<HTMLDivElement>(null);
   const animationCompleted = useRef(false);
   const animationTriggered = useRef(false);
+  const isInitialized = useRef(false);
 
   // Mobile detection
   useEffect(() => {
@@ -71,9 +72,9 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
     // If mobile, disable GSAP animations and use simple layout
     if (isMobile) {
       // Reset all GSAP transforms on mobile - clear any desktop positioning
-      gsap.set([titleEl, ...paragraphsEl.children], { 
+      gsap.set([titleEl, paragraphsEl, ...paragraphsEl.children], {
         clearProps: "all",
-        opacity: 1 
+        opacity: 1
       });
       gsap.set(logoMarqueeEl, { 
         clearProps: "all",
@@ -96,15 +97,31 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
     // Set initial opacity using standardized helper (Phase 1: Title and subtitle)
     setInitialTitleOpacity(titleRef, [], 0.2);
     
-    // Set initial state for paragraphs, metrics, and logo marquee (hidden)
+    // Reset initialization flag
+    isInitialized.current = false;
+
+    // Set initial state for paragraphs wrapper and children, metrics, and logo marquee (hidden)
+    gsap.set(paragraphsEl, { opacity: 0 }); // Wrapper starts hidden
     gsap.set(paragraphElements, { opacity: 0, y: 30 });
     gsap.set(metricsEl, { opacity: 0, y: 30 });
     gsap.set(logoMarqueeEl, { opacity: 0, y: 30 });
 
+    // Mark as initialized after a frame to prevent immediate animation from scroll position
+    requestAnimationFrame(() => {
+      isInitialized.current = true;
+    });
+
     // Create master timeline for 3-phase animation
     const masterTL = gsap.timeline({ paused: true });
 
-    // Phase 2: Paragraphs snap in after title is pinned (at 20% progress)
+    // Phase 2: Show paragraphs wrapper first (at 19% progress)
+    masterTL.to(paragraphsEl, {
+      opacity: 1,
+      duration: 0.1,
+      ease: "none"
+    }, 0.19);
+
+    // Phase 2 (continued): Paragraphs snap in after title is pinned (at 20% progress)
     masterTL.to(paragraphElements, {
       opacity: 1,
       y: 0,
@@ -142,6 +159,9 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
       anticipatePin: 1,
       markers: false,
       onUpdate: (self) => {
+        // Skip if not initialized (prevents immediate animation on mount from cached scroll position)
+        if (!isInitialized.current) return;
+
         // Only update timeline progress if animation hasn't been completed via navbar click
         if (!animationCompleted.current) {
           const progress = self.progress;
@@ -257,13 +277,13 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
       {/* Phase 1: Title/subtitle and Phase 3: Count-ups at same level */}
       <div className="row align-items-start">
         <div className="col-md-9">
-          <div className={styles.aboutMeHeader} ref={titleRef}>
+          <div className={styles.aboutMeHeader} ref={titleRef} style={{ opacity: isMobile ? 1 : 0.2 }}>
             <h4 className={styles.sectionName}>{content.title}</h4>
             <h2 className={styles.title}>{activeContent.title}</h2>
           </div>
           
           {/* Phase 2: Paragraphs in same column as title */}
-          <div ref={paragraphsRef}>
+          <div ref={paragraphsRef} style={{ opacity: isMobile ? 1 : 0 }}>
             {activeContent.description.split('\n\n').map((para, idx) => (
               <p className={styles.description} key={idx}>{para}</p>
             ))}
@@ -273,7 +293,7 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
         {/* Phase 3: Count-up metrics - same row as title */}
         <div className="col-12 col-md-3 d-flex align-items-start justify-content-center justify-content-md-end">
           {activeContent.metrics && activeContent.metrics.length > 0 && (
-            <div className={styles.metricContainer} ref={metricsRef}>
+            <div className={styles.metricContainer} ref={metricsRef} style={{ opacity: isMobile ? 1 : 0 }}>
               {activeContent.metrics.map((metric) => (
                 <div key={metric.label} className={styles.metric}>
                   <h1>
@@ -299,7 +319,7 @@ const AboutMe = ({ content, setIsFooterVisible }: Props) => {
         </div>
       </div>
       
-      <div ref={logoMarqueeRef} className={styles.logoMarqueeWrapper}>
+      <div ref={logoMarqueeRef} className={styles.logoMarqueeWrapper} style={{ opacity: isMobile ? 1 : 0 }}>
         <LogoMarquee />
       </div>
     </div>

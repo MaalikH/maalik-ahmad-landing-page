@@ -142,7 +142,7 @@ export default function Services({ content }: Props) {
     }, 1.55); // Start at 5.5% progress (slightly after horizontal movement)
 
     // Separate ScrollTrigger for fade-in BEFORE pinning starts
-    ScrollTrigger.create({
+    const fadeInST = ScrollTrigger.create({
       trigger: sectionEl,
       start: "top bottom-=200px", // Start fading when section is 200px from bottom of viewport
       end: "top top+=120px", // Complete fade exactly when pinning starts
@@ -196,14 +196,17 @@ export default function Services({ content }: Props) {
         if (isServicesTransitioning) {
           setIsServicesTransitioning(false);
         }
-        
+
         // Smooth fade in content when scrolling back up
-        gsap.to([titleEl, ...cardEls], { 
-          opacity: 1, 
+        gsap.to([titleEl, ...cardEls], {
+          opacity: 1,
           duration: 0.5,
           ease: "power2.out",
           stagger: 0.1 // Stagger the fade-in for a nice effect
         });
+      },
+      onLeaveBack: () => {
+        // When leaving pinned state going back to Hero, the fadeInST should take over
       }
     });
 
@@ -237,12 +240,14 @@ export default function Services({ content }: Props) {
 
     window.addEventListener('completeAnimations', handleCompleteAnimations as EventListener);
 
-    // Cleanup
+    // Cleanup - MUST kill ScrollTriggers to prevent duplicates
     return () => {
       window.removeEventListener('completeAnimations', handleCompleteAnimations as EventListener);
+      fadeInST.kill();
+      servicesPinST.kill();
     };
 
-  }, [content.services.length, startServicesTransition, completeServicesTransition, isServicesTransitioning, setIsServicesTransitioning, isMobile]);
+  }, [content.services.length, isMobile]); // Removed transition state from deps - it shouldn't re-trigger animations
 
 
   // Don't render until mobile detection is complete to prevent flash
