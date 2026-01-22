@@ -3,42 +3,35 @@
 .portfolioContainer {
   background-color: $white;
   color: $black;
-  // Remove padding override - let Bootstrap handle mobile padding
   display: flex;
   flex-direction: column;
-  height: 100vh; // Match Services and About Me: fixed height creates spacing
-  margin-bottom: $spacing-xl; // Add bottom margin for section spacing
-  gap: 0; // Match Services: no gap
-  // Let Bootstrap handle container width and padding on mobile
-  position: relative; // For sticky positioning
-  justify-content: flex-start; // Ensure content starts at the top
-  // Removed all negative margins to see natural positioning
+  height: 100vh;
+  margin-bottom: $spacing-xl;
+  gap: 0;
+  position: relative;
+  justify-content: flex-start;
 
   @include respond-to("md") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
-    gap: $spacing-lg; // This is the title-to-cards spacing (matches Services)
+    gap: $spacing-lg;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+    margin-bottom: $spacing-xl * 1.5;
   }
 
   @include respond-to("xs") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
-    gap: $spacing-md; // This is the title-to-cards spacing (matches Services)
+    gap: $spacing-md;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+    margin-bottom: $spacing-xl * 1.5;
   }
 
-  // Transition states
   &[aria-hidden="true"] {
     pointer-events: none;
     user-select: none;
   }
 
-  // Reduced motion support
   @media (prefers-reduced-motion: reduce) {
     transition: none !important;
     animation: none !important;
@@ -47,23 +40,13 @@
 
 .portfolioHeader {
   text-align: left;
-  // Removed max-width and width constraints to match Services
   margin: 0;
   padding: 0;
-  // Removed width: 90% and max-width: 800px to match Services
-  transition: position 0.3s ease-out;
-
-  @include respond-to("sm") {
-    // Removed width: 85% to match Services
-  }
 
   @include respond-to("xs") {
-    // Removed width: 85% to match Services
     padding: 0;
-    margin-bottom: 0; // Match Services: no margin bottom
+    margin-bottom: 0;
   }
-
-  // Removed CSS sticky positioning - GSAP will handle this
 }
 
 .portfolioTitle {
@@ -80,11 +63,11 @@
   color: $black;
   margin: 0;
   line-height: 1.2;
-  
+
   @include respond-to("md") {
     font-size: 2rem;
   }
-  
+
   @include respond-to("xs") {
     font-size: 1.75rem;
   }
@@ -92,188 +75,128 @@
 
 .portfolioCarousel {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Allow GSAP y transform to work (not center)
+  flex: 1;
+  padding: 0;
+  margin-top: 0; // Let GSAP handle positioning with y: 300 → y: 0
 }
 
-// Stacked Cards Container
+// Stacked Cards Container - CSS Grid based (like CodePen)
 .stackedCardsContainer {
+  --radius: 1.5rem;
+  --transition-duration: 0.6s;
+  // Custom easing from CodePen
+  --ease: linear(
+    0 0%, 0.0036 9.62%, 0.0185 16.66%,
+    0.0489 23.03%, 0.0962 28.86%,
+    0.1705 34.93%, 0.269 40.66%,
+    0.3867 45.89%, 0.5833 52.95%,
+    0.683 57.05%, 0.7829 62.14%,
+    0.8621 67.46%, 0.8991 70.68%,
+    0.9299 74.03%, 0.9545 77.52%,
+    0.9735 81.21%, 0.9865 85%,
+    0.9949 89.15%, 1 100%
+  );
+
   position: relative;
   width: 100%;
-  height: 70vh; // Use viewport height for better centering
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 1000px; // Add 3D perspective
-  
+  max-width: 1000px;
+  height: 450px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  // CSS Grid layout - columns animate based on --active-grid
+  display: grid;
+  grid-template-columns: var(--active-grid, 20fr 1fr 1fr);
+
+  // Smooth transition for grid changes
+  transition: grid-template-columns var(--transition-duration) var(--ease);
+
   @include respond-to("md") {
-    // Mobile: convert to vertical stack with same gap as Services cards
     height: auto;
+    display: flex;
     flex-direction: column;
     gap: $spacing-md;
-    align-items: stretch;
-    justify-content: flex-start;
-    perspective: none;
+    transition: none;
   }
-  
+
   @include respond-to("xs") {
     height: auto;
+    display: flex;
     flex-direction: column;
     gap: $spacing-sm;
-    align-items: stretch;
-    justify-content: flex-start;
-    perspective: none;
+    transition: none;
   }
 }
 
-// Individual stacked card styling
+// Individual card styling
 .stackedCard {
-  position: absolute; // Remove !important to allow GSAP override on mobile
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%); // Only center horizontally, let GSAP handle vertical
-  transform-origin: center center; // Ensure scaling happens from center
-  width: 90%; // Increased from 80% for larger size
-  max-width: 1000px; // Increased from 600px for much larger cards
-  
-  @include respond-to("md") {
-    // Mobile: regular positioned cards in vertical stack
-    position: relative !important;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    max-width: none;
-    height: auto;
-    min-height: 200px; // Keep proper card height
-    background: $white; // Ensure all cards have white background
-  }
-  
-  @include respond-to("xs") {
-    position: relative !important;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    max-width: none;
-    height: auto;
-    min-height: 200px; // Keep proper card height
-    background: $white; // Ensure all cards have white background
-  }
-  
-  // Add shadow and depth - stronger for better stacking visual
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-  border-radius: $border-radius-lg;
+  position: relative;
+  min-width: 0; // Allow grid items to shrink
+  height: 100%;
+  border-radius: var(--radius);
   overflow: hidden;
-  
+  cursor: pointer;
+
+  // Each card overlaps the next with rounded corners visible
+  &:not(:first-child) {
+    margin-left: calc(var(--radius) * -1);
+  }
+
   @include respond-to("md") {
-    // Mobile: no box-shadow, cleaner look
-    box-shadow: none;
+    height: auto;
+    min-height: 250px;
+    margin-left: 0 !important;
   }
-  
+
   @include respond-to("xs") {
-    box-shadow: none;
-  }
-  
-  // Prevent any CSS transitions - GSAP will handle everything
-  transition: none !important;
-  
-  // Ensure proper stacking context
-  isolation: isolate;
-  
-  .projectImage {
-    border-radius: 0; // Remove border radius since card has it
-    display: block; // Ensure no gaps
-    width: 100%;
-    height: 400px; // Fixed height for consistent card sizes
-    object-fit: cover; // Ensure images fill the container without distortion
-  }
-  
-  @include respond-to("md") {
-    .projectImage {
-      border-radius: 0; // Keep card border radius, not image
-      height: 300px; // Fixed height for mobile consistency
-      object-fit: cover;
-    }
-  }
-  
-  @include respond-to("xs") {
-    .projectImage {
-      border-radius: 0; // Keep card border radius, not image
-      height: 300px; // Same height for all mobile sizes
-      object-fit: cover;
-    }
+    height: auto;
+    min-height: 200px;
+    margin-left: 0 !important;
   }
 }
 
-
-.portfolioCard {
-  flex: 1 0 0;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 0; // Remove padding since these are just images
-  gap: 0;
-  text-align: left;
-  border-radius: 0; // Remove card border radius
-  border: none;
-  background: transparent; // Remove white background
-  transition: all 0.3s ease-in-out;
-
-  // Remove left padding from first card to align with title
-  &:first-child {
-    padding-left: 0;
-    
-    &:hover {
-      padding-left: 0; // Keep no padding on hover
-    }
-  }
+// Card content wrapper - handles the visual appearance
+.cardContent {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid rgba(128, 128, 128, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 
   @include respond-to("md") {
-    padding: 0;
-    gap: 0;
+    position: relative;
+    height: 250px;
   }
 
   @include respond-to("xs") {
-    padding: 0;
-    gap: 0;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    position: relative;
+    height: 200px;
   }
+}
 
-  &.scrolling {
-    pointer-events: none;
-  }
-  
-  &:hover {
-    background: transparent; // Keep transparent on hover
-    border: none;
-    border-radius: 0;
-    transform: scale(1.02);
-    
-    .projectImage {
-      filter: brightness(0.9);
-    }
-  }
+.cardLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-  .projectImage {
-    width: 100%;
-    height: 400px; // Fixed height for consistent card sizes
-    border-radius: $border-radius-md;
-    transition: filter 0.3s ease-in-out;
-    object-fit: cover; // Ensure images fill the container without distortion
-    display: block; // Ensure it displays as a block element
-    
-    @include respond-to("md") {
-      // Mobile: ensure image actually renders with proper dimensions
-      max-width: 100%;
-      height: 300px; // Fixed height for mobile consistency
-      object-fit: cover;
-    }
-    
-    @include respond-to("xs") {
-      max-width: 100%;
-      height: 300px; // Same height for all mobile sizes
-      object-fit: cover;
-    }
+.projectImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+// Active card styling
+.activeCard {
+  cursor: pointer;
+
+  .cardContent {
+    border-color: rgba(128, 128, 128, 0.5);
   }
 }
