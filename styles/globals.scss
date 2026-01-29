@@ -71,51 +71,11 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  // Global color inversion for dark theme
+  // Global color inversion for dark theme - removed aggressive overrides
   [data-theme="dark"] {
-    // Invert all whites to black and blacks to white
+    // Smooth transitions
     * {
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
-
-    // Force text colors
-    h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th, label {
-      color: var(--text-main) !important;
-    }
-
-    // Force background colors
-    section, div, article, aside, header, footer, nav {
-      background-color: var(--bg-main);
-    }
-
-    // Cards and containers
-    .card, [class*="card"], [class*="Card"] {
-      background-color: var(--card-bg) !important;
-      color: var(--card-text) !important;
-    }
-
-    // Navigation
-    nav, [class*="nav"], [class*="Nav"] {
-      background-color: var(--nav-bg) !important;
-
-      a, button {
-        color: var(--nav-text) !important;
-      }
-    }
-
-    // Borders
-    * {
-      border-color: var(--border-color);
-    }
-
-    // Images and videos remain unchanged
-    img, video, svg {
-      filter: none;
-    }
-
-    // Keep primary color (red) unchanged
-    [class*="primary"], .text-danger, .btn-primary {
-      color: var(--primary-color) !important;
     }
   }
 
