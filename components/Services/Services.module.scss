@@ -212,20 +212,20 @@
     // Desktop hover effects only
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        background: $primary-color;
+        background: var(--primary-color);
         border: none;
         border-radius: 0;
-        
+
         .iconContainer {
-          color: $white;
+          color: #FFFFFF !important;
         }
-        
+
         .serviceTitle {
-          color: $white;
+          color: #FFFFFF !important;
         }
-        
+
         .serviceDescription {
-          color: $white;
+          color: #FFFFFF !important;
         }
       }
     }

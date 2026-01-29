@@ -6,10 +6,11 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: $black;
-  color: $white;
+  background-color: var(--text-main);
+  color: var(--bg-main);
   z-index: 1000;
   padding: $spacing-sm 0;
+  border-top: 1px solid var(--border-color);
   // Removed transform and transition - Framer Motion handles this
 
   .footerContent {
@@ -30,18 +31,18 @@
     gap: $spacing-md;
 
     a {
-      color: $white;
+      color: var(--bg-main);
       text-decoration: none;
       transition: color 0.3s ease;
 
       svg {
-        color: $white;
+        color: var(--bg-main);
       }
 
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
         svg {
-          color: $primary-color;
+          color: var(--primary-color);
         }
       }
     }
@@ -49,7 +50,8 @@
 }
 
 .copyright {
-  color: rgba($white, 0.6);
+  color: var(--bg-main);
+  opacity: 0.6;
   font-size: $font-size-sm;
   margin: 0;
 }

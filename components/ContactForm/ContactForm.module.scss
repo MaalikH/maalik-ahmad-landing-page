@@ -129,10 +129,11 @@
     input, textarea {
       padding: $spacing-sm;
       border-radius: 12px;
-      border: 1px solid rgba($black, 0.1);
+      border: 1px solid var(--border-color);
       width: 100%;
       font-size: $font-size-md;
-      background: transparent;
+      background: var(--bg-main);
+      color: var(--text-main);
 
       @include respond-to("sm") {
         padding: $spacing-sm;
@@ -140,7 +141,7 @@
       }
 
       &::placeholder {
-        color: rgba($black, 0.5);
+        color: var(--text-tertiary);
       }
 
       &:focus {
