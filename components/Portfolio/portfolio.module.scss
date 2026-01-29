@@ -1,10 +1,11 @@
 @use "../../styles/variables" as *;
 
 .portfolioContainer {
-  background-color: $white;
-  color: $black;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
   height: 100vh;
   margin-bottom: $spacing-xl;
   gap: 0;
@@ -60,9 +61,10 @@
 .portfolioHeading {
   font-size: 2.5rem;
   font-weight: 600;
-  color: $black;
+  color: var(--text-color);
   margin: 0;
   line-height: 1.2;
+  transition: color 0.3s ease;
 
   @include respond-to("md") {
     font-size: 2rem;
@@ -165,8 +167,9 @@
   inset: 0;
   border-radius: var(--radius);
   overflow: hidden;
-  border: 2px solid rgba(128, 128, 128, 0.3);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 2px solid var(--card-border);
+  box-shadow: var(--shadow-dark);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   @include respond-to("md") {
     position: relative;

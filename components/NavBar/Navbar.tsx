@@ -156,7 +156,27 @@ const Navbar = () => {
               </button>
             </li>
             <li className="nav-item">
-              <ThemeToggle className={styles.navLink} />
+              <div className={styles.iconGroup}>
+                <a
+                  href="https://github.com/maalikahmad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.iconButton}
+                  aria-label="GitHub"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://twitter.com/maalikahmad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.iconButton}
+                  aria-label="X (Twitter)"
+                >
+                  <FaXTwitter />
+                </a>
+                <ThemeToggle className={styles.iconButton} />
+              </div>
             </li>
           </ul>
           <div className={styles.socialLinks}>

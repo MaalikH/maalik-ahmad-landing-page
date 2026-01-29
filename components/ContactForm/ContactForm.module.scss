@@ -53,9 +53,10 @@
   .title {
     font-size: 2.5rem;
     font-weight: 600;
-    color: $black;
+    color: var(--text-color);
     margin: 0;
     line-height: 1.2;
+    transition: color 0.3s ease;
     
     @include respond-to("md") {
       font-size: 2rem;
@@ -69,9 +70,10 @@
 
 .description {
   font-size: $font-size-md;
-  color: $gray-dark;
+  color: var(--text-color-secondary);
   line-height: 1.5;
   margin: 2rem 0;
+  transition: color 0.3s ease;
 
   @include respond-to("xs") {
     font-size: $font-size-sm;
@@ -129,10 +131,12 @@
     input, textarea {
       padding: $spacing-sm;
       border-radius: 12px;
-      border: 1px solid rgba($black, 0.1);
+      border: 1px solid var(--card-border);
       width: 100%;
       font-size: $font-size-md;
-      background: transparent;
+      background: var(--card-bg);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
       @include respond-to("sm") {
         padding: $spacing-sm;
@@ -140,7 +144,8 @@
       }
 
       &::placeholder {
-        color: rgba($black, 0.5);
+        color: var(--text-color-secondary);
+        opacity: 0.6;
       }
 
       &:focus {

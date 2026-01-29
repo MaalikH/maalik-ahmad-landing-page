@@ -179,14 +179,48 @@
     letter-spacing: -0.5px;
     font-weight: 400;
     color: $white;
-    
+
     &:hover {
       color: $primary-color;
     }
-    
+
     &.active {
       color: $primary-color;
     }
+  }
+}
+
+.iconGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  vertical-align: middle;
+
+  @include respond-to("md") {
+    display: none; // Hide in mobile menu since they're already in socialLinks
+  }
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--nav-text);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background: none;
+  border: none;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    color: $primary-color;
   }
 }
 

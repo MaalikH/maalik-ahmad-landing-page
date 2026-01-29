@@ -58,9 +58,10 @@
     .title {
       font-size: 2.5rem;
       font-weight: 600;
-      color: $black;
+      color: var(--text-color);
       margin: 0;
       line-height: 1.2;
+      transition: color 0.3s ease;
       
       @include respond-to("md") {
         font-size: 2rem;
@@ -164,10 +165,10 @@
         color: $white;
       }
     }
-    border-radius: $border-radius-lg;
+    border-radius: 0;
     border: none;
-    background: $white;
-    // transition: all 0.3s ease-in-out; // Temporarily remove to test scroll conflict
+    background: transparent;
+    transition: background-color 0.3s ease;
 
     @include respond-to("md") {
       padding: $spacing-md;
@@ -177,7 +178,7 @@
       text-align: left;
       // Remove hover effects on mobile
       &:hover {
-        background: $white;
+        background: transparent;
         .iconContainer, .serviceTitle, .serviceDescription {
           color: inherit;
         }
@@ -195,7 +196,7 @@
       text-align: left;
       // Remove hover effects on mobile
       &:hover {
-        background: $white;
+        background: transparent;
         .iconContainer, .serviceTitle, .serviceDescription {
           color: inherit;
         }
@@ -260,6 +261,8 @@
       margin-bottom: $spacing-sm;
       font-size: $font-size-lg;
       font-weight: 600;
+      color: var(--text-color);
+      transition: color 0.3s ease;
 
       @include respond-to("xs") {
         margin-bottom: $spacing-xs * 0.5;
@@ -269,8 +272,9 @@
 
     .serviceDescription {
       font-size: $font-size-md;
-      color: $gray-dark;
+      color: var(--text-color-secondary);
       line-height: 1.5;
+      transition: color 0.3s ease;
 
       @include respond-to("xs") {
         font-size: $font-size-sm;

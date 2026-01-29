@@ -1,0 +1,9 @@
+@use "../../styles/variables" as *;
+
+.themeToggle {
+  // Match iconButton style - clean and minimal
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}

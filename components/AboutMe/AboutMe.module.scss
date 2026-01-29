@@ -2,8 +2,9 @@
 
 .aboutMeContent {
   display: block;
-  color: $black;
+  color: var(--text-color);
   text-align: left;
+  transition: color 0.3s ease;
   // No default padding - let Bootstrap handle mobile
   height: 100vh; // Match Services and Portfolio: fixed height creates spacing
   margin-bottom: $spacing-xl; // Add bottom margin for section spacing
@@ -47,9 +48,10 @@
     h2.title {
       font-size: 2.5rem !important;
       font-weight: 600 !important;
-      color: $black !important;
+      color: var(--text-color) !important;
       margin: 0 !important;
       line-height: 1.2 !important;
+      transition: color 0.3s ease;
       
       @include respond-to("md") {
         font-size: 2rem !important;
@@ -290,7 +292,8 @@
   margin: 2rem 0;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba($black, 0.8);
+  color: var(--text-color);
+  transition: color 0.3s ease;
   
   @include respond-to("md") {
     margin: $spacing-md 0;

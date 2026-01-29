@@ -5,6 +5,14 @@
     --secondary-color: #FFF; /* White for backgrounds */
     --tertiary-color: #000000; /* Black for text */
 
+    /* General colors that change with theme */
+    --bg-color: #FFFFFF;
+    --text-color: #000000;
+    --text-color-secondary: #333333;
+    --card-bg: #FFFFFF;
+    --card-border: rgba(0, 0, 0, 0.1);
+    --section-bg: #FFFFFF;
+
     /* Typography */
     --font-primary: "Space Grotesk", sans-serif;
     --font-size-large: 2.5rem;
@@ -13,16 +21,33 @@
 
     /* Shadows */
     --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0px 4px 12px rgba(0, 0, 0, 0.2);
 
-    // Navbar specific variables - only these change with theme
+    // Navbar specific variables
     --nav-bg: #FFFFFF;
     --nav-text: #000000;
     --nav-border: rgba(0, 0, 0, 0.1);
 }
 
-// Dark theme - only affects navbar
+// Dark theme - affects entire site
 [data-theme="dark"] {
-    // Only navbar colors change
+    --primary-color: #FE2D1A; /* Keep red accent the same */
+    --secondary-color: #0F0F0F; /* Dark backgrounds */
+    --tertiary-color: #FFFFFF; /* White text */
+
+    /* General colors for dark mode */
+    --bg-color: #0F0F0F;
+    --text-color: #FFFFFF;
+    --text-color-secondary: #B0B0B0;
+    --card-bg: #1A1A1A;
+    --card-border: rgba(255, 255, 255, 0.1);
+    --section-bg: #0F0F0F;
+
+    /* Shadows for dark mode */
+    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-dark: 0px 4px 12px rgba(0, 0, 0, 0.5);
+
+    // Navbar colors for dark mode
     --nav-bg: #0F0F0F;
     --nav-text: #FFFFFF;
     --nav-border: rgba(255, 255, 255, 0.1);
@@ -32,8 +57,9 @@
     font-family: "Space Grotesk", sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--tertiary-color);
-    background-color: var(--secondary-color);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .fp-overflow {
@@ -43,13 +69,15 @@
   h1, h2, h3 {
     margin: 0;
     font-weight: bold;
-    color: var(--tertiary-color);
+    color: var(--text-color);
+    transition: color 0.3s ease;
   }
 
   h4 {
     margin: 0;
     font-weight: 600;
-    color: var(--tertiary-color);
+    color: var(--text-color);
+    transition: color 0.3s ease;
   }
 
   h5 {
