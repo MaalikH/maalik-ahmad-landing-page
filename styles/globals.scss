@@ -1,25 +1,9 @@
 @use './variables';
 
-// Light theme (default)
 :root {
-    --primary-color: #FE2D1A; /* Red stays the same in both themes */
-
-    // Main color inversions
-    --bg-main: #FFFFFF;
-    --text-main: #000000;
-    --text-secondary: #4B5563;
-    --text-tertiary: #9CA3AF;
-
-    // Component colors that invert
-    --card-bg: #FFFFFF;
-    --card-text: #000000;
-    --nav-bg: #FFFFFF;
-    --nav-text: #000000;
-    --border-color: rgba(0, 0, 0, 0.1);
-
-    // Toggle button
-    --toggle-bg: #FFFFFF;
-    --toggle-border: #000000;
+    --primary-color: #FE2D1A; /* Red for buttons and accents */
+    --secondary-color: #FFF; /* White for backgrounds */
+    --tertiary-color: #000000; /* Black for text */
 
     /* Typography */
     --font-primary: "Space Grotesk", sans-serif;
@@ -30,53 +14,26 @@
     /* Shadows */
     --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
-    // Legacy support (gradually migrate components)
-    --secondary-color: var(--bg-main);
-    --tertiary-color: var(--text-main);
+    // Navbar specific variables - only these change with theme
+    --nav-bg: #FFFFFF;
+    --nav-text: #000000;
+    --nav-border: rgba(0, 0, 0, 0.1);
 }
 
-// Dark theme
+// Dark theme - only affects navbar
 [data-theme="dark"] {
-    // Main color inversions
-    --bg-main: #0F0F0F;
-    --text-main: #FFFFFF;
-    --text-secondary: #B8BCC8;
-    --text-tertiary: #6B7280;
-
-    // Component colors that invert
-    --card-bg: #0F0F0F;
-    --card-text: #FFFFFF;
+    // Only navbar colors change
     --nav-bg: #0F0F0F;
     --nav-text: #FFFFFF;
-    --border-color: rgba(255, 255, 255, 0.1);
-
-    // Toggle button
-    --toggle-bg: #0F0F0F;
-    --toggle-border: #FFFFFF;
-
-    /* Shadows - adjust for dark mode */
-    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.3);
-
-    // Legacy support
-    --secondary-color: var(--bg-main);
-    --tertiary-color: var(--text-main);
+    --nav-border: rgba(255, 255, 255, 0.1);
 }
-  
+
   body {
     font-family: "Space Grotesk", sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--text-main);
-    background-color: var(--bg-main);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  // Global color inversion for dark theme - removed aggressive overrides
-  [data-theme="dark"] {
-    // Smooth transitions
-    * {
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
+    color: var(--tertiary-color);
+    background-color: var(--secondary-color);
   }
 
   .fp-overflow {
