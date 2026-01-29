@@ -110,18 +110,6 @@
   }
 }
 
-.themeToggleItem {
-  display: flex;
-  align-items: center;
-  margin-left: $spacing-sm;
-
-  @include respond-to("md") {
-    margin-left: 0;
-    width: 100%;
-    padding: $spacing-sm 0;
-  }
-}
-
 .navLink {
   composes: nav-link from global;
   color: var(--nav-text);

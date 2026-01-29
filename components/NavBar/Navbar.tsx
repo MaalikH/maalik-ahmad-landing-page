@@ -155,8 +155,8 @@ const Navbar = () => {
                 Contact
               </button>
             </li>
-            <li className={`nav-item ${styles.themeToggleItem}`}>
-              <ThemeToggle />
+            <li className="nav-item">
+              <ThemeToggle className={styles.navLink} />
             </li>
           </ul>
           <div className={styles.socialLinks}>
