@@ -9,8 +9,8 @@
   z-index: 1000;
   padding: $spacing-md 0;
   transition: all 0.3s ease;
-  background: $white;
-  border-bottom: 1px solid rgba($black, 0.1);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
   // backdrop-filter: blur(10px);
   // -webkit-backdrop-filter: blur(10px);
 
@@ -37,14 +37,14 @@
   composes: navbar-brand from global;
   font-size: $font-size-lg;
   font-weight: 800; // Increased from 700 for stronger presence
-  color: $black;
+  color: var(--nav-text);
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); // Smoother easing
   letter-spacing: -0.5px; // Tighter letter spacing for modern look
   position: relative;
-  
+
   // Subtle gradient text effect
-  background: linear-gradient(135deg, $black 0%, $primary-color 100%);
+  background: linear-gradient(135deg, var(--nav-text) 0%, var(--primary-color) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -110,9 +110,21 @@
   }
 }
 
+.themeToggleItem {
+  display: flex;
+  align-items: center;
+  margin-left: $spacing-sm;
+
+  @include respond-to("md") {
+    margin-left: 0;
+    width: 100%;
+    padding: $spacing-sm 0;
+  }
+}
+
 .navLink {
   composes: nav-link from global;
-  color: $black;
+  color: var(--nav-text);
   font-size: $font-size-sm;
   font-weight: 500;
   text-transform: uppercase;

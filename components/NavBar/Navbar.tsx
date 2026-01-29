@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import ThemeToggle from "../ThemeToggle";
 import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
@@ -145,14 +146,17 @@ const Navbar = () => {
               </button>
             </li>
             <li className="nav-item">
-              <button 
-                className={classNames(styles.navLink, { 
-                  [styles.active]: activeSection === "contact" 
-                })} 
+              <button
+                className={classNames(styles.navLink, {
+                  [styles.active]: activeSection === "contact"
+                })}
                 onClick={() => handleNavClick("contact")}
               >
                 Contact
               </button>
+            </li>
+            <li className={`nav-item ${styles.themeToggleItem}`}>
+              <ThemeToggle />
             </li>
           </ul>
           <div className={styles.socialLinks}>

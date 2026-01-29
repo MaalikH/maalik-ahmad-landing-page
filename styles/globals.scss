@@ -1,26 +1,118 @@
 @use './variables';
 
+// Light theme (default)
 :root {
-    --primary-color: #FE2D1A; /* Red for buttons and accents */
-    --secondary-color: #FFF; /* Black for background and text highlights */
-    --tertiary-color: #000000; /* White for text on dark backgrounds */
-  
+    --primary-color: #FE2D1A; /* Red stays the same in both themes */
+
+    // Main color inversions
+    --bg-main: #FFFFFF;
+    --text-main: #000000;
+
+    // Component colors that invert
+    --card-bg: #FFFFFF;
+    --card-text: #000000;
+    --nav-bg: #FFFFFF;
+    --nav-text: #000000;
+    --border-color: rgba(0, 0, 0, 0.1);
+
+    // Toggle button
+    --toggle-bg: #FFFFFF;
+    --toggle-border: #000000;
+
     /* Typography */
-    --font-primary: "Space Grotesk", sans-serif; /* Modern, clean font */
-    --font-size-large: 2.5rem; /* Hero section large font size */
-    --font-size-medium: 1.5rem; /* Subtitles and headings */
-    --font-size-small: 1rem; /* Body text */
-  
+    --font-primary: "Space Grotesk", sans-serif;
+    --font-size-large: 2.5rem;
+    --font-size-medium: 1.5rem;
+    --font-size-small: 1rem;
+
     /* Shadows */
-    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1); /* For cards */
-  }
+    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    // Legacy support (gradually migrate components)
+    --secondary-color: var(--bg-main);
+    --tertiary-color: var(--text-main);
+}
+
+// Dark theme
+[data-theme="dark"] {
+    // Main color inversions
+    --bg-main: #0F0F0F;
+    --text-main: #FFFFFF;
+
+    // Component colors that invert
+    --card-bg: #0F0F0F;
+    --card-text: #FFFFFF;
+    --nav-bg: #0F0F0F;
+    --nav-text: #FFFFFF;
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    // Toggle button
+    --toggle-bg: #0F0F0F;
+    --toggle-border: #FFFFFF;
+
+    /* Shadows - adjust for dark mode */
+    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.3);
+
+    // Legacy support
+    --secondary-color: var(--bg-main);
+    --tertiary-color: var(--text-main);
+}
   
   body {
     font-family: "Space Grotesk", sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--tertiary-color);
-    background-color: var(--secondary-color);
+    color: var(--text-main);
+    background-color: var(--bg-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  // Global color inversion for dark theme
+  [data-theme="dark"] {
+    // Invert all whites to black and blacks to white
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    // Force text colors
+    h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th, label {
+      color: var(--text-main) !important;
+    }
+
+    // Force background colors
+    section, div, article, aside, header, footer, nav {
+      background-color: var(--bg-main);
+    }
+
+    // Cards and containers
+    .card, [class*="card"], [class*="Card"] {
+      background-color: var(--card-bg) !important;
+      color: var(--card-text) !important;
+    }
+
+    // Navigation
+    nav, [class*="nav"], [class*="Nav"] {
+      background-color: var(--nav-bg) !important;
+
+      a, button {
+        color: var(--nav-text) !important;
+      }
+    }
+
+    // Borders
+    * {
+      border-color: var(--border-color);
+    }
+
+    // Images and videos remain unchanged
+    img, video, svg {
+      filter: none;
+    }
+
+    // Keep primary color (red) unchanged
+    [class*="primary"], .text-danger, .btn-primary {
+      color: var(--primary-color) !important;
+    }
   }
 
   .fp-overflow {

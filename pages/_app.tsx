@@ -5,6 +5,7 @@ import { AppProps } from "next/app";
 import { ReactLenis } from "lenis/react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ThemeProvider } from "../context/ThemeContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const lenisRef = useRef(null);
@@ -20,8 +21,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <ReactLenis root options={{ autoRaf: false, smoothWheel: true}} ref={lenisRef}>
-      <Component {...pageProps} />
-    </ReactLenis>
+    <ThemeProvider>
+      <ReactLenis root options={{ autoRaf: false, smoothWheel: true}} ref={lenisRef}>
+        <Component {...pageProps} />
+      </ReactLenis>
+    </ThemeProvider>
   );
 }
