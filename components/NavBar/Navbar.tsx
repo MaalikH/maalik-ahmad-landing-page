@@ -158,7 +158,7 @@ const Navbar = () => {
             <li className="nav-item">
               <div className={styles.iconGroup}>
                 <a
-                  href="https://github.com/maalikahmad"
+                  href="https://github.com/maalikh"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.iconButton}
@@ -167,7 +167,7 @@ const Navbar = () => {
                   <FaGithub />
                 </a>
                 <a
-                  href="https://twitter.com/maalikahmad"
+                  href="https://twitter.com/maalikahmadtech"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.iconButton}
@@ -180,13 +180,13 @@ const Navbar = () => {
             </li>
           </ul>
           <div className={styles.socialLinks}>
-            <a href="https://github.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+            <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaGithub />
             </a>
             <a href="https://linkedin.com/in/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaLinkedin />
             </a>
-            <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+            <a href="https://twitter.com/maalikahmadtech" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaXTwitter />
             </a>
             <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
