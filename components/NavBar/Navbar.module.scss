@@ -201,28 +201,6 @@
   }
 }
 
-.iconButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  color: var(--nav-text);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  background: none;
-  border: none;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  &:hover {
-    color: $primary-color;
-  }
-}
 
 .socialLinks {
   display: none;

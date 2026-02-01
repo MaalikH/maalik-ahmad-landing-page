@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import ThemeToggle from "../ThemeToggle";
+import { useTheme } from "../../context/ThemeContext";
+import NavIconButton from "./NavIconButton";
 import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [activeSection, setActiveSection] = useState<string>("");
+  const { theme, toggleTheme } = useTheme();
 
   const handleNavClick = (sectionName: string) => {
     // Map section names to the actual CSS class selectors
@@ -162,25 +164,21 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <div className={styles.iconGroup}>
-                <a
+                <NavIconButton
                   href="https://github.com/maalikh"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.iconButton}
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </a>
-                <a
+                  icon={<FaGithub />}
+                  ariaLabel="GitHub"
+                />
+                <NavIconButton
                   href="https://twitter.com/maalikahmadtech"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.iconButton}
-                  aria-label="X (Twitter)"
-                >
-                  <FaXTwitter />
-                </a>
-                <ThemeToggle className={styles.iconButton} />
+                  icon={<FaXTwitter />}
+                  ariaLabel="X (Twitter)"
+                />
+                <NavIconButton
+                  onClick={toggleTheme}
+                  icon={theme === "light" ? <FaSun /> : <FaMoon />}
+                  ariaLabel={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+                />
               </div>
             </li>
           </ul>

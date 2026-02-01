@@ -124,3 +124,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.blurred {
+  filter: blur(8px);
+  pointer-events: none;
+  user-select: none;
+}

@@ -1,0 +1,122 @@
+@use "../../styles/variables" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0;
+  padding: $spacing-xl;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--shadow-dark);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 $spacing-xs;
+  text-align: center;
+}
+
+.instruction {
+  font-size: $font-size-md;
+  color: var(--text-color-secondary);
+  text-align: center;
+  margin: 0 0 $spacing-lg;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-sm;
+  font-size: $font-size-md;
+  font-family: inherit;
+  background: var(--bg-color);
+  border: 1px solid var(--card-border);
+  border-radius: 0;
+  color: var(--text-color);
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--text-color-secondary);
+  }
+}
+
+.error {
+  color: var(--primary-color);
+  font-size: $font-size-sm;
+  margin: 0;
+  text-align: center;
+}
+
+.button {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-md;
+  font-weight: 600;
+  font-family: inherit;
+  background: var(--primary-color);
+  color: $white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
