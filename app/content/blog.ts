@@ -4,7 +4,9 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   date: string;
-  image?: string;
+  image?: string | null;
+  author: string;
+  content?: string;  // Rendered HTML content from markdown
 }
 
 export interface BlogContent {
@@ -23,7 +25,7 @@ export const blogContent: BlogContent = {
       title: "Building Scroll Animations with GSAP and ScrollTrigger",
       excerpt: "A deep dive into creating performant, complex scroll-driven animations using GSAP's ScrollTrigger plugin. Learn how to pin sections, orchestrate timelines, and handle responsive behavior.",
       date: "2026-01-28",
-      image: "/images/blog/gsap-scroll.jpg"
+      author: "Maalik Ahmad Hornbuckle"
     }
   ]
 };

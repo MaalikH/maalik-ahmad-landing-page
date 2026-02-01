@@ -1,19 +1,28 @@
 @use "../../styles/variables" as *;
 
 .blogContainer {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 120px $spacing-md $spacing-2xl;
+  padding: 120px $spacing-xl $spacing-2xl;
   min-height: 100vh;
 
+  @media (max-width: $breakpoint-lg) {
+    padding: 120px $spacing-lg $spacing-2xl;
+  }
+
   @media (max-width: $breakpoint-md) {
+    padding: 100px $spacing-md $spacing-xl;
+  }
+
+  @media (max-width: $breakpoint-sm) {
     padding: 100px $spacing-sm $spacing-xl;
   }
 }
 
 .header {
   text-align: center;
-  margin-bottom: $spacing-2xl;
+  margin-bottom: $spacing-xl;
 }
 
 .title {
@@ -31,22 +40,23 @@
 .subtitle {
   font-size: 1.125rem;
   color: var(--text-color-secondary);
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-md;
+  gap: $spacing-lg;
+  width: 100%;
 
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-sm;
+    gap: $spacing-md;
   }
 
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    gap: $spacing-md;
   }
 }
 
@@ -55,14 +65,15 @@
   flex-direction: column;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: $border-radius-lg;
+  border-radius: 0;
   overflow: hidden;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow-light);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-4px);
     box-shadow: var(--shadow-dark);
+    border-color: var(--primary-color);
 
     .cardTitle {
       color: var(--primary-color);
@@ -75,13 +86,15 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background: var(--card-border);
+  border-radius: 0;
+  overflow: hidden;
 }
 
 .cardContent {
-  padding: $spacing-md;
   display: flex;
   flex-direction: column;
   gap: $spacing-xs;
+  padding: $spacing-md;
 }
 
 .cardDate {

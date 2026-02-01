@@ -31,10 +31,10 @@ const BlogCard = ({ post }: BlogCardProps) => {
         </div>
       )}
       <div className={styles.cardContent}>
+        <h3 className={styles.cardTitle}>{post.title}</h3>
         <time className={styles.cardDate} dateTime={post.date}>
           {formatDate(post.date)}
         </time>
-        <h3 className={styles.cardTitle}>{post.title}</h3>
         <p className={styles.cardExcerpt}>{post.excerpt}</p>
       </div>
     </Link>
