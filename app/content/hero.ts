@@ -5,8 +5,8 @@ export const heroContent = {
     after: "a Creative Developer",
   },
   typingStrings: [
-    "I'm <span style='color: #FE2D1A;'>Maalik Ahmad</span>, a Creative Developer.",
-    "I build solutions in tech and design.",
+    "I'm <span style='color: #FE2D1A;'>Maalik Ahmad</span>, a Software Engineer.",
+    "I'm <span style='color: #FE2D1A;'>Maalik Ahmad</span>, a Digital Artist.",
     "I'm <span style='color: #FE2D1A;'>Maalik Ahmad</span>, a Creative Developer.",
   ],
   ctaButtons: [

@@ -88,6 +88,7 @@ const Hero = (props: HeroProps) => {
               typeSpeed={50}
               backSpeed={30}
               backDelay={1500}
+              smartBackspace={true}
               loop={false}
               onComplete={() => setIsTypingDone(true)}
             />
