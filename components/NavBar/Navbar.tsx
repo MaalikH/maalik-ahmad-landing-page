@@ -156,6 +156,11 @@ const Navbar = () => {
               </button>
             </li>
             <li className="nav-item">
+              <Link href="/blog" className={styles.navLink}>
+                Blog
+              </Link>
+            </li>
+            <li className="nav-item">
               <div className={styles.iconGroup}>
                 <a
                   href="https://github.com/maalikh"
