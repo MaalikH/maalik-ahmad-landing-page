@@ -22,7 +22,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
-      <ReactLenis root options={{ autoRaf: false, smoothWheel: true}} ref={lenisRef}>
+      <ReactLenis root options={{
+          autoRaf: false,
+          smoothWheel: true,
+          lerp: 0.08,           // Lower = slower/smoother (default: 0.1)
+          wheelMultiplier: 0.7, // Lower = less scroll per wheel tick (default: 1)
+          duration: 1.3         // Higher = slower scroll animation (default: 1.2)
+        }} ref={lenisRef}>
         <Component {...pageProps} />
       </ReactLenis>
     </ThemeProvider>

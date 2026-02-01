@@ -53,7 +53,68 @@
     --nav-border: rgba(255, 255, 255, 0.1);
 }
 
+// Stars background effect (dark mode only)
+[data-theme="dark"] body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        // White stars at various positions and opacities
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 160px 120px, rgba(255, 255, 255, 0.7), transparent),
+        // Teal accent stars
+        radial-gradient(2px 2px at 200px 60px, rgba(0, 229, 204, 0.6), transparent),
+        radial-gradient(1px 1px at 250px 150px, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 280px 20px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1px 1px at 310px 90px, rgba(255, 255, 255, 0.4), transparent),
+        // Red accent stars
+        radial-gradient(2px 2px at 50px 160px, rgba(254, 45, 26, 0.5), transparent),
+        radial-gradient(1px 1px at 180px 180px, rgba(255, 255, 255, 0.5), transparent);
+    background-size: 350px 200px;
+    opacity: 0;
+    animation: fadeInStars 0.5s ease forwards;
+}
+
+// Nebula glow effect (dark mode only)
+[data-theme="dark"] body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        // Red glow - top left
+        radial-gradient(80% 50% at 20% 20%, rgba(254, 45, 26, 0.12), transparent 50%),
+        // Teal/cyan glow - top right
+        radial-gradient(60% 60% at 80% 30%, rgba(0, 229, 204, 0.08), transparent 50%),
+        // Subtle red glow - bottom center
+        radial-gradient(90% 70% at 50% 90%, rgba(254, 45, 26, 0.06), transparent 50%);
+    opacity: 0;
+    animation: fadeInStars 0.5s ease forwards;
+}
+
+@keyframes fadeInStars {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
   body {
+    position: relative;
     font-family: "Space Grotesk", sans-serif;
     margin: 0;
     padding: 0;
