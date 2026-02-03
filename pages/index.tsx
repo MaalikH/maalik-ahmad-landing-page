@@ -1,7 +1,7 @@
 import Hero from "../components/Hero/Hero";
 import Head from "next/head";
 import PortfolioMA from "@/components/Portfolio/portfolio";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { aboutMeContent } from "@/app/content/aboutMe";
 import AboutMe from "@/components/AboutMe/AboutMe";
 import Services from "@/components/Services/Services";
@@ -11,8 +11,7 @@ import { heroContent } from "@/app/content/hero";
 import { servicesContent } from "@/app/content/services";
 import { contactContent } from "@/app/content/contact";
 import GarageFooter from '@/components/Footer/GarageFooter';
-import { trackSectionView } from '../lib/gtag';
-import GoogleAnalytics from '@/app/GoogleAnalytics';
+import { trackSectionView } from '../lib/analytics';
 import { useRouter } from 'next/router';
 import { shouldRedirectToQuickLinks } from '../lib/deviceDetection';
 import { TransitionProvider } from '../context/TransitionContext';
@@ -29,6 +28,39 @@ export default function Home() {
     }
   }, [router]);
 
+  // Handle hash-based navigation (when arriving from other pages via /#section)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    const sectionSelectors: Record<string, string> = {
+      services: '[class*="servicesContainer"]',
+      portfolio: '[class*="portfolioContainer"]',
+      aboutMe: '[class*="aboutMeContent"]',
+      contact: '[class*="contactContent"]'
+    };
+
+    const selector = sectionSelectors[hash];
+    if (!selector) return;
+
+    // Small delay to ensure page has rendered and GSAP has initialized
+    const timeoutId = setTimeout(() => {
+      const section = document.querySelector(selector);
+      if (section) {
+        if (hash === 'contact') {
+          const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: sectionTop + 5, behavior: 'smooth' });
+        } else {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Clear the hash from URL after scrolling
+        window.history.replaceState(null, '', '/');
+      }
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   // Show mobile alert for full experience
   useEffect(() => {
     const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
@@ -43,41 +75,66 @@ export default function Home() {
 
   // Refs
   const portfolioRef = useRef<HTMLDivElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const aboutMeRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const trackedSections = useRef<Set<string>>(new Set());
 
   // State
   const [isFooterVisible, setIsFooterVisible] = useState(false);
-  
+
   // Debug footer state changes
   useEffect(() => {
     // console.log('🦶 FOOTER STATE CHANGED TO:', isFooterVisible);
   }, [isFooterVisible]);
 
+  // Track section view (only once per section)
+  const handleSectionView = useCallback((sectionName: string) => {
+    if (!trackedSections.current.has(sectionName)) {
+      trackedSections.current.add(sectionName);
+      trackSectionView(sectionName);
+    }
+  }, []);
 
-  // Effects
+  // Track Hero section on mount
   useEffect(() => {
-    const currentPortfolioRef = portfolioRef.current;
-    if (!currentPortfolioRef || observerRef.current) return;
+    handleSectionView('Hero');
+  }, [handleSectionView]);
 
-    observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        // Track portfolio visibility for analytics
-        if (entry.isIntersecting) {
-          trackSectionView('portfolio');
-        }
+  // Section tracking with IntersectionObserver
+  useEffect(() => {
+    const sections = [
+      { ref: servicesRef.current, name: 'Services' },
+      { ref: portfolioRef.current, name: 'Portfolio' },
+      { ref: aboutMeRef.current, name: 'About Me' },
+      { ref: contactRef.current, name: 'Contact' },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionName = entry.target.getAttribute('data-section');
+            if (sectionName) {
+              handleSectionView(sectionName);
+            }
+          }
+        });
       },
-      { threshold: 0.1 }
+      { threshold: 0.5 } // 50% visible
     );
 
-    observerRef.current.observe(currentPortfolioRef);
+    sections.forEach(({ ref, name }) => {
+      if (ref) {
+        ref.setAttribute('data-section', name);
+        observer.observe(ref);
+      }
+    });
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-        observerRef.current = null;
-      }
+      observer.disconnect();
     };
-  }, []);
+  }, [handleSectionView]);
 
   return (
     <TransitionProvider>
@@ -137,12 +194,10 @@ export default function Home() {
         />
       </Head>
 
-      <GoogleAnalytics />
-
       <section className="section container-fluid bg-black">
         <Hero content={heroContent} />
       </section>
-      <section className="section container-fluid">
+      <section className="section container-fluid" ref={servicesRef}>
         <Services content={servicesContent} />
       </section>
       <section className="section container-fluid" ref={portfolioRef}>
@@ -150,11 +205,11 @@ export default function Home() {
           content={portfolioContent}
         />
       </section>
-      <section className="section container-fluid">
+      <section className="section container-fluid" ref={aboutMeRef}>
         <AboutMe content={aboutMeContent} setIsFooterVisible={setIsFooterVisible} />
       </section>
 
-      <section className="section container-fluid">
+      <section className="section container-fluid" ref={contactRef}>
         <Contact content={contactContent} setIsFooterVisible={setIsFooterVisible} />
       </section>
       <GarageFooter isVisible={isFooterVisible} />

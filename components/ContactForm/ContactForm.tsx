@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRef, useEffect, useState } from "react";
 import styles from "./ContactForm.module.scss";
-import { trackFormSubmission } from '../../lib/gtag';
+import { trackContactSubmit } from '../../lib/analytics';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -12,6 +12,12 @@ interface FormData {
   name: string;
   contact: string; // Can be either phone or email
   message: string;
+  honeypot?: string; // Spam protection
+}
+
+interface FormStatus {
+  type: 'idle' | 'loading' | 'success' | 'error';
+  message?: string;
 }
 
 interface Props {
@@ -27,13 +33,14 @@ interface Props {
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = ({ content, setIsFooterVisible }: Props) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const hasShownFooter = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
+  const [formStatus, setFormStatus] = useState<FormStatus>({ type: 'idle' });
 
   // Mobile detection
   useEffect(() => {
@@ -59,12 +66,51 @@ const Contact = ({ content, setIsFooterVisible }: Props) => {
     return "Please enter a valid email address or phone number";
   };
 
-  const onSubmit = async () => {
+  // Form focus handler (tracking removed - Vercel Analytics focuses on outcomes)
+  const handleFormFocus = () => {
+    // No-op - we only track successful/failed submissions
+  };
+
+  const onSubmit = async (data: FormData) => {
+    setFormStatus({ type: 'loading' });
+
     try {
-      trackFormSubmission('contact', true);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          contact: data.contact,
+          message: data.message,
+          honeypot: data.honeypot,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setFormStatus({
+          type: 'success',
+          message: "Thanks for reaching out! I'll get back to you soon."
+        });
+        trackContactSubmit(true);
+        reset(); // Reset form fields
+      } else {
+        setFormStatus({
+          type: 'error',
+          message: result.error || 'Something went wrong. Please try again.'
+        });
+        trackContactSubmit(false);
+      }
     } catch (error) {
       console.error('Form submission failed:', error);
-      trackFormSubmission('contact', false);
+      setFormStatus({
+        type: 'error',
+        message: 'Unable to send message. Please check your connection and try again.'
+      });
+      trackContactSubmit(false);
     }
   };
 
@@ -224,41 +270,89 @@ const Contact = ({ content, setIsFooterVisible }: Props) => {
       </div>
       
       <div ref={formRef} className={styles.ContactForm}>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.formGroupContainer}>
-            <div className={styles.formGroup}>
-              <input
-                type="text"
-                placeholder="Your Name"
-                {...register("name", { required: "Name is required" })}
-              />
-              {errors.name && <span className={styles.errorMessage}>{errors.name.message}</span>}
-            </div>
-            <div className={styles.formGroup}>
-              <input
-                type="text"
-                placeholder="Email or Phone Number"
-                {...register("contact", { 
-                  required: "Email or phone number is required",
-                  validate: validateContact
-                })}
-              />
-              {errors.contact && <span className={styles.errorMessage}>{errors.contact.message}</span>}
-            </div>
-          </div>
-          <div className={styles.formGroup}>
-            <textarea
-              placeholder="Your Message"
-              {...register("message", { required: "Message is required" })}
-            />
-            {errors.message && <span className={styles.errorMessage}>{errors.message.message}</span>}
-          </div>
-          <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.CTAButtonPrimary}>
-              Send Message
+        {formStatus.type === 'success' ? (
+          <div className={styles.successMessage}>
+            <svg className={styles.successIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+              <path d="M8 12L11 15L16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <p>{formStatus.message}</p>
+            <button
+              type="button"
+              className={styles.CTAButtonSecondary}
+              onClick={() => setFormStatus({ type: 'idle' })}
+            >
+              Send Another Message
             </button>
           </div>
-        </form>
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form} onFocus={handleFormFocus}>
+            {/* Honeypot field for spam protection - hidden from real users */}
+            <input
+              type="text"
+              {...register("honeypot")}
+              className={styles.honeypot}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
+
+            <div className={styles.formGroupContainer}>
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  disabled={formStatus.type === 'loading'}
+                  {...register("name", { required: "Name is required" })}
+                />
+                {errors.name && <span className={styles.errorMessage}>{errors.name.message}</span>}
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  placeholder="Email or Phone Number"
+                  disabled={formStatus.type === 'loading'}
+                  {...register("contact", {
+                    required: "Email or phone number is required",
+                    validate: validateContact
+                  })}
+                />
+                {errors.contact && <span className={styles.errorMessage}>{errors.contact.message}</span>}
+              </div>
+            </div>
+            <div className={styles.formGroup}>
+              <textarea
+                placeholder="Your Message"
+                disabled={formStatus.type === 'loading'}
+                {...register("message", { required: "Message is required" })}
+              />
+              {errors.message && <span className={styles.errorMessage}>{errors.message.message}</span>}
+            </div>
+
+            {formStatus.type === 'error' && (
+              <div className={styles.errorAlert}>
+                {formStatus.message}
+              </div>
+            )}
+
+            <div className={styles.buttonContainer}>
+              <button
+                type="submit"
+                className={styles.CTAButtonPrimary}
+                disabled={formStatus.type === 'loading'}
+              >
+                {formStatus.type === 'loading' ? (
+                  <>
+                    <span className={styles.spinner} />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );

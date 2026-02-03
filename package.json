@@ -16,6 +16,7 @@
     "@gsap/react": "^2.1.2",
     "@next/third-parties": "^15.2.3",
     "@studio-freight/lenis": "^1.0.42",
+    "@vercel/analytics": "^1.6.1",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
     "critters": "^0.0.23",
@@ -35,6 +36,7 @@
     "react-typed": "^2.0.12",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "resend": "^6.9.1",
     "sass": "^1.85.1",
     "swiper": "^11.2.10"
   },

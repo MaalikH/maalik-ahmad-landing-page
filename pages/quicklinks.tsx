@@ -5,14 +5,20 @@ import { FaXTwitter } from 'react-icons/fa6';
 import styles from '../styles/QuickLinks.module.scss';
 import { quickLinksContent } from '@/app/content/quicklinks';
 import Head from 'next/head';
-import { trackProjectClick } from '../lib/gtag';
-import { Project } from '../types/gtag';
+import { trackProjectClick } from '../lib/analytics';
 import { useRouter } from 'next/router';
 import { isMobileDevice } from '../lib/deviceDetection';
 
+interface Project {
+  id: string;
+  title: string;
+  image: string;
+  link: string;
+}
+
 const QuickLinks = () => {
   const router = useRouter();
-  
+
   const handleProjectClick = (project: Project) => {
     trackProjectClick(project.title, 'quicklinks');
   };

@@ -6,6 +6,7 @@ import { ReactLenis } from "lenis/react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ThemeProvider } from "../context/ThemeContext";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function App({ Component, pageProps }: AppProps) {
   const lenisRef = useRef(null);
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
           duration: 1.3         // Higher = slower scroll animation (default: 1.2)
         }} ref={lenisRef}>
         <Component {...pageProps} />
+        <Analytics />
       </ReactLenis>
     </ThemeProvider>
   );

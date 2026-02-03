@@ -1,6 +1,6 @@
 import { memo, useRef, useEffect, createRef, useState, useCallback } from "react";
 import classNames from "classnames";
-import { trackProjectClick } from "../../lib/gtag";
+import { trackProjectClick } from "../../lib/analytics";
 import { useTransition } from "../../context/TransitionContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
