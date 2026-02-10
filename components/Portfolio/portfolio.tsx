@@ -56,11 +56,14 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
   }
 
   // Generate grid template based on active index
-  // Active card gets 20fr, others get 1fr (like the CodePen)
+  // Desktop: 20fr active, 1fr inactive (large container, slivers still visible)
+  // Mobile: 5fr active, 1fr inactive (small container, need more room for inactive cards)
   const getGridTemplate = useCallback((active: number) => {
     if (!projects?.length) return "";
-    return projects.map((_, index) => index === active ? "20fr" : "1fr").join(" ");
-  }, [projects]);
+    const activeFr = isMobile ? "10fr" : "20fr";
+    const inactiveFr = "1fr";
+    return projects.map((_, index) => index === active ? activeFr : inactiveFr).join(" ");
+  }, [projects, isMobile]);
 
   // Mobile detection
   useEffect(() => {
@@ -80,8 +83,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
 
   // Handle card click - clicked card becomes active
   const handleCardClick = useCallback((clickedIndex: number, project: Project, e: React.MouseEvent) => {
-    if (isMobile) return;
-
     // Use scrollIndexRef during pinned scroll, activeIndex otherwise
     const currentActive = isPinnedRef.current ? scrollIndexRef.current : activeIndex;
 
@@ -98,7 +99,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
 
   // Update grid template when activeIndex changes (click-driven)
   useEffect(() => {
-    if (isMobile || !cardsContainerRef.current) return;
+    if (!cardsContainerRef.current) return;
 
     // Re-enable CSS transition for click-driven changes
     if (!isPinnedRef.current) {
@@ -119,11 +120,13 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
 
     if (!sectionEl || !titleEl || !containerEl || !projects?.length) return;
 
-    // Mobile: Reset styles and exit early
+    // Mobile: Reset GSAP styles but preserve grid functionality
     if (isMobile) {
       gsap.set(sectionEl, { clearProps: "all", opacity: 1 });
       gsap.set(titleEl, { clearProps: "all", opacity: 1 });
       gsap.set(containerEl, { clearProps: "all", opacity: 1 });
+      // Re-apply grid template after clearProps wiped it
+      containerEl.style.setProperty('--active-grid', getGridTemplate(activeIndex));
       return;
     }
 
@@ -328,7 +331,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
               <div
                 key={project.id}
                 className={classNames(styles.stackedCard, {
-                  [styles.activeCard]: isActiveCard && !isMobile,
+                  [styles.activeCard]: isActiveCard,
                 })}
                 ref={cardRefs.current[index]}
                 onClick={(e) => handleCardClick(index, project, e)}
@@ -343,7 +346,7 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (!isActiveCard && !isMobile) {
+                      if (!isActiveCard) {
                         e.preventDefault();
                       }
                     }}

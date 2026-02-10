@@ -17,19 +17,17 @@
   @include respond-to("md") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
-    gap: $spacing-lg; // Title-to-content spacing
+    gap: $spacing-lg;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+    margin-bottom: $spacing-xl * 2; // Generous section separation on mobile
   }
 
   @include respond-to("xs") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
-    gap: $spacing-md; // Title-to-content spacing
+    gap: $spacing-md;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5; // Increase bottom margin for mobile
+    margin-bottom: $spacing-xl * 2; // Generous section separation on mobile
   }
 
   .aboutMeHeader {
@@ -58,7 +56,8 @@
       }
       
       @include respond-to("xs") {
-        font-size: 1.75rem !important;
+        font-size: 2rem !important;
+        margin-bottom: $spacing-md !important;
       }
     }
   }
@@ -221,7 +220,7 @@
       text-stroke: 2px $primary-color;
 
       @include respond-to("xs") {
-        font-size: $font-size-lg;
+        font-size: $font-size-xl;
         text-align: center;
         -webkit-text-stroke: 1px $primary-color;
         text-stroke: 1px $primary-color;

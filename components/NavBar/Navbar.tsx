@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaSun, FaMoon } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useTheme } from "../../context/ThemeContext";
 import NavIconButton from "./NavIconButton";
@@ -206,9 +206,6 @@ const Navbar = () => {
             </a>
             <a href="https://twitter.com/maalikahmadtech" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaXTwitter />
-            </a>
-            <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-              <FaInstagram />
             </a>
           </div>
         </div>

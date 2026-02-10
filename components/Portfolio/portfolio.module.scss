@@ -1,11 +1,11 @@
 @use "../../styles/variables" as *;
 
 .portfolioContainer {
-  background-color: var(--bg-color);
+  background-color: transparent;
   color: var(--text-color);
   display: flex;
   flex-direction: column;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
   height: 100vh;
   margin-bottom: $spacing-xl;
   gap: 0;
@@ -17,7 +17,7 @@
     min-height: auto;
     gap: $spacing-lg;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5;
+    margin-bottom: $spacing-xl * 2;
   }
 
   @include respond-to("xs") {
@@ -25,12 +25,15 @@
     min-height: auto;
     gap: $spacing-md;
     justify-content: flex-start;
-    margin-bottom: $spacing-xl * 1.5;
+    margin-bottom: $spacing-xl * 2;
   }
 
   &[aria-hidden="true"] {
-    pointer-events: none;
-    user-select: none;
+    // Only disable interaction on desktop where transition context controls visibility
+    @media (min-width: $breakpoint-lg) {
+      pointer-events: none;
+      user-select: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -71,7 +74,8 @@
   }
 
   @include respond-to("xs") {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    margin-bottom: $spacing-md;
   }
 }
 
@@ -118,19 +122,11 @@
   transition: grid-template-columns var(--transition-duration) var(--ease);
 
   @include respond-to("md") {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-md;
-    transition: none;
+    height: 300px;
   }
 
   @include respond-to("xs") {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-sm;
-    transition: none;
+    height: 250px;
   }
 }
 
@@ -149,15 +145,11 @@
   }
 
   @include respond-to("md") {
-    height: auto;
-    min-height: 250px;
-    margin-left: 0 !important;
+    height: 100%;
   }
 
   @include respond-to("xs") {
-    height: auto;
-    min-height: 200px;
-    margin-left: 0 !important;
+    height: 100%;
   }
 }
 
@@ -171,15 +163,6 @@
   box-shadow: var(--shadow-dark);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-  @include respond-to("md") {
-    position: relative;
-    height: 250px;
-  }
-
-  @include respond-to("xs") {
-    position: relative;
-    height: 200px;
-  }
 }
 
 .cardLink {

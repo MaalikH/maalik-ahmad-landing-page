@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import styles from './GarageFooter.module.scss';
 import { useEffect } from 'react';
@@ -30,14 +30,11 @@ const GarageFooter = ({ isVisible }: GarageFooterProps) => {
             <a href="https://github.com/maalikh" target="_blank" rel="noopener noreferrer">
               <FaGithub />
             </a>
-            <a href="https://linkedin.com/in/maalikhornbuckle" target="_blank" rel="noopener noreferrer">
+            <a href="https://linkedin.com/in/maalikahmad" target="_blank" rel="noopener noreferrer">
               <FaLinkedin />
             </a>
-            <a href="https://twitter.com/maalikahmad" target="_blank" rel="noopener noreferrer">
+            <a href="https://twitter.com/maalikahmadtech" target="_blank" rel="noopener noreferrer">
               <FaXTwitter />
-            </a>
-            <a href="https://instagram.com/maalikahmad" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
             </a>
             </div>
           <p className={styles.copyright}>© {new Date().getFullYear()} HBKL Labs. All rights reserved.</p>

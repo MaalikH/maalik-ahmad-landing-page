@@ -254,6 +254,25 @@
     box-shadow: none;
     outline: none;
   }
+
+  // When menu is open, transform to X and turn white
+  &[aria-expanded="true"] {
+    .navbarTogglerIcon {
+      background-color: transparent; // Hide middle line
+
+      &::before {
+        top: 0;
+        transform: translateX(-50%) rotate(45deg);
+        background-color: $white;
+      }
+
+      &::after {
+        bottom: 0;
+        transform: translateX(-50%) rotate(-45deg);
+        background-color: $white;
+      }
+    }
+  }
 }
 
 .navbarTogglerIcon {
@@ -275,13 +294,6 @@
     transition: all 0.3s ease;
   }
 
-  @include respond-to("md") {
-    &::before,
-    &::after,
-    & {
-      background-color: $white;
-    }
-  }
 
   &::before,
   &::after {

@@ -25,11 +25,17 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
+    // Check if user has manually toggled theme this session
+    const userOverride = sessionStorage.getItem('theme-override');
+    if (userOverride) {
+      setTheme(userOverride as Theme);
+      return;
     }
+
+    // Default based on time of day: dark from 7 PM to 5 AM
+    const hour = new Date().getHours();
+    const isNightTime = hour >= 19 || hour < 5;
+    setTheme(isNightTime ? 'dark' : 'light');
   }, []);
 
   useEffect(() => {
@@ -39,7 +45,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      sessionStorage.setItem('theme-override', newTheme);
+      return newTheme;
+    });
   };
 
   return (

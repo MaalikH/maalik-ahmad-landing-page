@@ -25,7 +25,7 @@ export const servicesContent = {
     {
       id: "clothing-design-production",
       title: "Clothing Production",
-      description: "Designing bold, purpose-driven fashion—handling concept, design, production, and order fulfillment.",
+      description: "Designing bold, purpose-driven fashion. From concept and design to production and order fulfillment.",
       icon: faTshirt,
     }
   ]

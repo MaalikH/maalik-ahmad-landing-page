@@ -36,18 +36,18 @@ const LogoMarquee = () => {
     const trackWidth = trackRef.current.scrollWidth / 2;
     const tween = gsap.to(trackRef.current, {
       x: -trackWidth,
-      duration: isMobile ? 10 : 20, // Faster on mobile
+      duration: isMobile ? 3 : 20, // Faster scroll on mobile
       ease: "none",
       repeat: -1,
     });
     return () => {
       tween.kill();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
-      className={`overflow-hidden w-100 py-6 bg-white ${styles.logoMarqueeContainer}`}
+      className={`overflow-hidden w-100 py-6 ${styles.logoMarqueeContainer}`}
       ref={marqueeRef}
     >
       <div

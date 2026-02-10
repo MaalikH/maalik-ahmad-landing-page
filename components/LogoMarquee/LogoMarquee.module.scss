@@ -1,10 +1,18 @@
 @use "../../styles/variables" as *;
 
 .logoBlack {
+  // Light mode: force logos black
   filter: brightness(0) invert(0);
+  transition: filter 0.3s ease;
+
+  // Dark mode: force logos white
+  [data-theme="dark"] & {
+    filter: brightness(0) invert(1);
+  }
 }
 
-
 .logoMarqueeContainer {
-    margin-top: $spacing-xl;
+  margin-top: $spacing-xl;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
 }

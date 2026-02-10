@@ -15,18 +15,16 @@
   @include respond-to("md") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
     gap: $spacing-lg;
-    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    margin-bottom: $spacing-xl * 2; // Generous section separation on mobile
     justify-content: flex-start;
   }
 
   @include respond-to("xs") {
     height: auto;
     min-height: auto;
-    // Remove padding property entirely to let Bootstrap handle it
-    gap: $spacing-md;
-    margin-bottom: $spacing-xl; // Increase bottom margin for mobile
+    gap: $spacing-sm; // Tighter gap between cards
+    margin-bottom: $spacing-xl * 2; // Generous section separation on mobile
     justify-content: flex-start;
   }
 
@@ -68,7 +66,8 @@
       }
       
       @include respond-to("xs") {
-        font-size: 1.75rem;
+        font-size: 2rem;
+        margin-bottom: $spacing-md;
       }
     }
   }
@@ -111,17 +110,21 @@
     padding: $spacing-md;
     gap: 0;
     text-align: left;
-    
-    // Remove left padding from first card to align with title
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    transition: background-color 0.3s ease;
+
+    // Remove left padding from first card to align with title (desktop only)
     &:first-child {
       padding-left: 0;
-      
+
       @include respond-to("md") {
-        padding-left: 0; // Keep no left padding on mobile
+        padding-left: $spacing-md; // Restore padding inside card on mobile
       }
-      
+
       @include respond-to("xs") {
-        padding-left: 0; // Keep no left padding on mobile
+        padding-left: $spacing-md; // Restore padding inside card on mobile
       }
       
       &:hover {
@@ -165,10 +168,6 @@
         color: $white;
       }
     }
-    border-radius: 0;
-    border: none;
-    background: transparent;
-    transition: background-color 0.3s ease;
 
     @include respond-to("md") {
       padding: $spacing-md;
@@ -176,34 +175,32 @@
       flex: none;
       width: 100%;
       text-align: left;
+      background: var(--card-bg);
+      box-shadow: $shadow-sm;
       // Remove hover effects on mobile
       &:hover {
-        background: transparent;
+        background: var(--card-bg);
         .iconContainer, .serviceTitle, .serviceDescription {
           color: inherit;
         }
       }
-      
-      // Remove left padding on all cards for mobile
-      padding-left: 0;
     }
 
     @include respond-to("xs") {
-      padding: $spacing-sm;
+      padding: $spacing-md;
       gap: $spacing-xs;
       flex: none;
       width: 100%;
       text-align: left;
+      background: var(--card-bg);
+      box-shadow: $shadow-sm;
       // Remove hover effects on mobile
       &:hover {
-        background: transparent;
+        background: var(--card-bg);
         .iconContainer, .serviceTitle, .serviceDescription {
           color: inherit;
         }
       }
-      
-      // Remove left padding on all cards for mobile
-      padding-left: 0;
     }
 
     &.scrolling {
