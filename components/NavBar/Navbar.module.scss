@@ -36,9 +36,11 @@
 .navbarBrand {
   composes: navbar-brand from global;
   font-size: $font-size-lg;
-  font-weight: 800; // Increased from 700 for stronger presence
+  font-weight: 800;
   color: var(--nav-text);
   text-decoration: none;
+  padding-left: 0;
+  margin-left: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); // Smoother easing
   letter-spacing: -0.5px; // Tighter letter spacing for modern look
   position: relative;
