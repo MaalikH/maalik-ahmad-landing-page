@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaGithub, FaLinkedin, FaInstagram, FaSun, FaMoon } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useTheme } from "../../context/ThemeContext";
@@ -8,15 +9,18 @@ import NavIconButton from "./NavIconButton";
 import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
+  const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [activeSection, setActiveSection] = useState<string>("");
   const { theme, toggleTheme } = useTheme();
 
-  const handleNavClick = (sectionName: string) => {
+  const isHomePage = router.pathname === '/';
+
+  const scrollToSection = (sectionName: string) => {
     // Map section names to the actual CSS class selectors
     const sectionSelectors: Record<string, string> = {
       services: '[class*="servicesContainer"]',
-      portfolio: '[class*="portfolioContainer"]', 
+      portfolio: '[class*="portfolioContainer"]',
       aboutMe: '[class*="aboutMeContent"]',
       contact: '[class*="contactContent"]'
     };
@@ -29,7 +33,7 @@ const Navbar = () => {
         if (sectionName === 'contact') {
           const sectionTop = section.getBoundingClientRect().top;
           const targetPosition = sectionTop + 5; // 5px past "top top" to ensure trigger
-          
+
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
@@ -37,17 +41,32 @@ const Navbar = () => {
         } else {
           section.scrollIntoView({ behavior: 'smooth' });
         }
-        
+
         setActiveSection(sectionName); // Set active section
-      } else {
-        // console.log(`Section not found for ${sectionName} with selector:`, selector);
       }
     }
-    setIsCollapsed(true); // Close menu on mobile after clicking a link
   };
 
-  // Track active section based on scroll position
+  const handleNavClick = (sectionName: string) => {
+    setIsCollapsed(true); // Close menu on mobile after clicking a link
+
+    if (isHomePage) {
+      // On home page: use DOM-based scroll
+      scrollToSection(sectionName);
+    } else {
+      // On other pages: navigate to home with hash
+      router.push(`/#${sectionName}`);
+    }
+  };
+
+  // Track active section based on scroll position (only on home page)
   useEffect(() => {
+    // Only track sections on the home page
+    if (!isHomePage) {
+      setActiveSection(''); // Clear active section on other pages
+      return;
+    }
+
     const handleScroll = () => {
       const sections = [
         { name: 'hero', selector: '[class*="heroContainer"]' }, // Add Hero to clear active state
@@ -66,8 +85,6 @@ const Navbar = () => {
           const top = rect.top + window.scrollY;
           const bottom = top + rect.height;
 
-          // Debug disabled
-
           // Special handling for Portfolio - it needs more scroll to become visible
           if (section.name === 'portfolio') {
             // Portfolio becomes fully visible at "top top+=200px", so activate when we're closer to that point
@@ -83,8 +100,6 @@ const Navbar = () => {
               break;
             }
           }
-        } else {
-          // console.log(`Section ${section.name} not found with selector: ${section.selector}`);
         }
       }
     };
@@ -93,7 +108,7 @@ const Navbar = () => {
     handleScroll(); // Check initial position
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   return (
     <nav className={classNames("navbar navbar-expand-lg navbar-dark navbar-transparent", styles.navBar)}>

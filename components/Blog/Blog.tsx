@@ -1,5 +1,6 @@
 import { BlogContent } from "@/app/content/blog";
 import BlogCard from "./BlogCard";
+import BlogSubscribe from "./BlogSubscribe";
 import styles from "./Blog.module.scss";
 
 interface BlogProps {
@@ -19,6 +20,8 @@ const Blog = ({ content }: BlogProps) => {
           <BlogCard key={post.id} post={post} />
         ))}
       </div>
+
+      <BlogSubscribe />
     </div>
   );
 };
