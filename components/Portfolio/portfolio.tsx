@@ -47,6 +47,8 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
   const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const scrollIndexRef = useRef(0); // Tracks card index during scroll without triggering re-renders
+  const isPinnedRef = useRef(false); // Tracks whether section is currently pinned (scroll-driven)
 
   // Initialize card refs
   if (cardRefs.current.length !== projects?.length) {
@@ -80,8 +82,11 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
   const handleCardClick = useCallback((clickedIndex: number, project: Project, e: React.MouseEvent) => {
     if (isMobile) return;
 
+    // Use scrollIndexRef during pinned scroll, activeIndex otherwise
+    const currentActive = isPinnedRef.current ? scrollIndexRef.current : activeIndex;
+
     // If clicking on active card, open the link
-    if (clickedIndex === activeIndex) {
+    if (clickedIndex === currentActive) {
       handleProjectClick(project);
       return; // Let the link handle navigation
     }
@@ -91,12 +96,17 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
     setActiveIndex(clickedIndex);
   }, [isMobile, activeIndex]);
 
-  // Update grid template when activeIndex changes
+  // Update grid template when activeIndex changes (click-driven)
   useEffect(() => {
     if (isMobile || !cardsContainerRef.current) return;
 
+    // Re-enable CSS transition for click-driven changes
+    if (!isPinnedRef.current) {
+      cardsContainerRef.current.style.transitionDuration = '';
+    }
     const gridTemplate = getGridTemplate(activeIndex);
     cardsContainerRef.current.style.setProperty('--active-grid', gridTemplate);
+    scrollIndexRef.current = activeIndex;
   }, [activeIndex, isMobile, getGridTemplate]);
 
   // GSAP Animation Setup - matching Services scroll pattern with PINNING
@@ -148,31 +158,89 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
       }
     });
 
+    // Phase boundary: first 60% of pinned scroll for card navigation, last 40% for gap closure
+    const cardPhaseEnd = 0.6;
+
+    // Set initial card content states — active card full, others dimmed
+    const cardEls = cardRefs.current.map(r => r.current).filter(Boolean) as HTMLDivElement[];
+    cardEls.forEach((el, i) => {
+      const content = el.querySelector(`.${styles.cardContent}`) as HTMLElement;
+      if (!content) return;
+      gsap.set(content, {
+        opacity: i === 0 ? 1 : 0.4,
+        scale: i === 0 ? 1 : 0.97,
+      });
+    });
+
+    // Helper: directly update grid on DOM without React re-render + crossfade cards
+    const applyCardIndex = (index: number) => {
+      if (index === scrollIndexRef.current) return;
+      scrollIndexRef.current = index;
+      // Short transition for a fluid grid resize
+      containerEl.style.transitionDuration = '0.35s';
+      const grid = projects.map((_, i) => i === index ? "20fr" : "1fr").join(" ");
+      containerEl.style.setProperty('--active-grid', grid);
+
+      // Crossfade card content — active brightens + scales up, others dim + scale down
+      cardEls.forEach((el, i) => {
+        const content = el.querySelector(`.${styles.cardContent}`) as HTMLElement;
+        if (!content) return;
+        gsap.to(content, {
+          opacity: i === index ? 1 : 0.4,
+          scale: i === index ? 1 : 0.97,
+          duration: 0.4,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      });
+    };
+
     // ScrollTrigger with natural pinning + timeline control (matches Services lines 158-211)
     const portfolioPinST = ScrollTrigger.create({
       trigger: sectionEl,
       start: "top top+=120px",
-      end: "bottom top-=200px", // Match Services scroll behavior
+      end: () => "+=" + (projects.length * 800 + 600), // ~800px per card + 600px for gap closure
       pin: sectionEl,           // Pin the entire section naturally like Services
       anticipatePin: 1,
       markers: false,
       onUpdate: (self) => {
-        // Use scroll progress to control timeline
         const progress = self.progress;
-        masterTL.progress(progress);
+
+        if (progress < cardPhaseEnd) {
+          // Phase 1: Card navigation — scroll advances through cards
+          const cardProgress = progress / cardPhaseEnd;
+          const newIndex = Math.min(
+            Math.floor(cardProgress * projects.length),
+            projects.length - 1
+          );
+          applyCardIndex(newIndex);
+          masterTL.progress(0); // Hold vertical position (gap stays at 300)
+        } else {
+          // Phase 2: Gap closure — vertical gap animates from 300 → 0
+          const gapProgress = (progress - cardPhaseEnd) / (1 - cardPhaseEnd);
+          masterTL.progress(gapProgress);
+        }
 
         // Ensure content stays at full opacity during pinned sequence
         gsap.set([titleEl, containerEl], { opacity: 1, immediateRender: true });
       },
       onEnter: () => {
-        // Don't force opacity here - let the onUpdate handle it
+        isPinnedRef.current = true;
       },
       onLeave: () => {
-        // Portfolio section leaving viewport
+        isPinnedRef.current = false;
+        // Restore original CSS transition duration and sync React state
+        containerEl.style.transitionDuration = '';
+        setActiveIndex(scrollIndexRef.current);
+        // Reset card content styles so CSS takes over
+        cardEls.forEach((el) => {
+          const content = el.querySelector(`.${styles.cardContent}`) as HTMLElement;
+          if (content) gsap.set(content, { clearProps: "opacity,scale" });
+        });
       },
       onEnterBack: () => {
-        // Reset to first card and smooth fade in when scrolling back up
-        setActiveIndex(0);
+        isPinnedRef.current = true;
+        // onUpdate will set the correct card index from progress
         gsap.to([titleEl, containerEl], {
           opacity: 1,
           duration: 0.5,
@@ -180,12 +248,21 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
         });
       },
       onLeaveBack: () => {
-        // When leaving pinned state going back up, the fadeInST should take over
+        isPinnedRef.current = false;
+        // Restore original CSS transition duration and sync React state to first card
+        containerEl.style.transitionDuration = '';
+        setActiveIndex(0);
+        scrollIndexRef.current = 0;
+        // Reset card content styles so CSS takes over
+        cardEls.forEach((el) => {
+          const content = el.querySelector(`.${styles.cardContent}`) as HTMLElement;
+          if (content) gsap.set(content, { clearProps: "opacity,scale" });
+        });
       }
     });
 
     // Fade-out ScrollTrigger - start right after pin releases; scrub with scroll (matches Services lines 214-226)
-    gsap.to([titleEl, containerEl], {
+    const fadeOutTween = gsap.to([titleEl, containerEl], {
       opacity: 0,
       ease: "none",
       immediateRender: false,
@@ -203,6 +280,8 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
     return () => {
       fadeInST.kill();
       portfolioPinST.kill();
+      fadeOutTween.scrollTrigger?.kill();
+      fadeOutTween.kill();
     };
 
   }, [projects?.length, isMobile, getGridTemplate, setActiveIndex]);
@@ -240,7 +319,6 @@ const PortfolioMA = memo(({ content }: PortfolioProps) => {
           ref={cardsContainerRef}
           style={{
             '--total-cards': projects.length,
-            '--active-grid': getGridTemplate(activeIndex),
           } as React.CSSProperties}
         >
           {projects.map((project, index) => {
