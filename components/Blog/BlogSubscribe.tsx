@@ -46,7 +46,12 @@ const BlogSubscribe = () => {
         body: JSON.stringify({ email: email.trim() }),
       });
 
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch {
+        result = { success: false, error: 'Server error. Please try again.' };
+      }
 
       if (response.ok && result.success) {
         setStatus({
