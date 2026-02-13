@@ -20,6 +20,11 @@ const BlogPostPage = ({ post }: BlogPostPageProps) => {
         <meta property="og:type" content="article" />
         <meta property="article:author" content={post.author} />
         <meta property="article:published_time" content={post.date} />
+        <meta property="og:image" content="https://maalikahmad.tech/homescreen.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://maalikahmad.tech/homescreen.png" />
       </Head>
       <Navbar />
       <main aria-label="Blog post content">
