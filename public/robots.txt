@@ -3,6 +3,26 @@ User-agent: *
 Allow: /
 Disallow: /quicklinks
 
+# GPTBot
+User-agent: GPTBot
+Allow: /
+Disallow: /quicklinks
+
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+Disallow: /quicklinks
+
+# Applebot-Extended
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /quicklinks
+
+# Google-Extended
+User-agent: Google-Extended
+Allow: /
+Disallow: /quicklinks
+
 # Host
 Host: https://www.maalikahmad.tech
 

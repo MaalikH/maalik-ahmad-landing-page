@@ -181,16 +181,30 @@ export default function Home() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
+              "@id": "https://www.maalikahmad.tech/#person",
               "name": "Maalik Ahmad Hornbuckle",
               "alternateName": ["Maalik Ahmad", "Maalik Hornbuckle"],
               "jobTitle": "Software Engineer",
-              "image": "/maalik-avatar.png",
+              "description": "Creative developer and software engineer with over seven years of experience building modern, scalable web and mobile applications. Specializes in React, Next.js, Angular, Swift, and Ionic for enterprise clients including IHG and Veteran Affairs. Also designs and produces purpose-driven fashion collections.",
+              "image": "https://www.maalikahmad.tech/maalik-avatar.png",
               "url": "https://www.maalikahmad.tech",
+              "email": "contact@maalikahmad.tech",
+              "knowsAbout": [
+                "React", "Next.js", "Angular", "TypeScript", "Swift",
+                "Ionic", "Node.js", "GSAP", "Figma", "Adobe Creative Suite",
+                "Web Development", "Mobile App Development", "Ecommerce Development",
+                "UI/UX Design", "Clothing Design & Production"
+              ],
               "sameAs": [
                 "https://github.com/maalikh",
                 "https://linkedin.com/in/maalikhornbuckle",
-                "https://twitter.com/maalikahmad"
-              ]
+                "https://twitter.com/maalikahmadtech",
+                "https://instagram.com/maalikahmad.tech"
+              ],
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Self-Employed"
+              }
             })
           }}
         />

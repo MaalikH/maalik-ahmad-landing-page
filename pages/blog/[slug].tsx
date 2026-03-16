@@ -39,6 +39,7 @@ const BlogPostPage = ({ post }: BlogPostPageProps) => {
               "description": post.excerpt,
               "author": {
                 "@type": "Person",
+                "@id": "https://www.maalikahmad.tech/#person",
                 "name": post.author,
                 "url": "https://www.maalikahmad.tech"
               },
