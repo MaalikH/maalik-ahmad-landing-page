@@ -15,16 +15,43 @@ const BlogPostPage = ({ post }: BlogPostPageProps) => {
       <Head>
         <title>{post.title} | Maalik Ahmad</title>
         <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={`https://www.maalikahmad.tech/blog/${post.slug}`} />
         <meta property="og:title" content={`${post.title} | Maalik Ahmad`} />
         <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={`https://www.maalikahmad.tech/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
         <meta property="article:author" content={post.author} />
         <meta property="article:published_time" content={post.date} />
-        <meta property="og:image" content="https://maalikahmad.tech/homescreen.png" />
+        <meta property="og:image" content="https://www.maalikahmad.tech/homescreen.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://maalikahmad.tech/homescreen.png" />
+        <meta name="twitter:title" content={`${post.title} | Maalik Ahmad`} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content="https://www.maalikahmad.tech/homescreen.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": post.title,
+              "description": post.excerpt,
+              "author": {
+                "@type": "Person",
+                "name": post.author,
+                "url": "https://www.maalikahmad.tech"
+              },
+              "datePublished": post.date,
+              "url": `https://www.maalikahmad.tech/blog/${post.slug}`,
+              "image": post.image || "https://www.maalikahmad.tech/homescreen.png",
+              "publisher": {
+                "@type": "Person",
+                "name": "Maalik Ahmad Hornbuckle"
+              }
+            })
+          }}
+        />
       </Head>
       <Navbar />
       <main aria-label="Blog post content">

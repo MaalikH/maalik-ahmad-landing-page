@@ -144,11 +144,13 @@ export default function Home() {
         <meta name="description" content="Maalik Ahmad (Maalik Hornbuckle) is a creative developer and software engineer specializing in modern web applications and user experiences." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
+        <link rel="canonical" href="https://www.maalikahmad.tech/" />
+
         {/* Open Graph */}
         <meta property="og:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
         <meta property="og:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise. Explore featured works and get in touch." />
-        <meta property="og:image" content="https://maalikahmad.tech/homescreen.png" />
-        <meta property="og:url" content="https://maalikahmad.tech" />
+        <meta property="og:image" content="https://www.maalikahmad.tech/homescreen.png" />
+        <meta property="og:url" content="https://www.maalikahmad.tech/" />
         <meta property="og:type" content="website" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -158,7 +160,7 @@ export default function Home() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
         <meta name="twitter:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise." />
-        <meta name="twitter:image" content="https://maalikahmad.tech/homescreen.png" />
+        <meta name="twitter:image" content="https://www.maalikahmad.tech/homescreen.png" />
         <meta name="twitter:site" content="@maalikahmadtech" />
         <meta name="twitter:creator" content="@maalikahmadtech" />
         
@@ -172,7 +174,7 @@ export default function Home() {
           fetchPriority="high"
         />
         
-        {/* Structured Data */}
+        {/* Structured Data - Person */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -183,12 +185,25 @@ export default function Home() {
               "alternateName": ["Maalik Ahmad", "Maalik Hornbuckle"],
               "jobTitle": "Software Engineer",
               "image": "/maalik-avatar.png",
-              "url": "https://maalikahmad.tech",
+              "url": "https://www.maalikahmad.tech",
               "sameAs": [
                 "https://github.com/maalikh",
                 "https://linkedin.com/in/maalikhornbuckle",
                 "https://twitter.com/maalikahmad"
               ]
+            })
+          }}
+        />
+        {/* Structured Data - WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Maalik Ahmad Tech",
+              "url": "https://www.maalikahmad.tech",
+              "description": "Portfolio showcasing modern web applications, creative development projects, and software engineering expertise."
             })
           }}
         />

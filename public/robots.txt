@@ -1,13 +1,10 @@
+# *
 User-agent: *
 Allow: /
 Disallow: /quicklinks
 
-# Allow images to be indexed
-Allow: /*.png$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.gif$
-Allow: /*.webp$
+# Host
+Host: https://www.maalikahmad.tech
 
-# Sitemap
-Sitemap: https://maalikahmad.tech/sitemap.xml 
+# Sitemaps
+Sitemap: https://www.maalikahmad.tech/sitemap.xml
