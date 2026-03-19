@@ -145,14 +145,14 @@ function FullExperience() {
     <TransitionProvider>
       <ProgressBar />
       <Head>
-        <title>Maalik Ahmad | Creative Developer & Software Engineer</title>
+        <title>Maalik Ahmad Hornbuckle | Creative Developer & Software Engineer</title>
         <meta name="description" content="Maalik Ahmad (Maalik Hornbuckle) is a creative developer and software engineer specializing in modern web applications and user experiences." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <link rel="canonical" href="https://www.maalikahmad.tech/" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
+        <meta property="og:title" content="Maalik Ahmad Hornbuckle | Creative Developer & Software Engineer" />
         <meta property="og:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise. Explore featured works and get in touch." />
         <meta property="og:image" content="https://www.maalikahmad.tech/homescreen.png" />
         <meta property="og:url" content="https://www.maalikahmad.tech/" />
@@ -163,7 +163,7 @@ function FullExperience() {
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Maalik Ahmad | Creative Developer & Software Engineer" />
+        <meta name="twitter:title" content="Maalik Ahmad Hornbuckle | Creative Developer & Software Engineer" />
         <meta name="twitter:description" content="Portfolio showcasing modern web applications, creative development projects, and software engineering expertise." />
         <meta name="twitter:image" content="https://www.maalikahmad.tech/homescreen.png" />
         <meta name="twitter:site" content="@maalikahmadtech" />
@@ -187,11 +187,16 @@ function FullExperience() {
               "@context": "https://schema.org",
               "@type": "Person",
               "@id": "https://www.maalikahmad.tech/#person",
-              "name": "Maalik Ahmad Hornbuckle",
+              "name": "Maalik Hornbuckle",
               "alternateName": ["Maalik Ahmad", "Maalik Hornbuckle"],
               "jobTitle": "Software Engineer",
               "description": "Creative developer and software engineer with over seven years of experience building modern, scalable web and mobile applications. Specializes in React, Next.js, Angular, Swift, and Ionic for enterprise clients including IHG and Veteran Affairs. Also designs and produces purpose-driven fashion collections.",
-              "image": "https://www.maalikahmad.tech/maalik-avatar.png",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.maalikahmad.tech/maalik-avatar.png",
+                "caption": "Maalik Ahmad Hornbuckle — Software Engineer",
+                "name": "Maalik Hornbuckle portrait"
+              },
               "url": "https://www.maalikahmad.tech",
               "email": "contact@maalikahmad.tech",
               "knowsAbout": [

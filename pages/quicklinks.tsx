@@ -65,7 +65,7 @@ const QuickLinks = ({ embedded = false }: QuickLinksProps) => {
             <div className={styles.profileImage}>
               <Image 
                 src="/maalik-avatar-ql.png" 
-                alt="Maalik Ahmad"
+                alt="Maalik Ahmad Hornbuckle — Software Engineer"
                 width={150}
                 height={150}
                 priority
