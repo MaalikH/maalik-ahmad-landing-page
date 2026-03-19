@@ -12,22 +12,35 @@ import { servicesContent } from "@/app/content/services";
 import { contactContent } from "@/app/content/contact";
 import GarageFooter from '@/components/Footer/GarageFooter';
 import { trackSectionView } from '../lib/analytics';
-import { useRouter } from 'next/router';
-import { shouldRedirectToQuickLinks } from '../lib/deviceDetection';
 import { TransitionProvider } from '../context/TransitionContext';
 import ProgressBar from '../components/ProgressBar/ProgressBar';
+import QuickLinks from './quicklinks';
+import type { GetServerSideProps } from 'next';
 
-export default function Home() {
-  const router = useRouter();
-  
-  // Check for mobile redirect
-  useEffect(() => {
-    const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
-    if (!hasSeenFullExperience && shouldRedirectToQuickLinks()) {
-      router.push('/quicklinks');
-    }
-  }, [router]);
+interface HomeProps {
+  showQuickLinks: boolean;
+}
 
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
+  const isMobile = context.req.headers['x-is-mobile'] === '1';
+  const hasSeenFullExperience = context.req.cookies?.hasSeenFullExperience === 'true';
+
+  return {
+    props: {
+      showQuickLinks: isMobile && !hasSeenFullExperience,
+    },
+  };
+};
+
+export default function Home({ showQuickLinks }: HomeProps) {
+  if (showQuickLinks) {
+    return <QuickLinks embedded />;
+  }
+
+  return <FullExperience />;
+}
+
+function FullExperience() {
   // Handle hash-based navigation (when arriving from other pages via /#section)
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
@@ -43,7 +56,6 @@ export default function Home() {
     const selector = sectionSelectors[hash];
     if (!selector) return;
 
-    // Small delay to ensure page has rendered and GSAP has initialized
     const timeoutId = setTimeout(() => {
       const section = document.querySelector(selector);
       if (section) {
@@ -53,7 +65,6 @@ export default function Home() {
         } else {
           section.scrollIntoView({ behavior: 'smooth' });
         }
-        // Clear the hash from URL after scrolling
         window.history.replaceState(null, '', '/');
       }
     }, 100);
@@ -65,7 +76,6 @@ export default function Home() {
   useEffect(() => {
     const hasSeenFullExperience = localStorage.getItem('hasSeenFullExperience');
     if (hasSeenFullExperience && typeof window !== 'undefined') {
-      // Check if screen width is small tablet or lower (992px is Bootstrap lg breakpoint)
       const isSmallScreen = window.innerWidth < 992;
       if (isSmallScreen) {
         alert('This site is designed to be viewed on desktop, but the experience has been altered to work on this device. We recommend viewing on desktop for the full interactive experience.');
@@ -82,11 +92,6 @@ export default function Home() {
 
   // State
   const [isFooterVisible, setIsFooterVisible] = useState(false);
-
-  // Debug footer state changes
-  useEffect(() => {
-    // console.log('🦶 FOOTER STATE CHANGED TO:', isFooterVisible);
-  }, [isFooterVisible]);
 
   // Track section view (only once per section)
   const handleSectionView = useCallback((sectionName: string) => {
@@ -121,7 +126,7 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.5 } // 50% visible
+      { threshold: 0.5 }
     );
 
     sections.forEach(({ ref, name }) => {

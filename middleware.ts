@@ -1,23 +1,21 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// List of paths that should not redirect mobile users
-const EXCLUDED_PATHS = ['/quicklinks', '/api', '/_next', '/static'];
-
 export function middleware(request: NextRequest) {
-  // Don't redirect if the path is in the excluded list
-  if (EXCLUDED_PATHS.some(path => request.nextUrl.pathname.startsWith(path))) {
-    return NextResponse.next();
-  }
-
-  // Check if user is on mobile
+  // Detect mobile and pass as a request header (no redirect)
   const userAgent = request.headers.get('user-agent') || '';
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  const hasSeenFullExperience = request.cookies.get('hasSeenFullExperience');
 
-  // Only redirect mobile users from the homepage to quicklinks
-  if (isMobile && request.nextUrl.pathname === '/' && !hasSeenFullExperience) {
-    return NextResponse.redirect(new URL('/quicklinks', request.url));
+  if (isMobile && request.nextUrl.pathname === '/') {
+    // Set request header so getServerSideProps can detect mobile
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-is-mobile', '1');
+    const response = NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+    // Tell Google this page varies by device
+    response.headers.set('Vary', 'User-Agent');
+    return response;
   }
 
   return NextResponse.next();

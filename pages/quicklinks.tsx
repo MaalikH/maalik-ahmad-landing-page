@@ -16,7 +16,11 @@ interface Project {
   link: string;
 }
 
-const QuickLinks = () => {
+interface QuickLinksProps {
+  embedded?: boolean;
+}
+
+const QuickLinks = ({ embedded = false }: QuickLinksProps) => {
   const router = useRouter();
 
   const handleProjectClick = (project: Project) => {
@@ -43,10 +47,12 @@ const QuickLinks = () => {
 
   return (
     <>
-      <Head>
-        <meta name="robots" content="noindex, nofollow" />
-        <title>Maalik Ahmad | Quick Links</title>
-      </Head>
+      {!embedded && (
+        <Head>
+          <meta name="robots" content="noindex, nofollow" />
+          <title>Maalik Ahmad | Quick Links</title>
+        </Head>
+      )}
       <div className={styles.container}>
         {/* Hero Section */}
         <section className={styles.hero}>
