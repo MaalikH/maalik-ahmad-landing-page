@@ -216,3 +216,365 @@
     }
   }
 }
+
+// Timeline Section
+.content {
+  :global(.timeline-section) {
+    margin: 3rem 0;
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+    }
+  }
+
+  :global(.timeline) {
+    position: relative;
+    padding-left: 2rem;
+
+    // Faded track (always visible)
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: rgba(254, 45, 26, 0.15);
+    }
+  }
+
+  // Progress line (animated solid red, drawn on scroll)
+  :global(.timeline-progress) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #FE2D1A;
+    transform-origin: top center;
+    transform: scaleY(0);
+    will-change: transform;
+    z-index: 1;
+  }
+
+  :global(.timeline-prose) {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 3rem; // Aligns text with text inside .timeline-content cards
+    will-change: transform, opacity;
+
+    p {
+      margin: 0 0 1.25rem;
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--text-color);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Pull prose tight against the timeline item it expands on
+  :global(.timeline-item + .timeline-prose) {
+    margin-top: -1.5rem;
+  }
+
+  :global(.timeline-item) {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    will-change: transform, opacity;
+
+    // Red square dot - starts as outline, fills on activation
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: transparent;
+      border: 2px solid #FE2D1A;
+      border-radius: 0;
+      transform: translateX(calc(-50% + 1.5px));
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      z-index: 2;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Active dot state - filled with glow
+  :global(.timeline-item--active) {
+    &::before {
+      background: #FE2D1A;
+      box-shadow: 0 0 8px rgba(254, 45, 26, 0.4);
+    }
+  }
+
+  :global(.timeline-date) {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: transparent;
+    border: 2px solid #FE2D1A;
+    border-radius: 0;
+    color: #FE2D1A;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    will-change: transform, opacity;
+  }
+
+  :global(.timeline-content) {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 0;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+    will-change: transform, opacity;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: var(--text-color);
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-color-secondary);
+    }
+  }
+
+  // Mobile responsive - layout
+  @media (max-width: $breakpoint-sm) {
+    :global(.timeline) {
+      padding-left: 1.5rem;
+    }
+
+    :global(.timeline-item) {
+      padding-left: 1rem;
+
+      &::before {
+        left: -1.5rem;
+        width: 10px;
+        height: 10px;
+        transform: translateX(calc(-50% + 1.5px));
+      }
+    }
+
+    :global(.timeline-prose) {
+      padding-left: 2rem;
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    :global(.timeline-content) {
+      padding: 1rem;
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.9375rem;
+      }
+    }
+  }
+
+  // Mobile - disable all animations, show static timeline
+  @media (max-width: $breakpoint-lg) {
+    :global(.timeline) {
+      &::before {
+        background: #FE2D1A;
+      }
+    }
+
+    :global(.timeline-progress) {
+      display: none;
+    }
+
+    :global(.timeline-item) {
+      opacity: 1 !important;
+      transform: none !important;
+
+      &::before {
+        background: #FE2D1A;
+        box-shadow: none;
+      }
+    }
+
+    :global(.timeline-prose) {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    :global(.timeline-date),
+    :global(.timeline-content) {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  // Reduced motion - same as mobile, everything visible
+  @media (prefers-reduced-motion: reduce) {
+    :global(.timeline) {
+      &::before {
+        background: #FE2D1A;
+      }
+    }
+
+    :global(.timeline-progress) {
+      display: none;
+    }
+
+    :global(.timeline-item) {
+      opacity: 1 !important;
+      transform: none !important;
+
+      &::before {
+        background: #FE2D1A;
+        box-shadow: none;
+      }
+    }
+
+    :global(.timeline-prose) {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    :global(.timeline-date),
+    :global(.timeline-content) {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
+
+// Sources Section
+.content {
+  :global(.sources-section) {
+    margin: 3rem 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--card-border);
+
+    > h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+    }
+  }
+
+  :global(.source-group) {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--text-color);
+    }
+  }
+
+  :global(.source-list) {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+
+      // Red square bullet
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 8px;
+        height: 8px;
+        background: #FE2D1A;
+        border-radius: 0; // Square corners
+      }
+
+      a {
+        color: var(--text-color);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: #FE2D1A;
+          border-bottom-color: #FE2D1A;
+        }
+      }
+    }
+  }
+
+  // Mobile responsive
+  @media (max-width: $breakpoint-sm) {
+    :global(.sources-section) {
+      > h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    :global(.source-group) {
+      h3 {
+        font-size: 1.125rem;
+      }
+    }
+
+    :global(.source-list) {
+      li {
+        font-size: 0.9375rem;
+        padding-left: 1.25rem;
+
+        &::before {
+          width: 6px;
+          height: 6px;
+          top: 0.65em;
+        }
+      }
+    }
+  }
+}
+
+// Dark mode enhancements
+[data-theme="dark"] {
+  .content {
+    :global(.timeline-content) {
+      &:hover {
+        box-shadow: 0 8px 16px rgba(254, 45, 26, 0.15);
+      }
+    }
+  }
+}
