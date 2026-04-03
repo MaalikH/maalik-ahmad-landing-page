@@ -4,9 +4,14 @@
   max-width: 750px;
   margin: 0 auto;
   padding: 120px $spacing-md $spacing-2xl;
+  overflow: hidden;
 
   @media (max-width: $breakpoint-md) {
     padding: 100px $spacing-sm $spacing-xl;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 100px 1rem $spacing-lg;
   }
 }
 
@@ -72,6 +77,27 @@
   font-size: 1.125rem;
   line-height: 1.8;
   color: var(--text-color);
+  overflow: hidden;
+
+  // Constrain inline-styled divs and images on mobile
+  div {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    div[style] {
+      flex-wrap: wrap !important;
+      gap: 0.75rem !important;
+      justify-content: center !important;
+    }
+
+    div[style] > img {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
 
   // Paragraphs
   p {

@@ -78,9 +78,9 @@ The landing page just went live with an email list. I'm collecting signups while
 
 ## Book Highlights Viewer -Old Project, New Life
 
-A few years ago I built myself a tool to filter and browse my Apple Books highlights. It solved a real problem for me -if you highlight a lot when you read, there's no good way to search, filter, or organize any of it. I still see people asking for exactly this online today. So this month I gave my old code to Claude and we turned it into a native Mac app and a mobile app with an importer.
+A few years ago I built myself a tool to filter and browse my Apple Books highlights. It solved a real problem for me -if you highlight a lot when you read, there's no good way to search, filter, or organize any of it. I still see people asking for exactly this online today. So this month I gave my old code to Claude and we turned it into a native Mac app and a mobile app with an importer. The mobile app is still in progress.
 
-The math is simple. Millions of people use Apple Books. A percentage of them are power readers who highlight heavily. If I can reach even a small slice of those people with a $4.99 Mac app and a monthly subscription on mobile, that's a real business from a tool I already built for myself. Both apps have been submitted.
+The math is simple. Millions of people use Apple Books. A percentage of them are power readers who highlight heavily. If I can reach even a small slice of those people with a $4.99 Mac app and a monthly subscription on mobile, that's a real business from a tool I already built for myself. The Mac app has been submitted.
 
 <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
   <img src="/images/blog/march-2026/highlights-books.png" alt="Book Highlights - Library view" style="width: 100%; max-width: 700px; border-radius: 8px;" />
