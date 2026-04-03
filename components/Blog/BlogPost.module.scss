@@ -87,15 +87,15 @@
 
   @media (max-width: $breakpoint-md) {
     div[style] {
-      flex-wrap: wrap !important;
-      gap: 0.75rem !important;
+      gap: 0.5rem !important;
       justify-content: center !important;
     }
 
     div[style] > img {
       max-width: 100% !important;
-      width: 100% !important;
       height: auto !important;
+      flex-shrink: 1 !important;
+      min-width: 0 !important;
     }
   }
 
