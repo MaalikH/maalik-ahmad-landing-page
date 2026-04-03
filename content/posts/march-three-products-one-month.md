@@ -26,7 +26,7 @@ Nudge is a motivational notification app for iPhone. You set your goals, pick a 
 
 ---
 
-## BookRecs.ai -Deployed
+## [BookRecs.ai](https://bookrecs.ai) -Deployed
 
 This one didn't exist on March 1st. 17 days later it was live.
 
