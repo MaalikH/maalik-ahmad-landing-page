@@ -99,9 +99,9 @@ There's a war going on between Iran and America right now. Depending on which ap
 This month I got the core working -the feed, in-app reader, onboarding, subscriptions with a free trial. Still building, but it's close.
 
 <div style="display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0;">
-  <img src="/images/blog/march-2026/neus-1.png" alt="Neus news feed" style="width: 250px; border-radius: 8px;" />
-  <img src="/images/blog/march-2026/neus-2.png" alt="Neus story card" style="width: 250px; border-radius: 8px;" />
-  <img src="/images/blog/march-2026/neus-3.png" alt="Neus multi-perspective view" style="width: 250px; border-radius: 8px;" />
+  <img src="/images/blog/march-2026/neus-1.png" alt="Neus news feed" style="width: 220px; border-radius: 28px;" />
+  <img src="/images/blog/march-2026/neus-2.png" alt="Neus story card" style="width: 220px; border-radius: 28px;" />
+  <img src="/images/blog/march-2026/neus-3.png" alt="Neus multi-perspective view" style="width: 220px; border-radius: 28px;" />
 </div>
 
 ---
