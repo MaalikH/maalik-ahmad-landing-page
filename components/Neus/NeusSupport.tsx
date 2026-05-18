@@ -34,8 +34,8 @@ const NeusSupport = () => {
           <div
             className={`${styles.contactSection} ${styles.contactSectionFlush}`}
           >
-            <h2>Contact Us</h2>
-            <p>For any questions, issues, or feedback, please email us at:</p>
+            <h2>Contact us</h2>
+            <p>For any questions, issues, or feedback, please email:</p>
             <p>
               <a
                 href="mailto:maalikahmadtech@gmail.com"
@@ -90,17 +90,17 @@ const NeusSupport = () => {
           <div className={styles.faqItem}>
             <h3>How do I enable notifications?</h3>
             <p>
-              Go to Profile &rarr; Notifications and toggle the types you
+              Go to Profile, then Notifications, and toggle the types you
               want: breaking news, followed events, or alternate
-              perspectives. You can also manage permissions in iOS Settings
-              &gt; Notifications &gt; Neus.
+              perspectives. You can also manage permissions in iOS Settings,
+              Notifications, Neus.
             </p>
           </div>
 
           <div className={styles.faqItem}>
             <h3>How do I delete my account and data?</h3>
             <p>
-              Open the app, go to Profile &rarr; Delete Account, and confirm.
+              Open the app, go to Profile, then Delete Account, and confirm.
               All your saves, follows, preferences, and device tokens are
               deleted immediately. If you have trouble, email us at{" "}
               <a href="mailto:maalikahmadtech@gmail.com">
@@ -113,18 +113,18 @@ const NeusSupport = () => {
           <div className={styles.faqItem}>
             <h3>I&rsquo;m not receiving notifications. What should I do?</h3>
             <p>
-              First check iOS Settings &gt; Notifications &gt; Neus and
-              confirm notifications are allowed. Then check Profile &rarr;
-              Notifications inside the app and make sure the toggles are on.
-              Focus or Do Not Disturb can also suppress notifications.
+              First check iOS Settings, Notifications, Neus, and confirm
+              notifications are allowed. Then check Profile, Notifications
+              inside the app and make sure the toggles are on. Focus or Do
+              Not Disturb can also suppress notifications.
             </p>
           </div>
 
           <div className={styles.faqItem}>
             <h3>A source is missing or labeled wrong. Can I suggest a fix?</h3>
             <p>
-              Yes, please email us with the source name and what you
-              think the correct lean or addition should be. We review every
+              Yes, please email us with the source name and what you think
+              the correct lean or addition should be. We review every
               suggestion.
             </p>
           </div>

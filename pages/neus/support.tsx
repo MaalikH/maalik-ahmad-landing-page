@@ -6,7 +6,7 @@ const NeusSupportPage = () => {
   return (
     <>
       <Head>
-        <title>Support &mdash; Neus | Maalik Ahmad</title>
+        <title>Support | Neus | Maalik Ahmad</title>
         <meta
           name="description"
           content="Support and FAQ for Neus. How the app stays neutral, how to follow stories, how to delete your account, and how to reach us."
@@ -14,7 +14,7 @@ const NeusSupportPage = () => {
         <link rel="canonical" href="https://www.maalikahmad.tech/neus/support" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Support &mdash; Neus" />
+        <meta property="og:title" content="Support | Neus" />
         <meta
           property="og:description"
           content="FAQ and contact for Neus. Any questions, email maalikahmadtech@gmail.com."

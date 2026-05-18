@@ -17,7 +17,7 @@ const NeusPrivacy = () => {
         <header className={styles.header}>
           <p className={styles.appName}>Neus</p>
           <h1 className={styles.title}>Privacy Policy</h1>
-          <p className={styles.effectiveDate}>Last updated: April 17, 2026</p>
+          <p className={styles.effectiveDate}>Last updated: May 17, 2026</p>
         </header>
 
         <div className={styles.content}>
@@ -53,14 +53,14 @@ const NeusPrivacy = () => {
           <p>When you sign in with Apple or Google, we receive:</p>
           <ul>
             <li>
-              <strong>Your email address</strong> &mdash; used as your account
+              <strong>Your email address.</strong> Used as your account
               identifier so your data syncs across devices. If you choose
               Apple&rsquo;s &ldquo;Hide My Email,&rdquo; we only ever see the
               relay address.
             </li>
             <li>
-              <strong>A user ID from the sign-in provider</strong> &mdash;
-              used to link sessions to your account.
+              <strong>A user ID from the sign-in provider.</strong> Used to
+              link sessions to your account.
             </li>
           </ul>
           <p>
@@ -105,8 +105,8 @@ const NeusPrivacy = () => {
               and preferences exist so the app works across your devices.
             </li>
             <li>
-              <strong>Push notifications</strong> &mdash; only if you opt in
-              &mdash; to alert you to breaking news or followed events.
+              <strong>Push notifications.</strong> Only if you opt in, and
+              only to alert you to breaking news or followed events.
             </li>
             <li>
               <strong>No advertising.</strong> We do not share or sell data to
@@ -129,11 +129,11 @@ const NeusPrivacy = () => {
               >
                 privacy
               </a>
-              ) &mdash; hosts our database and authentication. Your account
-              data and saves live here.
+              ). Hosts our database and authentication. Your account data and
+              saves live here.
             </li>
             <li>
-              <strong>Apple Push Notification Service</strong> (
+              <strong>Apple Push Notification service</strong> (
               <a
                 href="https://www.apple.com/legal/privacy/"
                 target="_blank"
@@ -141,8 +141,8 @@ const NeusPrivacy = () => {
               >
                 privacy
               </a>
-              ) &mdash; delivers push notifications. Apple sees the device
-              token and notification payload.
+              ). Delivers push notifications. Apple sees the device token and
+              notification payload.
             </li>
             <li>
               <strong>Google Sign-In</strong> (
@@ -153,8 +153,8 @@ const NeusPrivacy = () => {
               >
                 privacy
               </a>
-              ) &mdash; only if you chose Google to sign in. Google sees the
-              sign-in event, not your in-app activity.
+              ). Only if you chose Google to sign in. Google sees the sign-in
+              event, not your in-app activity.
             </li>
             <li>
               <strong>EventRegistry</strong> (
@@ -165,9 +165,9 @@ const NeusPrivacy = () => {
               >
                 privacy
               </a>
-              ) &mdash; supplies the news articles you read. EventRegistry
-              does not receive your user data; we fetch articles server-side
-              on a schedule, not per user.
+              ). Supplies the news articles you read. EventRegistry does not
+              receive your user data; we fetch articles server-side on a
+              schedule, not per user.
             </li>
           </ul>
           <p>We do not share your data with anyone else.</p>
@@ -175,22 +175,21 @@ const NeusPrivacy = () => {
           <h2>Your rights</h2>
           <ul>
             <li>
-              <strong>Delete your account</strong> &mdash; open the app, go to
-              Profile &rarr; Delete Account. This wipes all your saves,
+              <strong>Delete your account.</strong> Open the app, go to
+              Profile, then Delete Account. This wipes all your saves,
               follows, preferences, and device tokens immediately.
             </li>
             <li>
-              <strong>Sign out</strong> &mdash; Profile &rarr; Sign Out. Your
-              data stays in your account; sign back in any time to restore
-              it.
+              <strong>Sign out.</strong> Profile, then Sign Out. Your data
+              stays in your account; sign back in any time to restore it.
             </li>
             <li>
-              <strong>Export your data</strong> &mdash; email us and
-              we&rsquo;ll send you a JSON export within 30 days.
+              <strong>Export your data.</strong> Email us and we&rsquo;ll
+              send you a JSON export within 30 days.
             </li>
             <li>
-              <strong>Opt out of notifications</strong> &mdash; toggle off in
-              Profile &rarr; Notifications, or disable in iOS Settings.
+              <strong>Opt out of notifications.</strong> Toggle off in
+              Profile, then Notifications, or disable in iOS Settings.
             </li>
           </ul>
 
@@ -198,8 +197,8 @@ const NeusPrivacy = () => {
           <ul>
             <li>Account data is kept while your account is active.</li>
             <li>
-              Deletion is immediate &mdash; we do not retain a shadow copy for
-              legal holds.
+              Deletion is immediate. We do not retain a shadow copy for legal
+              holds.
             </li>
             <li>
               Push tokens older than 30 days without re-validation are cleaned
@@ -223,7 +222,7 @@ const NeusPrivacy = () => {
           </p>
 
           <div className={styles.contactSection}>
-            <h2>Contact Us</h2>
+            <h2>Contact us</h2>
             <p>
               If you have questions or concerns about this privacy policy or
               your data, please contact us at:

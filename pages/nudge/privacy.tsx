@@ -6,10 +6,10 @@ const NudgePrivacyPage = () => {
   return (
     <>
       <Head>
-        <title>Privacy Policy — Nudge - Daily Motivation | Maalik Ahmad</title>
+        <title>Privacy Policy | Nudge: Daily Motivation | Maalik Ahmad</title>
         <meta
           name="description"
-          content="Privacy policy for Nudge - Daily Motivation. Learn how the app collects, uses, and protects your data."
+          content="Privacy policy for Nudge: Daily Motivation. Learn how the app collects, uses, and protects your data."
         />
         <link
           rel="canonical"
@@ -19,7 +19,7 @@ const NudgePrivacyPage = () => {
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="Privacy Policy — Nudge - Daily Motivation"
+          content="Privacy Policy | Nudge: Daily Motivation"
         />
         <meta
           property="og:description"

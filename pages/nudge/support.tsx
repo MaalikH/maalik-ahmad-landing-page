@@ -6,10 +6,10 @@ const NudgeSupportPage = () => {
   return (
     <>
       <Head>
-        <title>Support — Nudge - Daily Motivation | Maalik Ahmad</title>
+        <title>Support | Nudge: Daily Motivation | Maalik Ahmad</title>
         <meta
           name="description"
-          content="Get help with Nudge - Daily Motivation. Find answers to common questions about accounts, notifications, subscriptions, and data deletion."
+          content="Get help with Nudge: Daily Motivation. Find answers to common questions about accounts, notifications, subscriptions, and data deletion."
         />
         <link
           rel="canonical"
@@ -19,7 +19,7 @@ const NudgeSupportPage = () => {
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="Support — Nudge - Daily Motivation"
+          content="Support | Nudge: Daily Motivation"
         />
         <meta
           property="og:description"

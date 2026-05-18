@@ -15,149 +15,214 @@ const NudgePrivacy = () => {
         </nav>
 
         <header className={styles.header}>
-          <p className={styles.appName}>Nudge &mdash; Daily Motivation</p>
+          <p className={styles.appName}>Nudge: Daily Motivation</p>
           <h1 className={styles.title}>Privacy Policy</h1>
           <p className={styles.effectiveDate}>
-            Effective date: March 31, 2026
+            Effective date: May 17, 2026
           </p>
         </header>
 
         <div className={styles.content}>
           <p>
-            Nudge &mdash; Daily Motivation (&ldquo;the App&rdquo;) is an iOS
-            application developed by Maalik Ahmad, operating under HBKL
-            Enterprises. This privacy policy explains how the App collects,
-            uses, and protects your information.
+            Nudge (&ldquo;the App&rdquo;) is an iOS application developed by
+            Maalik Ahmad, operating under HBKL Labs. This privacy policy
+            explains how the App collects, uses, and protects your information.
           </p>
 
-          <h2>Information We Collect</h2>
+          <h2>The short version</h2>
+          <ul>
+            <li>We collect only what the app needs to deliver your nudges.</li>
+            <li>
+              No third-party analytics, no ads, no tracking across other apps
+              or websites.
+            </li>
+            <li>
+              You can delete your account and all associated data from inside
+              the app at any time.
+            </li>
+          </ul>
+
+          <h2>What we collect</h2>
           <p>
-            The App collects the following information, all of which is used
-            solely for app functionality and is linked to your identity:
+            All data we collect is linked to your account and used solely to
+            run the app:
           </p>
           <ul>
             <li>
-              <strong>Email Address</strong> &mdash; collected during account
-              creation and used for authentication
+              <strong>Email address.</strong> Collected at sign-in and used as
+              your account identifier. If you choose Apple&rsquo;s &ldquo;Hide
+              My Email,&rdquo; we only ever see the relay address.
             </li>
             <li>
-              <strong>User ID</strong> &mdash; a unique identifier assigned by
-              our authentication system to associate your goals and notification
-              preferences with your account
+              <strong>User ID.</strong> A unique identifier from Firebase
+              Authentication that links your goals, schedules, and notification
+              history to your account.
             </li>
             <li>
-              <strong>Purchase History</strong> &mdash; subscription status
-              managed through our payment provider to unlock premium features
+              <strong>Goals you create.</strong> Title, context, motivational
+              tone, and notification schedule.
             </li>
+            <li>
+              <strong>Notification history.</strong> The messages we&rsquo;ve
+              sent you, your favorites, and whether they were delivered.
+            </li>
+            <li>
+              <strong>Push notification token.</strong> The Firebase Cloud
+              Messaging token Apple issues for your device, so we can route
+              notifications to you.
+            </li>
+            <li>
+              <strong>Subscription status.</strong> Managed through Apple and
+              RevenueCat so we know which features to unlock.
+            </li>
+          </ul>
+
+          <h2>What we do NOT collect</h2>
+          <ul>
+            <li>Location data</li>
+            <li>Contacts</li>
+            <li>Photos, microphone, or camera access</li>
+            <li>Browsing history outside the app</li>
+            <li>
+              Analytics, crash reports, or telemetry from third-party SDKs
+            </li>
+          </ul>
+
+          <h2>How we use it</h2>
+          <ul>
+            <li>To create and manage your account.</li>
+            <li>To store your goals, schedules, and notification preferences.</li>
+            <li>
+              To generate personalized AI-powered motivational messages based
+              on the goals and tone you&rsquo;ve set.
+            </li>
+            <li>To deliver push notifications at the times you&rsquo;ve picked.</li>
+            <li>To manage your subscription entitlements.</li>
           </ul>
           <p>
-            <strong>
-              We do not collect any data for tracking purposes.
-            </strong>
+            Before any user-supplied content or AI-generated message is stored
+            or delivered, it passes through an automated content moderation
+            check so the notifications you receive stay on-topic and safe.
           </p>
-
-          <h2>How We Use Your Information</h2>
-          <p>Your information is used exclusively to:</p>
-          <ul>
-            <li>Create and manage your account</li>
-            <li>
-              Store your goals, notification schedules, and preferences
-            </li>
-            <li>
-              Generate personalized AI-powered motivational messages based on
-              your goals
-            </li>
-            <li>
-              Deliver push notifications at your scheduled times
-            </li>
-            <li>Manage your subscription status</li>
-          </ul>
 
           <h2>Authentication</h2>
           <p>
-            The App supports three sign-in methods: Email, Google Sign-In, and
-            Sign in with Apple. Authentication is handled securely through
-            Firebase Authentication. We do not store your passwords directly.
+            Nudge supports three sign-in methods: Sign in with Apple, Google
+            Sign-In, and email magic-code. Authentication is handled by
+            Firebase Authentication. We never see or store your password.
           </p>
 
-          <h2>Third-Party Services</h2>
+          <h2>Third-party services</h2>
           <p>
-            The App uses the following third-party services to provide its
-            functionality:
+            Nudge relies on the following services to operate. Each has its
+            own privacy policy:
           </p>
           <ul>
             <li>
-              <strong>Firebase</strong> (by Google) &mdash; provides
-              authentication, cloud database storage for your goals and
-              notification history, and push notification delivery
+              <strong>Firebase</strong> (Google).{" "}
+              <a
+                href="https://firebase.google.com/support/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy
+              </a>
+              . Provides authentication, the Firestore database that stores
+              your goals and notification history, Cloud Functions that
+              generate messages, and Firebase Cloud Messaging for notification
+              delivery.
             </li>
             <li>
-              <strong>OpenAI</strong> &mdash; generates the AI-powered
-              motivational messages you receive as notifications. Your goal
-              titles and context are sent to OpenAI to generate personalized
-              messages. All user input and AI-generated content is checked by
-              a content moderation system to ensure appropriateness.
+              <strong>OpenAI</strong>.{" "}
+              <a
+                href="https://openai.com/policies/privacy-policy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy
+              </a>
+              . Generates the motivational message text from the goal title
+              and tone you provided. OpenAI does not receive your email,
+              account ID, or notification history, only the prompt text for
+              the message being generated.
             </li>
             <li>
-              <strong>RevenueCat</strong> &mdash; manages in-app subscriptions
-              and purchase verification
+              <strong>RevenueCat</strong>.{" "}
+              <a
+                href="https://www.revenuecat.com/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy
+              </a>
+              . Manages in-app subscriptions and purchase verification with
+              Apple.
+            </li>
+            <li>
+              <strong>Apple Push Notification service</strong>.{" "}
+              <a
+                href="https://www.apple.com/legal/privacy/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Privacy
+              </a>
+              . Delivers notifications. Apple sees the device token and
+              notification payload.
             </li>
           </ul>
-          <p>
-            Each of these services has its own privacy policy governing how they
-            handle data. We encourage you to review them.
-          </p>
+          <p>We do not share your data with anyone else.</p>
 
-          <h2>What We Do Not Do</h2>
+          <h2>Your rights</h2>
           <ul>
             <li>
-              We do <strong>not</strong> use any third-party analytics or
-              tracking tools
+              <strong>Delete your account.</strong> Open the app, go to
+              Settings, and choose Delete Account. Your account, goals,
+              notification history, and subscription state are removed within
+              30 days, and any cloud-stored content tied to your user ID is
+              wiped during the same cycle.
             </li>
             <li>
-              We do <strong>not</strong> display advertisements
+              <strong>Sign out.</strong> Settings, then Sign Out. Your data
+              stays in your account; sign back in any time to restore it.
             </li>
             <li>
-              We do <strong>not</strong> sell, rent, or share your personal data
-              with third parties for marketing or any other purpose
+              <strong>Export your data.</strong> Email us and we&rsquo;ll send
+              you a JSON export within 30 days.
+            </li>
+            <li>
+              <strong>Opt out of notifications.</strong> Disable notifications
+              in iOS Settings, or toggle a specific goal off inside Nudge.
             </li>
           </ul>
 
-          <h2>Data Retention and Deletion</h2>
+          <h2>Data security</h2>
           <p>
-            Your data is retained for as long as your account is active. You may
-            request deletion of your account and all associated data at any time
-            by contacting us at the email address below. Upon receiving a
-            deletion request, we will remove your account, goals, notification
-            history, and all related data from our systems within 30 days.
+            Data is transmitted over encrypted HTTPS connections and stored in
+            Google Cloud infrastructure with row-level access scoped to your
+            user ID. Server-side functions that handle your data require
+            authenticated requests. No method of electronic storage or
+            transmission is 100% secure, and we cannot guarantee absolute
+            security.
           </p>
 
-          <h2>Children&rsquo;s Privacy</h2>
+          <h2>Children&rsquo;s privacy</h2>
           <p>
-            The App is rated 4+ on the App Store. We do not knowingly collect
+            Nudge is rated 4+ on the App Store. We do not knowingly collect
             personal information from children under the age of 13. If you
             believe a child under 13 has provided us with personal information,
             please contact us so we can take appropriate action.
           </p>
 
-          <h2>Data Security</h2>
+          <h2>Changes to this policy</h2>
           <p>
-            We use industry-standard security measures to protect your
-            information. Data is transmitted using encrypted connections and
-            stored in secure cloud infrastructure. However, no method of
-            electronic storage or transmission is 100% secure, and we cannot
-            guarantee absolute security.
-          </p>
-
-          <h2>Changes to This Policy</h2>
-          <p>
-            We may update this privacy policy from time to time. Any changes
-            will be posted on this page with a revised effective date. We
-            encourage you to review this policy periodically.
+            We may update this privacy policy from time to time. Material
+            changes will be noted in the app or by email before they take
+            effect. Minor edits (typos, clarifications) may happen silently.
           </p>
 
           <div className={styles.contactSection}>
-            <h2>Contact Us</h2>
+            <h2>Contact us</h2>
             <p>
               If you have questions or concerns about this privacy policy or
               your data, please contact us at:
