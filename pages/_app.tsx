@@ -6,7 +6,7 @@ import { ReactLenis } from "lenis/react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ThemeProvider } from "../context/ThemeContext";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const lenisRef = useRef(null);
