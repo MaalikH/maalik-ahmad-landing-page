@@ -158,3 +158,4 @@ The issue likely stems from competing scroll contexts between:
 - `components/Portfolio/portfolio.tsx` - Matching Portfolio scroll behavior (contains scroll hijacking bug)
 - `context/TransitionContext.tsx` - Cross-section state management
 - `/app/content/` - Content management system
+Read DECISIONS.md before any work; append new rulings there.
